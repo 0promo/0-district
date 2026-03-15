@@ -310,30 +310,13 @@
           <div class="ctrl-wave-bar"></div><div class="ctrl-wave-bar"></div>
           <div class="ctrl-wave-bar"></div>
         </div>
-        <button class="ctrl-lyrics-btn" id="lyrics-toggle" onclick="toggleLyrics()">LYRICS</button>
+        <button class="ctrl-lyrics-btn" id="lyrics-toggle" onclick="toggleLyricsPanel()">LYRICS</button>
         <div class="player-vol"><span class="player-vol-label">VOL</span><div class="player-vol-bar"><div class="player-vol-fill"></div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LYRICS PANEL -->
-<div class="lyrics-panel" id="lyrics-panel">
-  <p class="lyrics-title">ACCRA NIGHTS — KOFI MANU</p>
-  <div class="lyrics-text">
-    <p>City lights reflecting on the Volta<br>
-    <span class="line-active">Moving through the night, feeling bolder</span><br>
-    Drums are calling, can you hear them?<br>
-    Ancient rhythm, none can fear them<br><br>
-    Accra nights, city alive<br>
-    Every beat helping us survive<br>
-    From the north to the south shore<br>
-    This music is what we live for<br><br>
-    Street lights guide my way home<br>
-    Through these roads I'll never roam<br>
-    0 District signal strong<br>
-    Playing every night-time song</p>
-  </div>
 </div>
 
 <!-- TICKER -->
@@ -348,31 +331,237 @@
   <span class="ticker-item">LISTENER COUNT: 2,847 <span class="ticker-sep">·</span></span>
 </div></div>
 
-<!-- QUEUE (light section) -->
+<!-- PLAYLIST (light section) -->
 <section class="section section-light">
-  <div class="section-head reveal"><div><p class="section-eyebrow">UP NEXT</p><h2 class="section-title">QUEUE</h2></div><div class="carousel-arrows"><button class="carousel-arrow" data-target="queue-track" data-dir="prev">&#8592;</button><button class="carousel-arrow" data-target="queue-track" data-dir="next">&#8594;</button></div></div>
-  <div class="carousel-track" id="queue-track">
-    <div class="track-card" data-track-id="t1" reveal" style="position:relative;" onclick="switchTrack('Dakar Frequency','DJ Senegal')">
-      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);z-index:1;"></div>
-      <div class="track-card" data-track-id="t2"-art"><div class="track-card" data-track-id="t3"-art-inner art-blue"><div class="art-label">DS</div></div><div class="track-card" data-track-id="t4"-badge">NEXT</div><div class="track-card" data-track-id="t5"-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
-      <div class="track-card" data-track-id="t6"-info"><div class="track-card" data-track-id="t7"-title">Dakar Frequency</div><div class="track-card" data-track-id="t8"-artist">DJ Senegal</div></div>
+  <div class="section-head reveal">
+    <div>
+      <p class="section-eyebrow">UP NEXT</p>
+      <h2 class="section-title">PLAYLIST</h2>
     </div>
-    <div class="track-card" data-track-id="t9" reveal reveal-delay-1" onclick="switchTrack('Lagos Ritual','Zara.B')">
-      <div class="track-card" data-track-id="t10"-art"><div class="track-card" data-track-id="t11"-art-inner art-purple"><div class="art-label">ZB</div></div><div class="track-card" data-track-id="t12"-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
-      <div class="track-card-info"><div class="track-card-title">Lagos Ritual</div><div class="track-card-artist">Zara.B</div></div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;color:rgba(245,245,245,0.35);text-transform:uppercase;">12 TRACKS</span>
     </div>
-    <div class="track-card reveal reveal-delay-2" onclick="switchTrack('Midnight Lagos','Ofo Beats')">
-      <div class="track-card-art"><div class="track-card-art-inner art-green"><div class="art-label">OB</div></div><div class="track-card-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
-      <div class="track-card-info"><div class="track-card-title">Midnight Lagos</div><div class="track-card-artist">Ofo Beats</div></div>
+  </div>
+  <div class="radio-playlist reveal" id="radioPlaylist">
+
+    <div class="playlist-row playing" data-track-idx="0" onclick="playlistSelect(0)">
+      <div class="playlist-num">1</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-red"><div class="art-label">KM</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Accra Nights</p>
+        <p class="playlist-artist">Kofi Manu · Accra, GH</p>
+      </div>
+      <div class="playlist-genre">Afrobeats</div>
+      <div class="playlist-duration">3:47</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(0)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
     </div>
-    <div class="track-card reveal reveal-delay-3" onclick="switchTrack('Joburg Grid','Echo Delta')">
-      <div class="track-card-art"><div class="track-card-art-inner art-amber"><div class="art-label">ED</div></div><div class="track-card-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
-      <div class="track-card-info"><div class="track-card-title">Joburg Grid</div><div class="track-card-artist">Echo Delta</div></div>
+
+    <div class="playlist-row" data-track-idx="1" onclick="playlistSelect(1)">
+      <div class="playlist-num">2</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-blue"><div class="art-label">DS</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Dakar Frequency</p>
+        <p class="playlist-artist">DJ Senegal · Dakar, SN</p>
+      </div>
+      <div class="playlist-genre">Afro House</div>
+      <div class="playlist-duration">4:12</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(1)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
     </div>
-    <div class="track-card reveal reveal-delay-4" onclick="switchTrack('Nairobi Rise','Yemi.K')">
-      <div class="track-card-art"><div class="track-card-art-inner art-teal"><div class="art-label">YK</div></div><div class="track-card-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
-      <div class="track-card-info"><div class="track-card-title">Nairobi Rise</div><div class="track-card-artist">Yemi.K</div></div>
+
+    <div class="playlist-row" data-track-idx="2" onclick="playlistSelect(2)">
+      <div class="playlist-num">3</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-purple"><div class="art-label">ZB</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Lagos Ritual</p>
+        <p class="playlist-artist">Zara.B · Lagos, NG</p>
+      </div>
+      <div class="playlist-genre">Afro Soul</div>
+      <div class="playlist-duration">3:28</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(2)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
     </div>
+
+    <div class="playlist-row" data-track-idx="3" onclick="playlistSelect(3)">
+      <div class="playlist-num">4</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-green"><div class="art-label">OB</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Midnight Lagos</p>
+        <p class="playlist-artist">Ofo Beats · Lagos, NG</p>
+      </div>
+      <div class="playlist-genre">Afrobeats</div>
+      <div class="playlist-duration">4:55</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(3)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="playlist-row" data-track-idx="4" onclick="playlistSelect(4)">
+      <div class="playlist-num">5</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-amber"><div class="art-label">ED</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Joburg Grid</p>
+        <p class="playlist-artist">Echo Delta · Johannesburg, ZA</p>
+      </div>
+      <div class="playlist-genre">Electronic</div>
+      <div class="playlist-duration">5:01</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(4)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="playlist-row" data-track-idx="5" onclick="playlistSelect(5)">
+      <div class="playlist-num">6</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-teal"><div class="art-label">YK</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Nairobi Rise</p>
+        <p class="playlist-artist">Yemi.K · Nairobi, KE</p>
+      </div>
+      <div class="playlist-genre">Afropop</div>
+      <div class="playlist-duration">3:33</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(5)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="playlist-row" data-track-idx="6" onclick="playlistSelect(6)">
+      <div class="playlist-num">7</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-purple"><div class="art-label">AP</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Afro Pulse</p>
+        <p class="playlist-artist">Amara X Pulse · Abidjan, CI</p>
+      </div>
+      <div class="playlist-genre">Afrobeats</div>
+      <div class="playlist-duration">4:08</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(6)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="playlist-row" data-track-idx="7" onclick="playlistSelect(7)">
+      <div class="playlist-num">8</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-red"><div class="art-label">NB</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Nile Blue</p>
+        <p class="playlist-artist">Cairo Sound · Cairo, EG</p>
+      </div>
+      <div class="playlist-genre">Electronic</div>
+      <div class="playlist-duration">3:52</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(7)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="playlist-row" data-track-idx="8" onclick="playlistSelect(8)">
+      <div class="playlist-num">9</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-mono"><div class="art-label">TW</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Third Wave</p>
+        <p class="playlist-artist">Pulse Network · Kinshasa, CD</p>
+      </div>
+      <div class="playlist-genre">Amapiano</div>
+      <div class="playlist-duration">6:14</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(8)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="playlist-row" data-track-idx="9" onclick="playlistSelect(9)">
+      <div class="playlist-num">10</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-teal"><div class="art-label">SV</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Signal Void</p>
+        <p class="playlist-artist">Freq District · Nairobi, KE</p>
+      </div>
+      <div class="playlist-genre">Electronic</div>
+      <div class="playlist-duration">4:44</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(9)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="playlist-row" data-track-idx="10" onclick="playlistSelect(10)">
+      <div class="playlist-num">11</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-amber"><div class="art-label">GS</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Gold Shore</p>
+        <p class="playlist-artist">Tema Coast · Accra, GH</p>
+      </div>
+      <div class="playlist-genre">Highlife</div>
+      <div class="playlist-duration">3:19</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(10)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="playlist-row" data-track-idx="11" onclick="playlistSelect(11)">
+      <div class="playlist-num">12</div>
+      <div class="playlist-playing-icon">
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+      </div>
+      <div class="playlist-art art-green"><div class="art-label">KW</div></div>
+      <div class="playlist-info">
+        <p class="playlist-title">Kinshasa Wake</p>
+        <p class="playlist-artist">River Bloc · Kinshasa, CD</p>
+      </div>
+      <div class="playlist-genre">Afro House</div>
+      <div class="playlist-duration">5:28</div>
+      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(11)">
+        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
+      </button>
+    </div>
+
   </div>
 </section>
 
@@ -417,8 +606,23 @@
   </div>
 </footer>
 
+<!-- LYRICS PANEL -->
+<div class="lyrics-panel-overlay" id="lyricsPanelOverlay" onclick="toggleLyricsPanel()"></div>
+<div class="lyrics-panel" id="lyricsPanel">
+  <div class="lyrics-panel-head">
+    <div>
+      <p class="lyrics-panel-eyebrow">NOW PLAYING</p>
+      <p class="lyrics-panel-title" id="lyricsPanelTitle">LYRICS</p>
+      <p class="lyrics-header-title" id="lyricsHeaderTitle"></p>
+    </div>
+    <button class="lyrics-panel-close" onclick="toggleLyricsPanel()">&#215; CLOSE</button>
+  </div>
+  <div class="lyrics-lines" id="lyricsLines"></div>
+</div>
+
 <script src="js/main.js"></script>
 <script src="js/convex-layer.js"></script>
+<script src="js/lyrics.js"></script>
 <script src="js/product.js"></script>
 <script>
 let radioPlaying = true;
@@ -447,12 +651,50 @@ function toggleLyrics() {
   btn.classList.toggle('active');
 }
 
-function switchTrack(title, artist) {
-  document.getElementById('track-title').textContent = title;
-  document.getElementById('track-artist').textContent = artist + ' · 0 District Radio';
-  document.getElementById('ctrl-title').textContent = title;
-  document.getElementById('ctrl-artist').textContent = artist;
+var radioTrackIdx = 0;
+var RADIO_TRACKS = [
+  { title:'Accra Nights',    artist:'Kofi Manu',     meta:'Afrobeats · Ghana' },
+  { title:'Dakar Frequency', artist:'DJ Senegal',    meta:'Afro House · Senegal' },
+  { title:'Lagos Ritual',    artist:'Zara.B',        meta:'Afro Soul · Nigeria' },
+  { title:'Midnight Lagos',  artist:'Ofo Beats',     meta:'Afrobeats · Nigeria' },
+  { title:'Joburg Grid',     artist:'Echo Delta',    meta:'Electronic · South Africa' },
+  { title:'Nairobi Rise',    artist:'Yemi.K',        meta:'Afropop · Kenya' },
+  { title:'Afro Pulse',      artist:'Amara X Pulse', meta:'Afrobeats · Côte d'Ivoire' },
+  { title:'Nile Blue',       artist:'Cairo Sound',   meta:'Electronic · Egypt' },
+  { title:'Third Wave',      artist:'Pulse Network', meta:'Amapiano · DR Congo' },
+  { title:'Signal Void',     artist:'Freq District', meta:'Electronic · Kenya' },
+  { title:'Gold Shore',      artist:'Tema Coast',    meta:'Highlife · Ghana' },
+  { title:'Kinshasa Wake',   artist:'River Bloc',    meta:'Afro House · DR Congo' }
+];
+
+function playlistSelect(idx) {
+  var track = RADIO_TRACKS[idx];
+  if (!track) return;
+  radioTrackIdx = idx;
+  document.getElementById('track-title').textContent = track.title;
+  document.getElementById('track-artist').textContent = track.artist + ' · ' + track.meta;
+  if (document.getElementById('ctrl-title'))
+    document.getElementById('ctrl-title').textContent = track.title;
+  if (document.getElementById('ctrl-artist'))
+    document.getElementById('ctrl-artist').textContent = track.artist;
   radioProgress = 0;
+  // Update vinyl label
+  var vl = document.querySelector('.vinyl-label-text');
+  if (vl) { var parts = track.title.toUpperCase().split(' '); vl.innerHTML = parts[0] + '<br>' + (parts[1]||''); }
+  // Highlight playlist row
+  document.querySelectorAll('.playlist-row').forEach(function(row, i) {
+    row.classList.toggle('playing', i === idx);
+  });
+  // Trigger product.js player if available
+  if (typeof playerLoad === 'function') playerLoad(idx, true);
+  // Auto-play vinyl
+  if (!radioPlaying) togglePlay();
+}
+
+function switchTrack(title, artist) {
+  // legacy shim
+  var idx = RADIO_TRACKS.findIndex(function(t){ return t.title === title; });
+  if (idx >= 0) playlistSelect(idx);
 }
 
 setInterval(() => {

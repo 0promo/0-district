@@ -379,8 +379,23 @@
   </main>
 </div>
 
+<!-- LYRICS PANEL -->
+<div class="lyrics-panel-overlay" id="lyricsPanelOverlay" onclick="toggleLyricsPanel()"></div>
+<div class="lyrics-panel" id="lyricsPanel">
+  <div class="lyrics-panel-head">
+    <div>
+      <p class="lyrics-panel-eyebrow">NOW PLAYING</p>
+      <p class="lyrics-panel-title" id="lyricsPanelTitle">LYRICS</p>
+      <p class="lyrics-header-title" id="lyricsHeaderTitle"></p>
+    </div>
+    <button class="lyrics-panel-close" onclick="toggleLyricsPanel()">&#215; CLOSE</button>
+  </div>
+  <div class="lyrics-lines" id="lyricsLines"></div>
+</div>
+
 <script src="js/main.js"></script>
 <script src="js/convex-layer.js"></script>
+<script src="js/lyrics.js"></script>
 <script src="js/product.js"></script>
 <script>
 function switchPanel(id, el) {

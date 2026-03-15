@@ -454,6 +454,9 @@
         <div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div>
         <div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div>
       </div>
+      <button class="player-lyrics-btn" id="lyricsToggleBtn" onclick="toggleLyricsPanel()" title="Lyrics">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
+      </button>
       <button class="player-mute-btn" id="playerMuteBtn" onclick="playerMute()" title="Mute">
         <svg id="muteIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
       </button>
@@ -467,8 +470,23 @@
   </div>
 </div>
 
+<!-- LYRICS PANEL -->
+<div class="lyrics-panel-overlay" id="lyricsPanelOverlay" onclick="toggleLyricsPanel()"></div>
+<div class="lyrics-panel" id="lyricsPanel">
+  <div class="lyrics-panel-head">
+    <div>
+      <p class="lyrics-panel-eyebrow">NOW PLAYING</p>
+      <p class="lyrics-panel-title" id="lyricsPanelTitle">LYRICS</p>
+      <p class="lyrics-header-title" id="lyricsHeaderTitle"></p>
+    </div>
+    <button class="lyrics-panel-close" onclick="toggleLyricsPanel()">&#215; CLOSE</button>
+  </div>
+  <div class="lyrics-lines" id="lyricsLines"></div>
+</div>
+
 <script src="js/main.js"></script>
 <script src="js/convex-layer.js"></script>
+<script src="js/lyrics.js"></script>
 <script src="js/product.js"></script>
 <script>
 function setFilter(el, type) {
