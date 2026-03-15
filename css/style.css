@@ -1001,3 +1001,208 @@ textarea:focus-visible { outline: 1.5px solid var(--red); outline-offset: 2px; }
 /* ── Ticker: slightly taller for readability ── */
 .ticker { height: 40px; }
 .ticker-inner { line-height: 40px; font-size: 9px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — Full breakpoint system
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Hamburger / Mobile Nav ── */
+.nav-menu-btn {
+  display: none;
+  flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; width: 40px; height: 40px;
+  background: transparent; border: none; cursor: pointer; padding: 4px;
+}
+.nav-menu-btn span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--white); transition: all 0.3s var(--ease);
+}
+.nav.light-section .nav-menu-btn span { background: var(--bg); }
+.nav-menu-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-menu-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-menu-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.nav-mobile-menu {
+  display: none;
+  position: fixed; inset: 0; top: 64px;
+  background: rgba(11,11,11,0.99);
+  z-index: 490; flex-direction: column;
+  padding: 40px 28px;
+  backdrop-filter: blur(20px);
+  transform: translateY(-12px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.nav-mobile-menu.open {
+  opacity: 1; transform: translateY(0); pointer-events: all;
+}
+.nav-mobile-links { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.nav-mobile-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 44px; text-transform: uppercase;
+  letter-spacing: -0.02em; color: rgba(245,245,245,0.35);
+  line-height: 1.1; transition: color 0.2s ease;
+  text-decoration: none; display: block; padding: 6px 0;
+}
+.nav-mobile-links a:hover,
+.nav-mobile-links a.active { color: var(--white); }
+.nav-mobile-links a.active { color: var(--red); }
+.nav-mobile-footer {
+  margin-top: auto; padding-top: 32px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-mobile-signal {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 9px; letter-spacing: 0.15em; color: var(--steel); text-transform: uppercase;
+}
+.btn-nav-mobile {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 10px 20px; border: 1px solid rgba(245,245,245,0.25);
+  background: transparent; color: var(--white); cursor: pointer;
+}
+
+/* ══ TABLET (≤900px) ══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  /* Nav */
+  .nav { padding: 0 24px; }
+  .nav-routes { display: none; }
+  .nav-signal { display: none; }
+  .btn-nav { display: none; }
+  .nav-menu-btn { display: flex; }
+  .nav-mobile-menu { display: flex; }
+  .nav-left { gap: 0; }
+
+  /* Hero */
+  .hero-content { padding: 0 28px 72px; }
+  .hero-dots { right: 28px; }
+  .hero-counter { left: 28px; }
+
+  /* Sections */
+  .section { padding: 56px 0; }
+  .section-head { padding: 0 24px 24px; }
+  .section-filters { padding: 0 24px 20px; }
+  .carousel-track { padding: 0 24px; }
+  .broadcast-log { padding: 0 24px; }
+  .africa-head { padding: 0 24px 40px; }
+  .africa-stat-row { padding: 0 24px; }
+
+  /* Featured block */
+  .featured-block { margin: 0 24px; height: 400px; }
+  .featured-content { bottom: 32px; left: 32px; right: 32px; }
+
+  /* Districts: 3 cols */
+  .districts-grid { grid-template-columns: repeat(3, 1fr); padding: 0 24px; }
+  .district-block:nth-child(3) { border-right: none; }
+
+  /* Stats strip */
+  .stats-strip-inner { height: auto; flex-wrap: wrap; padding: 0 24px; }
+  .stat-item { flex: 0 0 50%; padding: 16px 0; border-right: none; border-bottom: 1px solid var(--border); }
+  .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
+  .stat-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  /* Footer */
+  footer { padding: 48px 24px 32px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+
+  /* Player bar */
+  .player-bar { grid-template-columns: 1fr auto 1fr; height: 64px; }
+  .player-right { gap: 10px; padding: 0 16px; }
+  .player-waveform { display: none; }
+  .player-vol { display: none; }
+
+  /* Join CTA */
+  .join-cta-block { grid-template-columns: 1fr; padding: 56px 32px; gap: 24px; }
+
+  /* Africa stat row */
+  .africa-stat-row { flex-wrap: wrap; }
+  .africa-stat { flex: 0 0 50%; border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .africa-stat:nth-child(odd) { padding-right: 24px; border-right: 1px solid var(--border); }
+  .africa-stat:last-child { border-bottom: none; }
+
+  /* Africa head */
+  .africa-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+
+/* ══ MOBILE (≤640px) ══════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Nav */
+  .nav { padding: 0 20px; }
+
+  /* Hero */
+  .hero-content { padding: 0 20px 64px; }
+  .hero-actions { flex-wrap: wrap; gap: 16px; }
+  .hero-dots { right: 20px; bottom: 24px; }
+  .hero-counter { left: 20px; bottom: 28px; }
+
+  /* Sections */
+  .section { padding: 44px 0; }
+  .section-head { padding: 0 20px 20px; flex-wrap: wrap; gap: 12px; }
+  .section-filters { padding: 0 20px 16px; }
+  .carousel-track { padding: 0 20px; gap: 12px; }
+  .broadcast-log { padding: 0 20px; }
+
+  /* Track cards: smaller */
+  .track-card { flex: 0 0 180px; }
+
+  /* Featured block */
+  .featured-block { margin: 0 20px; height: 280px; }
+  .featured-content { bottom: 24px; left: 20px; right: 20px; }
+
+  /* Districts: 2 cols */
+  .districts-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px; gap: 0; }
+  .district-block:nth-child(2n) { border-right: none; }
+  .district-block:nth-child(3) { border-right: 1px solid var(--border-l); }
+
+  /* Broadcast rows */
+  .broadcast-row { grid-template-columns: 72px 1fr; gap: 12px; }
+  .broadcast-badge { display: none; }
+  .broadcast-action { display: none; }
+
+  /* Stats */
+  .stats-strip-inner { padding: 0 20px; }
+
+  /* Africa */
+  .africa-head { padding: 0 20px 32px; }
+  .africa-section { padding: 56px 0 0; }
+  .africa-stat-row { margin-top: 24px; padding: 0 20px; }
+  .africa-stat { flex: 0 0 50%; }
+
+  /* Join content */
+  .join-content { padding: 48px 20px; }
+  .join-cta-block { padding: 44px 20px; }
+
+  /* Footer */
+  footer { padding: 40px 20px 28px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  /* Player bar — minimal on mobile */
+  .player-bar { grid-template-columns: 1fr auto 60px; height: 60px; }
+  .player-track-info { padding: 0 16px; gap: 10px; }
+  .player-title { font-size: 13px; }
+  .player-right { padding: 0 12px; }
+  .player-center { padding: 0 10px; }
+  .player-btns .player-btn:not(.player-btn-play) { display: none; }
+
+  /* Search overlay */
+  .search-inner { padding: 0 20px; }
+  .search-close { right: 20px; top: 20px; }
+
+  /* Section head: stack on tiny screens */
+  .section-head { align-items: flex-start; }
+  .carousel-arrows { align-self: flex-end; }
+}
+
+/* ══ SMALL MOBILE (≤400px) ══════════════════════════════════ */
+@media (max-width: 400px) {
+  .hero-title { font-size: clamp(52px, 16vw, 80px); }
+  .track-card { flex: 0 0 160px; }
+  .artist-card { flex: 0 0 140px; }
+  .featured-block { height: 240px; }
+  .districts-grid { grid-template-columns: 1fr; }
+  .district-block { border-right: none !important; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .africa-stat { flex: 0 0 100%; border-right: none !important; padding-right: 0 !important; }
+}

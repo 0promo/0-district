@@ -374,3 +374,38 @@ if (statsSection) {
       console.warn('[0District] Africa map load error:', err);
     });
 })();
+
+/* ── Mobile Menu ────────────────────────────────────── */
+function toggleMobileMenu() {
+  var btn  = document.getElementById('navMenuBtn');
+  var menu = document.getElementById('navMobileMenu');
+  if (!btn || !menu) return;
+  var isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+// Close mobile menu on link click
+document.addEventListener('DOMContentLoaded', function() {
+  var links = document.querySelectorAll('.nav-mobile-links a');
+  links.forEach(function(link) {
+    link.addEventListener('click', function() {
+      var menu = document.getElementById('navMobileMenu');
+      var btn  = document.getElementById('navMenuBtn');
+      if (menu) menu.classList.remove('open');
+      if (btn)  btn.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+});
+
+// Close mobile menu on resize back to desktop
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 900) {
+    var menu = document.getElementById('navMobileMenu');
+    var btn  = document.getElementById('navMenuBtn');
+    if (menu) menu.classList.remove('open');
+    if (btn)  btn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
