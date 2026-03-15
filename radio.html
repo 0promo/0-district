@@ -352,13 +352,13 @@
 <section class="section section-light">
   <div class="section-head reveal"><div><p class="section-eyebrow">UP NEXT</p><h2 class="section-title">QUEUE</h2></div><div class="carousel-arrows"><button class="carousel-arrow" data-target="queue-track" data-dir="prev">&#8592;</button><button class="carousel-arrow" data-target="queue-track" data-dir="next">&#8594;</button></div></div>
   <div class="carousel-track" id="queue-track">
-    <div class="track-card reveal" style="position:relative;" onclick="switchTrack('Dakar Frequency','DJ Senegal')">
+    <div class="track-card" data-track-id="t1" reveal" style="position:relative;" onclick="switchTrack('Dakar Frequency','DJ Senegal')">
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);z-index:1;"></div>
-      <div class="track-card-art"><div class="track-card-art-inner art-blue"><div class="art-label">DS</div></div><div class="track-card-badge">NEXT</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
-      <div class="track-card-info"><div class="track-card-title">Dakar Frequency</div><div class="track-card-artist">DJ Senegal</div></div>
+      <div class="track-card" data-track-id="t2"-art"><div class="track-card" data-track-id="t3"-art-inner art-blue"><div class="art-label">DS</div></div><div class="track-card" data-track-id="t4"-badge">NEXT</div><div class="track-card" data-track-id="t5"-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
+      <div class="track-card" data-track-id="t6"-info"><div class="track-card" data-track-id="t7"-title">Dakar Frequency</div><div class="track-card" data-track-id="t8"-artist">DJ Senegal</div></div>
     </div>
-    <div class="track-card reveal reveal-delay-1" onclick="switchTrack('Lagos Ritual','Zara.B')">
-      <div class="track-card-art"><div class="track-card-art-inner art-purple"><div class="art-label">ZB</div></div><div class="track-card-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
+    <div class="track-card" data-track-id="t9" reveal reveal-delay-1" onclick="switchTrack('Lagos Ritual','Zara.B')">
+      <div class="track-card" data-track-id="t10"-art"><div class="track-card" data-track-id="t11"-art-inner art-purple"><div class="art-label">ZB</div></div><div class="track-card" data-track-id="t12"-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
       <div class="track-card-info"><div class="track-card-title">Lagos Ritual</div><div class="track-card-artist">Zara.B</div></div>
     </div>
     <div class="track-card reveal reveal-delay-2" onclick="switchTrack('Midnight Lagos','Ofo Beats')">
@@ -418,6 +418,8 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/convex-layer.js"></script>
+<script src="js/product.js"></script>
 <script>
 let radioPlaying = true;
 let radioProgress = 38;
@@ -462,5 +464,33 @@ setInterval(() => {
   if (handle) handle.style.left = radioProgress + '%';
 }, 200);
 </script>
+<!-- SIGN IN MODAL -->
+<div class="modal-overlay" id="signInModal" onclick="if(event.target===this)closeSignIn()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSignIn()">&#215;</button>
+    <p class="modal-eyebrow">0 DISTRICT</p>
+    <h2 class="modal-title">ACCESS THE<br>DISTRICT</h2>
+    <div class="modal-tabs">
+      <button class="modal-tab active" data-tab="signin" onclick="switchTab(this)">SIGN IN</button>
+      <button class="modal-tab" data-tab="register" onclick="switchTab(this)">CREATE ACCOUNT</button>
+    </div>
+    <div id="panel-signin" class="modal-panel">
+      <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="••••••••"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">SIGN IN →</button>
+      <div class="modal-or">OR</div>
+      <button class="btn-modal-google" onclick="showToast('Google sign-in coming soon','')" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.47 7.47 0 0 1 12 4.5c1.88 0 3.56.69 4.87 1.81l3.63-3.63A12 12 0 0 0 0 12c0 2 .49 3.88 1.36 5.55l3.9-3.78z"/><path fill="#34A853" d="M12 24a11.96 11.96 0 0 0 8.29-3.34l-3.84-3.24A7.5 7.5 0 0 1 4.68 13.5l-3.9 3.78A12 12 0 0 0 12 24z"/><path fill="#4A90D9" d="M23.49 12.27c0-.85-.07-1.45-.2-2.27H12v4.51h6.47a5.56 5.56 0 0 1-2.39 3.64l3.84 3.24C22.2 19.37 23.49 16 23.49 12.27z"/><path fill="#FBBC05" d="M4.68 13.5A7.47 7.47 0 0 1 4.5 12c0-.52.07-1.02.18-1.5l-3.9-3.78A12 12 0 0 0 0 12c0 1.65.33 3.22.9 4.66l3.78-3.16z"/></svg>
+        CONTINUE WITH GOOGLE
+      </button>
+    </div>
+    <div id="panel-register" class="modal-panel" style="display:none">
+      <div class="modal-form-group"><label class="modal-label">Artist / Label Name</label><input class="modal-input" type="text" placeholder="Your name or label"></div>
+      <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="Create a password"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">CREATE ACCOUNT →</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -380,6 +380,8 @@
 </div>
 
 <script src="js/main.js"></script>
+<script src="js/convex-layer.js"></script>
+<script src="js/product.js"></script>
 <script>
 function switchPanel(id, el) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -388,5 +390,33 @@ function switchPanel(id, el) {
   el.classList.add('active');
 }
 </script>
+<!-- SIGN IN MODAL -->
+<div class="modal-overlay" id="signInModal" onclick="if(event.target===this)closeSignIn()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSignIn()">&#215;</button>
+    <p class="modal-eyebrow">0 DISTRICT</p>
+    <h2 class="modal-title">ACCESS THE<br>DISTRICT</h2>
+    <div class="modal-tabs">
+      <button class="modal-tab active" data-tab="signin" onclick="switchTab(this)">SIGN IN</button>
+      <button class="modal-tab" data-tab="register" onclick="switchTab(this)">CREATE ACCOUNT</button>
+    </div>
+    <div id="panel-signin" class="modal-panel">
+      <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="••••••••"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">SIGN IN →</button>
+      <div class="modal-or">OR</div>
+      <button class="btn-modal-google" onclick="showToast('Google sign-in coming soon','')" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.47 7.47 0 0 1 12 4.5c1.88 0 3.56.69 4.87 1.81l3.63-3.63A12 12 0 0 0 0 12c0 2 .49 3.88 1.36 5.55l3.9-3.78z"/><path fill="#34A853" d="M12 24a11.96 11.96 0 0 0 8.29-3.34l-3.84-3.24A7.5 7.5 0 0 1 4.68 13.5l-3.9 3.78A12 12 0 0 0 12 24z"/><path fill="#4A90D9" d="M23.49 12.27c0-.85-.07-1.45-.2-2.27H12v4.51h6.47a5.56 5.56 0 0 1-2.39 3.64l3.84 3.24C22.2 19.37 23.49 16 23.49 12.27z"/><path fill="#FBBC05" d="M4.68 13.5A7.47 7.47 0 0 1 4.5 12c0-.52.07-1.02.18-1.5l-3.9-3.78A12 12 0 0 0 0 12c0 1.65.33 3.22.9 4.66l3.78-3.16z"/></svg>
+        CONTINUE WITH GOOGLE
+      </button>
+    </div>
+    <div id="panel-register" class="modal-panel" style="display:none">
+      <div class="modal-form-group"><label class="modal-label">Artist / Label Name</label><input class="modal-input" type="text" placeholder="Your name or label"></div>
+      <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="Create a password"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">CREATE ACCOUNT →</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
