@@ -1556,3 +1556,205 @@ body { padding-bottom: 72px; }
   .player-btn-desktop { display: none !important; }
   body { padding-bottom: 70px !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PLAYER — Full details: meta row, like, queue, mute, mobile fix
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Meta row (artist · genre · city) ── */
+.player-meta-row {
+  display: flex; align-items: center; gap: 5px;
+  margin-top: 2px; flex-wrap: nowrap; overflow: hidden;
+}
+.player-sep {
+  color: var(--steel); font-size: 8px; flex-shrink: 0;
+}
+.player-genre-tag {
+  font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--red); white-space: nowrap; flex-shrink: 0;
+}
+.player-city-tag {
+  font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--steel); white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Like button ── */
+.player-like-btn {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--steel); padding: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.player-like-btn:hover { color: var(--red); transform: scale(1.2); }
+.player-like-btn.liked { color: var(--red); }
+.player-like-btn.liked svg { fill: var(--red); }
+
+/* ── Mobile-only buttons (the SVG prev/next icons) ── */
+.player-btn-mobile {
+  display: none;
+  background: transparent; border: none; color: var(--steel);
+  cursor: pointer; padding: 4px 6px;
+  transition: color 0.2s ease; line-height: 1;
+}
+.player-btn-mobile:hover { color: var(--white); }
+
+/* ── Queue info ── */
+.player-queue {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: 0 4px;
+}
+.player-queue-label {
+  font-size: 7px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--steel);
+}
+.player-queue-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 13px; color: var(--white);
+  letter-spacing: 0.05em;
+}
+
+/* ── Mute button ── */
+.player-mute-btn {
+  background: transparent; border: none; cursor: pointer;
+  color: var(--steel); padding: 5px;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.2s ease; flex-shrink: 0;
+}
+.player-mute-btn:hover { color: var(--white); }
+.player-mute-btn.muted { color: var(--steel); opacity: 0.4; }
+
+/* ── Vol bar click area ── */
+.player-vol-bar { cursor: pointer; }
+
+/* ── Right panel: fix alignment ── */
+.player-right {
+  display: flex; align-items: center; justify-content: flex-end;
+  gap: 14px; padding: 0 24px;
+}
+
+/* ── Desktop: hide mobile-only items ── */
+@media (min-width: 641px) {
+  .player-btn-mobile { display: none !important; }
+  .player-hide-xs { /* visible on desktop, conditional on tablet */ }
+}
+
+/* ════════════════════════════════════════════════
+   MOBILE PORTRAIT (≤640px) — 2-row complete layout
+   ════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Bar is flex-column */
+  .player-bar {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .player-progress-strip { height: 3px !important; }
+
+  /* Grid: [info | controls] / [progress | controls] */
+  .player-layout {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    grid-template-areas:
+      "info  ctrls"
+      "prog  ctrls" !important;
+    height: auto !important;
+    padding: 9px 14px 9px !important;
+    gap: 5px 12px !important;
+    align-items: center !important;
+  }
+
+  /* Track info — row 1 left */
+  .player-track-info {
+    grid-area: info !important;
+    padding: 0 !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  .player-art { width: 34px !important; height: 34px !important; }
+  .player-details { min-width: 0; flex: 1; }
+  .player-title { font-size: 12px !important; }
+  .player-meta-row { gap: 4px !important; }
+  .player-hide-xs { display: none !important; }
+  .player-like-btn { padding: 4px !important; }
+  .player-like-btn svg { width: 13px !important; height: 13px !important; }
+
+  /* Progress — row 2 left */
+  .player-time-row {
+    grid-area: prog !important;
+    display: flex !important;
+    width: 100% !important;
+    gap: 7px !important;
+  }
+  .player-time-label { font-size: 8px !important; min-width: 22px !important; }
+  .player-progress-wrap { height: 3px !important; }
+  .player-progress-handle { width: 9px !important; height: 9px !important; }
+
+  /* Controls — right column (spans both rows) */
+  .player-center {
+    grid-area: ctrls !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+  }
+  .player-btns { gap: 3px !important; }
+  .player-btn-mobile { display: flex !important; align-items: center; justify-content: center; padding: 4px 5px !important; }
+  .player-btn-desktop { display: none !important; }
+  .player-btn-play { width: 28px !important; height: 28px !important; }
+
+  /* Right panel — show mute icon only */
+  .player-right {
+    display: none !important; /* move mute into track-info row */
+  }
+
+  /* Body padding for 2-row player */
+  body { padding-bottom: 92px !important; }
+}
+
+/* ════════════════════════════════════════════
+   LANDSCAPE MOBILE (height ≤ 480px) — full row
+   ════════════════════════════════════════════ */
+@media (max-height: 480px) and (max-width: 900px) {
+  .player-layout {
+    display: grid !important;
+    grid-template-columns: 240px 1fr 200px !important;
+    grid-template-rows: 1fr !important;
+    grid-template-areas: none !important;
+    height: 56px !important;
+    padding: 0 16px !important;
+    gap: 0 !important;
+    align-items: center !important;
+  }
+  .player-track-info { grid-area: auto !important; padding: 0 !important; gap: 10px !important; }
+  .player-center { grid-area: auto !important; padding: 0 12px !important; gap: 5px !important; flex-direction: column !important; }
+  .player-time-row { display: flex !important; }
+  .player-right { grid-area: auto !important; display: flex !important; padding: 0 0 0 8px !important; gap: 10px !important; }
+  .player-btn-mobile { display: none !important; }
+  .player-btn-desktop { display: none !important; }
+  .player-queue { display: none !important; }
+  .player-waveform { display: none !important; }
+  .player-mute-btn { display: flex !important; }
+  .player-vol { display: flex !important; }
+  .player-hide-xs { display: inline !important; }
+  body { padding-bottom: 62px !important; }
+}
+
+/* ════════════════════════════════════════
+   TABLET (641–900px) — 3 col with all info
+   ════════════════════════════════════════ */
+@media (min-width: 641px) and (max-width: 900px) {
+  .player-layout {
+    grid-template-columns: 260px 1fr 220px !important;
+    height: 66px !important;
+  }
+  .player-time-row { display: flex !important; }
+  .player-queue { display: none !important; }
+  .player-waveform { display: none !important; }
+  .player-btn-desktop { display: inline-flex !important; }
+  body { padding-bottom: 72px !important; }
+}
