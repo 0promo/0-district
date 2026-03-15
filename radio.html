@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RADIO DISTRICT — 0 District</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ── RADIO PAGE SPECIFIC ── */
+.radio-hero {
+  height: 100vh; min-height: 680px;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.radio-hero-bg {
+  position: absolute; inset: 0;
+  transition: transform 10s ease;
+}
+.radio-hero-bg.playing { animation: slow-zoom 20s ease-in-out infinite alternate; }
+@keyframes slow-zoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+.radio-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(11,11,11,0.97) 0%, rgba(11,11,11,0.55) 45%, rgba(11,11,11,0.2) 100%);
+}
+.radio-hero-vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(11,11,11,0.65) 100%);
+}
+.radio-hero-content {
+  position: relative; z-index: 2;
+  padding: 0 60px 100px;
+}
+.radio-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--red); color: var(--red);
+  font-size: 9px; letter-spacing: 0.2em; padding: 5px 12px; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.radio-badge-dot {
+  width: 5px; height: 5px; border-radius: 50%; background: var(--red);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.radio-track-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; text-transform: uppercase; line-height: 0.87;
+  letter-spacing: -0.03em; color: var(--white);
+  font-size: clamp(52px, 9vw, 128px);
+}
+.radio-track-artist {
+  font-size: 13px; letter-spacing: 0.15em; color: rgba(245,245,245,0.5);
+  text-transform: uppercase; margin-top: 12px;
+}
+.radio-track-meta {
+  display: flex; align-items: center; gap: 24px;
+  margin-top: 20px;
+}
+.radio-meta-item {
+  font-size: 9px; letter-spacing: 0.15em; color: var(--steel); text-transform: uppercase;
+}
+.radio-meta-item span { color: var(--white); }
+
+/* BROADCAST CONTROLS */
+.broadcast-controls {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  z-index: 10; background: rgba(11,11,11,0.92);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  padding: 20px 60px;
+}
+.controls-grid {
+  display: grid; grid-template-columns: 1fr 300px 1fr;
+  align-items: center; gap: 24px;
+}
+.controls-progress { grid-column: 1 / -1; margin-bottom: 16px; }
+.progress-bar-wrap {
+  position: relative; height: 3px; background: rgba(245,245,245,0.08);
+  cursor: pointer;
+}
+.progress-bar-fill { height: 100%; background: var(--white); width: 38%; transition: width 0.2s linear; }
+.progress-bar-handle {
+  position: absolute; top: 50%; left: 38%;
+  transform: translate(-50%, -50%);
+  width: 10px; height: 10px; background: var(--white);
+}
+.progress-times {
+  display: flex; justify-content: space-between;
+  margin-top: 6px; font-size: 9px; letter-spacing: 0.1em; color: var(--steel);
+}
+.controls-left { display: flex; align-items: center; gap: 16px; }
+.ctrl-track-art {
+  width: 48px; height: 48px; flex-shrink: 0;
+  position: relative;
+}
+.ctrl-track-info { min-width: 0; }
+.ctrl-track-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 16px; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ctrl-track-artist { font-size: 9px; color: var(--steel); text-transform: uppercase; letter-spacing: 0.08em; }
+.controls-center {
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+}
+.ctrl-btn {
+  background: transparent; border: none; color: var(--steel);
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.2s ease;
+}
+.ctrl-btn:hover { color: var(--white); }
+.ctrl-btn-play {
+  width: 48px; height: 48px; border: 1.5px solid var(--white);
+  background: transparent; color: var(--white); display: flex;
+  align-items: center; justify-content: center; transition: all 0.25s ease;
+}
+.ctrl-btn-play:hover { background: var(--white); color: var(--bg); }
+.controls-right { display: flex; align-items: center; justify-content: flex-end; gap: 20px; }
+.ctrl-waveform { display: flex; align-items: center; gap: 2px; height: 24px; }
+.ctrl-wave-bar { width: 2px; background: var(--red); animation: wave 1.3s ease-in-out infinite; }
+.ctrl-wave-bar:nth-child(1){height:5px;animation-delay:0s}
+.ctrl-wave-bar:nth-child(2){height:12px;animation-delay:.15s}
+.ctrl-wave-bar:nth-child(3){height:20px;animation-delay:.3s}
+.ctrl-wave-bar:nth-child(4){height:14px;animation-delay:.45s}
+.ctrl-wave-bar:nth-child(5){height:8px;animation-delay:.6s}
+.ctrl-wave-bar:nth-child(6){height:17px;animation-delay:.75s}
+.ctrl-wave-bar:nth-child(7){height:6px;animation-delay:.9s}
+.ctrl-lyrics-btn {
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 7px 14px; border: 1px solid var(--border);
+  background: transparent; color: var(--steel); transition: all 0.2s ease;
+}
+.ctrl-lyrics-btn:hover, .ctrl-lyrics-btn.active {
+  border-color: var(--red); color: var(--red);
+}
+
+/* LYRICS PANEL */
+.lyrics-panel {
+  display: none; background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 48px 60px; max-height: 320px; overflow-y: auto;
+}
+.lyrics-panel.open { display: block; }
+.lyrics-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 14px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--steel);
+  margin-bottom: 28px;
+}
+.lyrics-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px; line-height: 2.2; color: rgba(245,245,245,0.7);
+  max-width: 680px;
+}
+.lyrics-text .line-active { color: var(--white); font-weight: 600; }
+
+/* VINYL */
+.vinyl-wrap {
+  position: absolute; right: 60px; top: 50%; transform: translateY(-50%);
+  z-index: 3;
+}
+.vinyl {
+  width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #2a2a2a 20%, #111 21%, #222 40%, #0a0a0a 41%, #1a1a1a 60%, #0d0d0d 61%, #1d1d1d 80%, #111 81%, #000 100%);
+  animation: spin 4s linear infinite;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 60px rgba(0,0,0,0.8);
+}
+.vinyl.paused { animation-play-state: paused; }
+.vinyl-label {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--red); display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 2px;
+}
+.vinyl-label-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--white); text-align: center;
+}
+</style>
+</head>
+<body class="page-loading">
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" onclick="closeSearch()">&#215; CLOSE</button>
+  <div class="search-inner">
+    <p class="search-eyebrow">SEARCH THE DISTRICT</p>
+    <div class="search-field">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      <input type="text" placeholder="ARTIST, TRACK, GENRE..." id="searchInput" autocomplete="off">
+    </div>
+    <div class="search-genre-row">
+      <button class="sg-pill active" onclick="togglePill(this)">ALL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFROBEATS</button>
+      <button class="sg-pill" onclick="togglePill(this)">AMAPIANO</button>
+      <button class="sg-pill" onclick="togglePill(this)">HIGHLIFE</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO SOUL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO HOUSE</button>
+      <button class="sg-pill" onclick="togglePill(this)">DRILL</button>
+    </div>
+    <div class="search-trending">
+      <p class="search-trend-label">TRENDING NOW</p>
+      <div class="search-trend-tags">
+        <button class="search-trend-tag">ACCRA NIGHTS</button>
+        <button class="search-trend-tag">DAKAR FREQUENCY</button>
+        <button class="search-trend-tag">LAGOS RITUAL</button>
+        <button class="search-trend-tag">JOBURG GRID</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/0logo.png" height="56" alt="0 Promo Recs" style="display:block;width:auto;">
+    </a>
+    <ul class="nav-routes">
+      <li><a href="index.html">/HOME</a></li>
+      <li><a href="radio.html" class="active">/RADIO</a></li>
+      <li><a href="studio.html">/STUDIO</a></li>
+      <li><a href="collab.html">/COLLAB</a></li>
+      <li><a href="community.html">/NETWORK</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <button class="search-btn" onclick="openSearch()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      SEARCH
+    </button>
+    <div class="nav-signal"><div class="nav-signal-dot"></div>ON AIR</div>
+    <button class="btn-nav">SIGN IN</button>
+  </div>
+</nav>
+
+<!-- RADIO HERO -->
+<section class="radio-hero" id="radio-hero">
+  <div class="radio-hero-bg art-blue playing" style="display:flex;align-items:center;justify-content:center;">
+    <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:320px;color:rgba(245,245,245,0.04);letter-spacing:-0.05em;text-transform:uppercase;line-height:1;">RDO</span>
+  </div>
+  <div class="radio-hero-overlay"></div>
+  <div class="radio-hero-vignette"></div>
+
+  <!-- VINYL -->
+  <div class="vinyl-wrap">
+    <div class="vinyl" id="vinyl">
+      <div class="vinyl-label"><div class="vinyl-label-text">ACCRA<br>NIGHTS</div></div>
+    </div>
+  </div>
+
+  <div class="radio-hero-content">
+    <div class="radio-badge"><div class="radio-badge-dot"></div>LIVE BROADCAST · D-01 RADIO</div>
+    <h1 class="radio-track-title" id="track-title">Accra Nights</h1>
+    <p class="radio-track-artist" id="track-artist">Kofi Manu &nbsp;·&nbsp; Afrobeats &nbsp;·&nbsp; Ghana</p>
+    <div class="radio-track-meta">
+      <div class="radio-meta-item">PLAYS <span>12,847</span></div>
+      <div class="radio-meta-item">RELEASED <span>2024</span></div>
+      <div class="radio-meta-item">FORMAT <span>WAV 320kbps</span></div>
+      <div class="radio-meta-item">LABEL <span>0PROMO</span></div>
+    </div>
+  </div>
+
+  <!-- BROADCAST CONTROLS -->
+  <div class="broadcast-controls">
+    <div class="controls-progress">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="radio-progress"></div>
+        <div class="progress-bar-handle" id="radio-handle"></div>
+      </div>
+      <div class="progress-times"><span id="time-current">1:24</span><span id="time-total">3:52</span></div>
+    </div>
+    <div class="controls-grid">
+      <div class="controls-left">
+        <div class="ctrl-track-art"><div style="width:100%;height:100%;background:linear-gradient(135deg,#200808,#4a0e0e);display:flex;align-items:center;justify-content:center;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:rgba(245,245,245,0.3);">KM</span></div></div>
+        <div class="ctrl-track-info"><div class="ctrl-track-title" id="ctrl-title">Accra Nights</div><div class="ctrl-track-artist" id="ctrl-artist">Kofi Manu</div></div>
+      </div>
+      <div class="controls-center">
+        <button class="ctrl-btn">SHUF</button>
+        <button class="ctrl-btn">PREV</button>
+        <button class="ctrl-btn-play" id="radio-play-btn" onclick="togglePlay()">
+          <svg width="12" height="14" viewBox="0 0 12 14"><polygon points="0,0 12,7 0,14" fill="currentColor"/></svg>
+        </button>
+        <button class="ctrl-btn">NEXT</button>
+        <button class="ctrl-btn">LOOP</button>
+      </div>
+      <div class="controls-right">
+        <div class="ctrl-waveform" id="ctrl-waveform">
+          <div class="ctrl-wave-bar"></div><div class="ctrl-wave-bar"></div>
+          <div class="ctrl-wave-bar"></div><div class="ctrl-wave-bar"></div>
+          <div class="ctrl-wave-bar"></div><div class="ctrl-wave-bar"></div>
+          <div class="ctrl-wave-bar"></div>
+        </div>
+        <button class="ctrl-lyrics-btn" id="lyrics-toggle" onclick="toggleLyrics()">LYRICS</button>
+        <div class="player-vol"><span class="player-vol-label">VOL</span><div class="player-vol-bar"><div class="player-vol-fill"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LYRICS PANEL -->
+<div class="lyrics-panel" id="lyrics-panel">
+  <p class="lyrics-title">ACCRA NIGHTS — KOFI MANU</p>
+  <div class="lyrics-text">
+    <p>City lights reflecting on the Volta<br>
+    <span class="line-active">Moving through the night, feeling bolder</span><br>
+    Drums are calling, can you hear them?<br>
+    Ancient rhythm, none can fear them<br><br>
+    Accra nights, city alive<br>
+    Every beat helping us survive<br>
+    From the north to the south shore<br>
+    This music is what we live for<br><br>
+    Street lights guide my way home<br>
+    Through these roads I'll never roam<br>
+    0 District signal strong<br>
+    Playing every night-time song</p>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner">
+  <span class="ticker-item">NOW PLAYING: KOFI MANU — ACCRA NIGHTS <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">UP NEXT: DJ SENEGAL — DAKAR FREQUENCY <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">COMING: ZARA.B — LAGOS RITUAL <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">LISTENER COUNT: 2,847 <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">NOW PLAYING: KOFI MANU — ACCRA NIGHTS <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">UP NEXT: DJ SENEGAL — DAKAR FREQUENCY <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">COMING: ZARA.B — LAGOS RITUAL <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">LISTENER COUNT: 2,847 <span class="ticker-sep">·</span></span>
+</div></div>
+
+<!-- QUEUE (light section) -->
+<section class="section section-light">
+  <div class="section-head reveal"><div><p class="section-eyebrow">UP NEXT</p><h2 class="section-title">QUEUE</h2></div><div class="carousel-arrows"><button class="carousel-arrow" data-target="queue-track" data-dir="prev">&#8592;</button><button class="carousel-arrow" data-target="queue-track" data-dir="next">&#8594;</button></div></div>
+  <div class="carousel-track" id="queue-track">
+    <div class="track-card reveal" style="position:relative;" onclick="switchTrack('Dakar Frequency','DJ Senegal')">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--red);z-index:1;"></div>
+      <div class="track-card-art"><div class="track-card-art-inner art-blue"><div class="art-label">DS</div></div><div class="track-card-badge">NEXT</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
+      <div class="track-card-info"><div class="track-card-title">Dakar Frequency</div><div class="track-card-artist">DJ Senegal</div></div>
+    </div>
+    <div class="track-card reveal reveal-delay-1" onclick="switchTrack('Lagos Ritual','Zara.B')">
+      <div class="track-card-art"><div class="track-card-art-inner art-purple"><div class="art-label">ZB</div></div><div class="track-card-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
+      <div class="track-card-info"><div class="track-card-title">Lagos Ritual</div><div class="track-card-artist">Zara.B</div></div>
+    </div>
+    <div class="track-card reveal reveal-delay-2" onclick="switchTrack('Midnight Lagos','Ofo Beats')">
+      <div class="track-card-art"><div class="track-card-art-inner art-green"><div class="art-label">OB</div></div><div class="track-card-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
+      <div class="track-card-info"><div class="track-card-title">Midnight Lagos</div><div class="track-card-artist">Ofo Beats</div></div>
+    </div>
+    <div class="track-card reveal reveal-delay-3" onclick="switchTrack('Joburg Grid','Echo Delta')">
+      <div class="track-card-art"><div class="track-card-art-inner art-amber"><div class="art-label">ED</div></div><div class="track-card-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
+      <div class="track-card-info"><div class="track-card-title">Joburg Grid</div><div class="track-card-artist">Echo Delta</div></div>
+    </div>
+    <div class="track-card reveal reveal-delay-4" onclick="switchTrack('Nairobi Rise','Yemi.K')">
+      <div class="track-card-art"><div class="track-card-art-inner art-teal"><div class="art-label">YK</div></div><div class="track-card-badge">QUEUE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div>
+      <div class="track-card-info"><div class="track-card-title">Nairobi Rise</div><div class="track-card-artist">Yemi.K</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED BROADCAST BLOCK -->
+<section class="section section-dark" style="padding:0 0 72px;">
+  <div class="featured-block reveal">
+    <div class="featured-bg art-red" style="display:flex;align-items:center;justify-content:flex-end;padding-right:60px;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:280px;color:rgba(245,245,245,0.05);letter-spacing:-0.05em;line-height:1;text-transform:uppercase;">LIVE</span></div>
+    <div class="featured-gradient"></div>
+    <div class="featured-content">
+      <p class="featured-label">TONIGHT · 20:00 GMT</p>
+      <h2 class="featured-title">DJ SENEGAL<br>TAKEOVER</h2>
+      <div class="featured-line"></div>
+      <p class="featured-meta">3HR LIVE SET · AFRO HOUSE · DAKAR FREQUENCY VOL.3</p>
+      <a href="#" style="display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);text-decoration:none;">SET REMINDER <svg width="20" height="10" viewBox="0 0 20 10"><line x1="0" y1="5" x2="18" y2="5" stroke="currentColor" stroke-width="1.5"/><polyline points="13,1 18,5 13,9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- RECENTLY PLAYED (dark) -->
+<section class="section section-mid">
+  <div class="section-head reveal"><div><p class="section-eyebrow">BROADCAST HISTORY</p><h2 class="section-title">RECENTLY PLAYED</h2></div><div class="carousel-arrows"><button class="carousel-arrow" data-target="recently" data-dir="prev">&#8592;</button><button class="carousel-arrow" data-target="recently" data-dir="next">&#8594;</button></div></div>
+  <div class="carousel-track" id="recently">
+    <div class="track-card reveal"><div class="track-card-art"><div class="track-card-art-inner art-mono"><div class="art-label">AP</div></div><div class="track-card-badge">PLAYED</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Afro Pulse</div><div class="track-card-artist">Amara X Pulse</div></div></div>
+    <div class="track-card reveal reveal-delay-1"><div class="track-card-art"><div class="track-card-art-inner art-red"><div class="art-label">NB</div></div><div class="track-card-badge">PLAYED</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Nile Blue</div><div class="track-card-artist">Cairo Sound</div></div></div>
+    <div class="track-card reveal reveal-delay-2"><div class="track-card-art"><div class="track-card-art-inner art-purple"><div class="art-label">TW</div></div><div class="track-card-badge">PLAYED</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Third Wave</div><div class="track-card-artist">Pulse Network</div></div></div>
+    <div class="track-card reveal reveal-delay-3"><div class="track-card-art"><div class="track-card-art-inner art-teal"><div class="art-label">SV</div></div><div class="track-card-badge">PLAYED</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Signal Void</div><div class="track-card-artist">Freq District</div></div></div>
+    <div class="track-card reveal reveal-delay-4"><div class="track-card-art"><div class="track-card-art-inner art-green"><div class="art-label">GS</div></div><div class="track-card-badge">PLAYED</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Gold Shore</div><div class="track-card-artist">Tema Coast</div></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div><img src="assets/0logo.png" class="footer-logo-img" alt="0 District"><p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p></div>
+    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="studio.html">Studio District</a></li><li><a href="collab.html">Collaboration</a></li><li><a href="community.html">Network</a></li></ul></div>
+    <div><p class="footer-col-title">Radio</p><ul class="footer-links"><li><a href="#">Live Schedule</a></li><li><a href="#">Artist Takeovers</a></li><li><a href="#">Past Broadcasts</a></li><li><a href="#">Submit Track</a></li></ul></div>
+    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="#">About 0Promo</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&#169; 2024 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
+    <div class="footer-social"><a href="#">IG</a><a href="#">TW</a><a href="#">TK</a><a href="#">YT</a></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+let radioPlaying = true;
+let radioProgress = 38;
+
+function togglePlay() {
+  radioPlaying = !radioPlaying;
+  const btn = document.getElementById('radio-play-btn');
+  const vinyl = document.getElementById('vinyl');
+  const waveform = document.getElementById('ctrl-waveform');
+  if (radioPlaying) {
+    btn.innerHTML = '<svg width="12" height="14" viewBox="0 0 12 14"><polygon points="0,0 12,7 0,14" fill="currentColor"/></svg>';
+    vinyl.classList.remove('paused');
+    waveform.querySelectorAll('.ctrl-wave-bar').forEach(b => b.style.animationPlayState = 'running');
+  } else {
+    btn.innerHTML = '<svg width="12" height="14" viewBox="0 0 12 14"><rect x="0" y="0" width="4" height="14" fill="currentColor"/><rect x="8" y="0" width="4" height="14" fill="currentColor"/></svg>';
+    vinyl.classList.add('paused');
+    waveform.querySelectorAll('.ctrl-wave-bar').forEach(b => b.style.animationPlayState = 'paused');
+  }
+}
+
+function toggleLyrics() {
+  const panel = document.getElementById('lyrics-panel');
+  const btn = document.getElementById('lyrics-toggle');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+
+function switchTrack(title, artist) {
+  document.getElementById('track-title').textContent = title;
+  document.getElementById('track-artist').textContent = artist + ' · 0 District Radio';
+  document.getElementById('ctrl-title').textContent = title;
+  document.getElementById('ctrl-artist').textContent = artist;
+  radioProgress = 0;
+}
+
+setInterval(() => {
+  if (!radioPlaying) return;
+  radioProgress = radioProgress >= 100 ? 0 : radioProgress + 0.04;
+  const fill = document.getElementById('radio-progress');
+  const handle = document.getElementById('radio-handle');
+  if (fill) fill.style.width = radioProgress + '%';
+  if (handle) handle.style.left = radioProgress + '%';
+}, 200);
+</script>
+</body>
+</html>

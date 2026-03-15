@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0 DISTRICT — 0PromoRecords</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-loading">
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" onclick="closeSearch()">&#215; CLOSE</button>
+  <div class="search-inner">
+    <p class="search-eyebrow">SEARCH THE DISTRICT</p>
+    <div class="search-field">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      <input type="text" placeholder="ARTIST, TRACK, GENRE..." id="searchInput" autocomplete="off">
+    </div>
+    <div class="search-genre-row">
+      <button class="sg-pill active" onclick="togglePill(this)">ALL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFROBEATS</button>
+      <button class="sg-pill" onclick="togglePill(this)">AMAPIANO</button>
+      <button class="sg-pill" onclick="togglePill(this)">HIGHLIFE</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO SOUL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO HOUSE</button>
+      <button class="sg-pill" onclick="togglePill(this)">DRILL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO R&amp;B</button>
+      <button class="sg-pill" onclick="togglePill(this)">ELECTRONIC</button>
+    </div>
+    <div class="search-trending">
+      <p class="search-trend-label">TRENDING NOW</p>
+      <div class="search-trend-tags">
+        <button class="search-trend-tag">ACCRA NIGHTS</button>
+        <button class="search-trend-tag">DAKAR FREQUENCY</button>
+        <button class="search-trend-tag">LAGOS RITUAL</button>
+        <button class="search-trend-tag">JOBURG GRID</button>
+        <button class="search-trend-tag">MIDNIGHT LAGOS</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/0logo.png" height="56" alt="0 Promo Recs" style="display:block;width:auto;">
+    </a>
+    <ul class="nav-routes">
+      <li><a href="index.html" class="active">/HOME</a></li>
+      <li><a href="radio.html">/RADIO</a></li>
+      <li><a href="studio.html">/STUDIO</a></li>
+      <li><a href="collab.html">/COLLAB</a></li>
+      <li><a href="community.html">/NETWORK</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <button class="search-btn" onclick="openSearch()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      SEARCH
+    </button>
+    <div class="nav-signal"><div class="nav-signal-dot"></div>SIGNAL LIVE</div>
+    <button class="btn-nav">SIGN IN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active"><div class="hero-slide-bg art-red" style="display:flex;align-items:center;justify-content:center;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:220px;color:rgba(245,245,245,0.06);letter-spacing:-0.05em;text-transform:uppercase;">0D</span></div></div>
+    <div class="hero-slide"><div class="hero-slide-bg art-blue" style="display:flex;align-items:center;justify-content:center;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:220px;color:rgba(245,245,245,0.06);letter-spacing:-0.05em;text-transform:uppercase;">RDO</span></div></div>
+    <div class="hero-slide"><div class="hero-slide-bg art-purple" style="display:flex;align-items:center;justify-content:center;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:220px;color:rgba(245,245,245,0.06);letter-spacing:-0.05em;text-transform:uppercase;">STD</span></div></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="hero-badge-dot"></div>SIGNAL ACTIVE · DISTRICT ONLINE</div>
+    <h1 class="hero-title">THE<br><span class="accent">DIGITAL</span><br>MUSIC CITY</h1>
+    <p class="hero-sub">0PROMO RECORDS · AFRICAN MUSIC DISTRICT · EST. 2024</p>
+    <div class="hero-actions">
+      <a href="radio.html" class="hero-play-btn">
+        <div class="hero-play-circle"><svg width="10" height="13" viewBox="0 0 10 13"><polygon points="0,0 10,6.5 0,13" fill="#F5F5F5"/></svg></div>
+        <span class="hero-play-label">ENTER THE DISTRICT</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-counter"><span class="hero-counter-num" id="slideNum">01</span> / 03</div>
+  <div class="hero-dots">
+    <div class="hero-dot active"></div>
+    <div class="hero-dot"></div>
+    <div class="hero-dot"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner">
+  <span class="ticker-item">KOFI MANU — ACCRA NIGHTS <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">DJ SENEGAL — LIVE NOW <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">ZARA.B — NEW EP OUT <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">ECHO DELTA — JOHANNESBURG GRID <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">OFO BEATS — MIDNIGHT LAGOS REMIX <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">YEMI.K — COLLAB REQUEST OPEN <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">KOFI MANU — ACCRA NIGHTS <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">DJ SENEGAL — LIVE NOW <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">ZARA.B — NEW EP OUT <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">ECHO DELTA — JOHANNESBURG GRID <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">OFO BEATS — MIDNIGHT LAGOS REMIX <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">YEMI.K — COLLAB REQUEST OPEN <span class="ticker-sep">·</span></span>
+</div></div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="stat-item">
+      <span class="stat-num" id="statArtists">0</span>
+      <span class="stat-label">ARTISTS<br>REGISTERED</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="statTracks">0</span>
+      <span class="stat-label">TRACKS<br>UPLOADED</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" id="statDistricts">0</span>
+      <span class="stat-label">ACTIVE<br>DISTRICTS</span>
+    </div>
+    <div class="stat-item stat-live">
+      <div class="stat-live-dot"></div>
+      <span class="stat-num" id="statLive">0</span>
+      <span class="stat-label">LIVE<br>NOW</span>
+    </div>
+  </div>
+</div>
+
+<!-- NOW PLAYING (light) -->
+<section class="section section-light">
+  <div class="section-head reveal"><div><p class="section-eyebrow">LIVE BROADCAST</p><h2 class="section-title">NOW PLAYING</h2></div><div class="carousel-arrows"><button class="carousel-arrow" data-target="now-playing" data-dir="prev">&#8592;</button><button class="carousel-arrow" data-target="now-playing" data-dir="next">&#8594;</button></div></div>
+  <div class="section-filters">
+    <button class="fp active" onclick="filterPill(this)">ALL</button>
+    <button class="fp" onclick="filterPill(this)">AFROBEATS</button>
+    <button class="fp" onclick="filterPill(this)">AMAPIANO</button>
+    <button class="fp" onclick="filterPill(this)">HIGHLIFE</button>
+    <button class="fp" onclick="filterPill(this)">AFRO SOUL</button>
+    <button class="fp" onclick="filterPill(this)">AFRO HOUSE</button>
+    <button class="fp" onclick="filterPill(this)">DRILL</button>
+  </div>
+  <div class="carousel-track" id="now-playing">
+    <div class="track-card reveal"><div class="track-card-art"><div class="track-card-art-inner art-red"><div class="art-label">KM</div></div><div class="track-card-badge" style="background:var(--red);border-color:var(--red);">● LIVE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Accra Nights</div><div class="track-card-artist">Kofi Manu</div><div class="track-card-city">ACCRA · GH</div></div></div>
+    <div class="track-card reveal reveal-delay-1"><div class="track-card-art"><div class="track-card-art-inner art-blue"><div class="art-label">DS</div></div><div class="track-card-badge">NEW</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Dakar Frequency</div><div class="track-card-artist">DJ Senegal</div><div class="track-card-city">DAKAR · SN</div></div></div>
+    <div class="track-card reveal reveal-delay-2"><div class="track-card-art"><div class="track-card-art-inner art-purple"><div class="art-label">ZB</div></div><div class="track-card-badge">REMIX</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Lagos Ritual</div><div class="track-card-artist">Zara.B</div><div class="track-card-city">LAGOS · NG</div></div></div>
+    <div class="track-card reveal reveal-delay-3"><div class="track-card-art"><div class="track-card-art-inner art-green"><div class="art-label">OB</div></div><div class="track-card-badge">SINGLE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Midnight Lagos</div><div class="track-card-artist">Ofo Beats</div><div class="track-card-city">LAGOS · NG</div></div></div>
+    <div class="track-card reveal reveal-delay-4"><div class="track-card-art"><div class="track-card-art-inner art-amber"><div class="art-label">ED</div></div><div class="track-card-badge">EP</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Joburg Grid</div><div class="track-card-artist">Echo Delta</div><div class="track-card-city">JOHANNESBURG · ZA</div></div></div>
+    <div class="track-card"><div class="track-card-art"><div class="track-card-art-inner art-teal"><div class="art-label">YK</div></div><div class="track-card-badge">TRACK</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Nairobi Rise</div><div class="track-card-artist">Yemi.K</div><div class="track-card-city">NAIROBI · KE</div></div></div>
+  </div>
+</section>
+
+<!-- FEATURED — RADIO DISTRICT -->
+<section class="section section-dark" style="padding:0 0 72px;">
+  <div class="featured-block reveal">
+    <div class="featured-bg" style="background:linear-gradient(135deg,#1a0505 0%,#3d0808 40%,#6b0f0f 100%);display:flex;align-items:center;justify-content:flex-end;padding-right:60px;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:280px;color:rgba(245,245,245,0.07);letter-spacing:-0.05em;line-height:1;text-transform:uppercase;">RADIO</span></div>
+    <div class="featured-gradient"></div>
+    <div class="featured-content">
+      <p class="featured-label">0 DISTRICT · FEATURED BROADCAST</p>
+      <h2 class="featured-title">RADIO<br>DISTRICT</h2>
+      <div class="featured-line"></div>
+      <p class="featured-meta">LIVE STREAMS · CURATED SETS · ARTIST TAKEOVERS · 24/7 SIGNAL</p>
+      <a href="radio.html" style="display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);text-decoration:none;">TUNE IN <svg width="20" height="10" viewBox="0 0 20 10"><line x1="0" y1="5" x2="18" y2="5" stroke="currentColor" stroke-width="1.5"/><polyline points="13,1 18,5 13,9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- NEW RELEASES (dark/mid) -->
+<section class="section section-mid">
+  <div class="section-head reveal"><div><p class="section-eyebrow">FRESHEST DROPS</p><h2 class="section-title">NEW RELEASES</h2></div><div class="carousel-arrows"><button class="carousel-arrow" data-target="new-releases" data-dir="prev">&#8592;</button><button class="carousel-arrow" data-target="new-releases" data-dir="next">&#8594;</button></div></div>
+  <div class="section-filters">
+    <button class="fp active" onclick="filterPill(this)">ALL</button>
+    <button class="fp" onclick="filterPill(this)">ALBUMS</button>
+    <button class="fp" onclick="filterPill(this)">SINGLES</button>
+    <button class="fp" onclick="filterPill(this)">EPS</button>
+    <button class="fp" onclick="filterPill(this)">REMIXES</button>
+  </div>
+  <div class="carousel-track" id="new-releases">
+    <div class="track-card reveal"><div class="track-card-art"><div class="track-card-art-inner art-purple"><div class="art-label">AP</div></div><div class="track-card-badge">ALBUM</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Afro Pulse</div><div class="track-card-artist">Amara X Pulse</div><div class="track-card-city">ABIDJAN · CI</div></div></div>
+    <div class="track-card reveal reveal-delay-1"><div class="track-card-art"><div class="track-card-art-inner art-red"><div class="art-label">NB</div></div><div class="track-card-badge">SINGLE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Nile Blue</div><div class="track-card-artist">Cairo Sound</div><div class="track-card-city">CAIRO · EG</div></div></div>
+    <div class="track-card reveal reveal-delay-2"><div class="track-card-art"><div class="track-card-art-inner art-mono"><div class="art-label">TW</div></div><div class="track-card-badge">REMIX</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Third Wave</div><div class="track-card-artist">Pulse Network</div><div class="track-card-city">KINSHASA · CD</div></div></div>
+    <div class="track-card reveal reveal-delay-3"><div class="track-card-art"><div class="track-card-art-inner art-teal"><div class="art-label">SV</div></div><div class="track-card-badge">EP</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Signal Void</div><div class="track-card-artist">Freq District</div><div class="track-card-city">NAIROBI · KE</div></div></div>
+    <div class="track-card reveal reveal-delay-4"><div class="track-card-art"><div class="track-card-art-inner art-amber"><div class="art-label">GS</div></div><div class="track-card-badge">SINGLE</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Gold Shore</div><div class="track-card-artist">Tema Coast</div><div class="track-card-city">ACCRA · GH</div></div></div>
+    <div class="track-card"><div class="track-card-art"><div class="track-card-art-inner art-green"><div class="art-label">KW</div></div><div class="track-card-badge">TRACK</div><div class="track-card-play"><div class="track-play-circle"><svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="#F5F5F5"/></svg></div></div></div><div class="track-card-info"><div class="track-card-title">Kinshasa Wake</div><div class="track-card-artist">River Bloc</div><div class="track-card-city">KINSHASA · CD</div></div></div>
+  </div>
+</section>
+
+<!-- THE DISTRICTS (light) -->
+<section class="section section-light" style="padding-top:72px;padding-bottom:0;">
+  <div class="section-head reveal"><div><p class="section-eyebrow">EXPLORE</p><h2 class="section-title">THE DISTRICTS</h2></div></div>
+  <div class="districts-grid">
+    <a href="radio.html" class="district-block reveal"><p class="district-code">D-01</p><h3 class="district-name">Radio</h3><p class="district-desc">Live broadcasts, curated streams, artist takeovers</p><span class="district-arrow">&#8594;</span></a>
+    <a href="studio.html" class="district-block reveal reveal-delay-1"><p class="district-code">D-02</p><h3 class="district-name">Studio</h3><p class="district-desc">Upload, manage, and grow your catalogue</p><span class="district-arrow">&#8594;</span></a>
+    <a href="collab.html" class="district-block reveal reveal-delay-2"><p class="district-code">D-03</p><h3 class="district-name">Collab</h3><p class="district-desc">Find collaborators, join remix challenges</p><span class="district-arrow">&#8594;</span></a>
+    <a href="community.html" class="district-block reveal reveal-delay-3"><p class="district-code">D-04</p><h3 class="district-name">Network</h3><p class="district-desc">Connect with the district community</p><span class="district-arrow">&#8594;</span></a>
+    <a href="#" class="district-block reveal reveal-delay-4"><p class="district-code">D-05</p><h3 class="district-name">Market</h3><p class="district-desc">Beats, samples, services, licensing</p><span class="district-arrow">&#8594;</span></a>
+    <a href="#" class="district-block reveal"><p class="district-code">D-06</p><h3 class="district-name">Playlists</h3><p class="district-desc">Curated drops from district editors</p><span class="district-arrow">&#8594;</span></a>
+  </div>
+</section>
+
+<!-- AFRICA MAP SECTION -->
+<section class="africa-section">
+  <div class="africa-head">
+    <div>
+      <p class="section-eyebrow" style="color:var(--steel);">THE CONTINENTAL GRID</p>
+      <h2 class="section-title" style="color:var(--white);">DISTRICT<br>SIGNAL MAP</h2>
+    </div>
+    <div style="text-align:right;">
+      <p style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);margin-bottom:6px;">ACTIVE CITIES</p>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:48px;color:var(--red);letter-spacing:-0.02em;line-height:1;">7</p>
+    </div>
+  </div>
+  <div class="africa-map-container">
+    <div class="africa-svg-wrap" id="africaWrap">
+      <!-- D3 + TopoJSON rendered SVG — real geographic data, city pins by lat/lng -->
+      <svg id="africaMapSvg" style="width:100%;display:block;"></svg>
+    </div>
+  </div>
+  <div class="africa-stat-row">
+    <div class="africa-stat"><div class="africa-stat-num">7</div><div class="africa-stat-label">ACTIVE CITIES</div></div>
+    <div class="africa-stat"><div class="africa-stat-num">1,247</div><div class="africa-stat-label">DISTRICT ARTISTS</div></div>
+    <div class="africa-stat"><div class="africa-stat-num">34</div><div class="africa-stat-label">COUNTRIES REACHED</div></div>
+    <div class="africa-stat"><div class="africa-stat-num">8,432</div><div class="africa-stat-label">TRACKS IN ROTATION</div></div>
+  </div>
+</section>
+
+<!-- BROADCAST LOG (dark) -->
+<section class="section section-dark">
+  <div class="section-head reveal"><div><p class="section-eyebrow">LIVE FEED</p><h2 class="section-title">BROADCAST LOG</h2></div><span style="font-size:9px;letter-spacing:0.15em;color:var(--steel);text-transform:uppercase;">UPTIME <span id="uptime" style="color:var(--red);">00:00:00</span></span></div>
+  <div class="broadcast-log">
+    <div class="broadcast-row visible"><span class="broadcast-time">NOW</span><span class="broadcast-badge track">TRACK</span><span class="broadcast-text"><strong>KOFI MANU</strong> &#8594; RELEASED "ACCRA NIGHTS" · 128 PLAYS</span><span class="broadcast-action">VIEW &#8594;</span></div>
+    <div class="broadcast-row"><span class="broadcast-time">2 MIN AGO</span><span class="broadcast-badge live">LIVE</span><span class="broadcast-text"><strong>DJ SENEGAL</strong> &#8594; STARTED LIVE SESSION "DAKAR NIGHTS VOL.3"</span><span class="broadcast-action">JOIN &#8594;</span></div>
+    <div class="broadcast-row"><span class="broadcast-time">5 MIN AGO</span><span class="broadcast-badge join">JOIN</span><span class="broadcast-text"><strong>AMARA.K</strong> &#8594; JOINED THE DISTRICT · DISTRICT CREATOR</span><span class="broadcast-action">VIEW &#8594;</span></div>
+    <div class="broadcast-row"><span class="broadcast-time">8 MIN AGO</span><span class="broadcast-badge collab">COLLAB</span><span class="broadcast-text"><strong>ECHO DELTA × OFO BEATS</strong> &#8594; OPENED REMIX CHALLENGE "JOBURG GRID"</span><span class="broadcast-action">ENTER &#8594;</span></div>
+    <div class="broadcast-row"><span class="broadcast-time">12 MIN AGO</span><span class="broadcast-badge system">SYSTEM</span><span class="broadcast-text"><strong>SYSTEM</strong> &#8594; BROADCAST SIGNAL STABLE · UPTIME 99.97% · 2,841 MEMBERS</span><span class="broadcast-action">—</span></div>
+  </div>
+</section>
+
+<!-- TOP ARTISTS (light) -->
+<section class="section section-light">
+  <div class="section-head reveal"><div><p class="section-eyebrow">DISTRICT CREATORS</p><h2 class="section-title">TOP ARTISTS</h2></div><div class="carousel-arrows"><button class="carousel-arrow" data-target="artists" data-dir="prev">&#8592;</button><button class="carousel-arrow" data-target="artists" data-dir="next">&#8594;</button></div></div>
+  <div class="carousel-track" id="artists">
+    <div class="artist-card reveal"><div class="artist-card-photo"><div class="artist-card-photo-inner art-red"><div class="art-label">KM</div></div></div><div class="artist-card-name">Kofi Manu</div><div class="artist-card-genre">Afrobeats · ACCRA</div></div>
+    <div class="artist-card reveal reveal-delay-1"><div class="artist-card-photo"><div class="artist-card-photo-inner art-blue"><div class="art-label">DS</div></div></div><div class="artist-card-name">DJ Senegal</div><div class="artist-card-genre">Afro House · DAKAR</div></div>
+    <div class="artist-card reveal reveal-delay-2"><div class="artist-card-photo"><div class="artist-card-photo-inner art-purple"><div class="art-label">ZB</div></div></div><div class="artist-card-name">Zara.B</div><div class="artist-card-genre">Afro Soul · LAGOS</div></div>
+    <div class="artist-card reveal reveal-delay-3"><div class="artist-card-photo"><div class="artist-card-photo-inner art-amber"><div class="art-label">OB</div></div></div><div class="artist-card-name">Ofo Beats</div><div class="artist-card-genre">Trap / Afro · LAGOS</div></div>
+    <div class="artist-card reveal reveal-delay-4"><div class="artist-card-photo"><div class="artist-card-photo-inner art-green"><div class="art-label">ED</div></div></div><div class="artist-card-name">Echo Delta</div><div class="artist-card-genre">Electronic · JOBURG</div></div>
+    <div class="artist-card reveal"><div class="artist-card-photo"><div class="artist-card-photo-inner art-teal"><div class="art-label">YK</div></div></div><div class="artist-card-name">Yemi.K</div><div class="artist-card-genre">Afropop · NAIROBI</div></div>
+    <div class="artist-card reveal reveal-delay-1"><div class="artist-card-photo"><div class="artist-card-photo-inner art-mono"><div class="art-label">AM</div></div></div><div class="artist-card-name">Amara</div><div class="artist-card-genre">R&amp;B · ABIDJAN</div></div>
+  </div>
+</section>
+
+<!-- JOIN SECTION -->
+<section class="join-section reveal">
+  <div class="join-bg art-red" style="display:flex;align-items:center;justify-content:flex-end;padding-right:80px;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:240px;color:rgba(245,245,245,0.04);letter-spacing:-0.05em;line-height:1;text-transform:uppercase;">JOIN</span></div>
+  <div class="join-overlay"></div>
+  <div class="join-content">
+    <p class="join-label">DISTRICT MEMBERSHIP</p>
+    <h2 class="join-title">JOIN THE<br>DISTRICT</h2>
+    <div class="join-form"><input type="email" placeholder="ENTER YOUR EMAIL ADDRESS"><button class="join-submit">&#8594;</button></div>
+    <a href="#" style="display:inline-flex;align-items:center;gap:10px;background:var(--red);color:var(--white);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:13px 24px;text-decoration:none;margin-top:16px;transition:all 0.25s ease;" onmouseover="this.style.background='var(--white)';this.style.color='var(--bg)';" onmouseout="this.style.background='var(--red)';this.style.color='var(--white)';">CREATE ACCOUNT &#8594;</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <img src="assets/0logo.png" class="footer-logo-img" alt="0 Promo Recs">
+      <p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p>
+    </div>
+    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="radio.html">Radio District</a></li><li><a href="studio.html">Studio District</a></li><li><a href="collab.html">Collaboration</a></li><li><a href="community.html">Network</a></li></ul></div>
+    <div><p class="footer-col-title">Platform</p><ul class="footer-links"><li><a href="#">Submit Demo</a></li><li><a href="#">For Artists</a></li><li><a href="#">For Labels</a></li><li><a href="#">Advertising</a></li></ul></div>
+    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="#">About 0Promo</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&#169; 2024 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
+    <div class="footer-social"><a href="#">IG</a><a href="#">TW</a><a href="#">TK</a><a href="#">YT</a></div>
+  </div>
+</footer>
+
+<!-- PLAYER BAR -->
+<div class="player-bar">
+  <div class="player-track-info">
+    <div class="player-art"><div style="width:100%;height:100%;background:linear-gradient(135deg,#5a0808,#c41818);display:flex;align-items:center;justify-content:center;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:rgba(245,245,245,0.4);">KM</span></div></div>
+    <div class="player-details"><div class="player-title">Accra Nights</div><div class="player-artist">Kofi Manu</div></div>
+  </div>
+  <div class="player-center">
+    <div class="player-btns">
+      <button class="player-btn">SHUF</button>
+      <button class="player-btn">PREV</button>
+      <button class="player-btn-play"><svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg></button>
+      <button class="player-btn">NEXT</button>
+      <button class="player-btn">LOOP</button>
+    </div>
+    <div class="player-progress-wrap"><div class="player-progress-bg"></div><div class="player-progress-fill"></div><div class="player-progress-handle"></div></div>
+  </div>
+  <div class="player-right">
+    <div class="player-waveform"><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div></div>
+    <div class="player-vol"><span class="player-vol-label">VOL</span><div class="player-vol-bar"><div class="player-vol-fill"></div></div></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

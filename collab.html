@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COLLABORATION DISTRICT — 0 District</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ── COLLAB PAGE SPECIFIC ── */
+.collab-hero {
+  height: 72vh; min-height: 520px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 0 60px 72px;
+}
+.collab-hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #140820 0%, #2e0e4a 40%, #0B0B0B 100%);
+  animation: slow-zoom 20s ease-in-out infinite alternate;
+}
+@keyframes slow-zoom { from { transform: scale(1); } to { transform: scale(1.05); } }
+.collab-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(11,11,11,0.97) 0%, rgba(11,11,11,0.4) 55%, rgba(11,11,11,0.15) 100%);
+}
+.collab-hero-content { position: relative; z-index: 2; }
+.collab-hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(56px, 9vw, 120px);
+  text-transform: uppercase; line-height: 0.87; letter-spacing: -0.025em;
+}
+.collab-hero-sub { font-size: 11px; letter-spacing: 0.15em; color: rgba(245,245,245,0.4); text-transform: uppercase; margin-top: 14px; }
+
+/* FILTER BAR */
+.filter-bar {
+  padding: 28px 40px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: var(--bg2);
+}
+.filter-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 8px 16px; border: 1px solid var(--border);
+  background: transparent; color: var(--steel);
+  cursor: pointer; transition: all 0.2s ease;
+}
+.filter-btn:hover { border-color: var(--red); color: var(--red); }
+.filter-btn.active { border-color: var(--red); background: var(--red); color: var(--white); }
+.filter-search {
+  margin-left: auto; background: transparent; border: 1px solid var(--border);
+  padding: 8px 16px; color: var(--white); font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.08em; outline: none; width: 200px;
+  transition: border-color 0.2s ease;
+}
+.filter-search:focus { border-color: var(--red); }
+.filter-search::placeholder { color: rgba(245,245,245,0.2); text-transform: uppercase; font-size: 9px; }
+
+/* COLLAB GRID */
+.collab-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border); padding: 40px;
+  background: var(--bg); gap: 16px;
+}
+.collab-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 0; overflow: hidden; cursor: pointer;
+  transition: transform 0.3s var(--ease), border-color 0.3s ease;
+  position: relative;
+}
+.collab-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--red); transform: scaleX(0); transition: transform 0.35s var(--ease);
+}
+.collab-card:hover::before { transform: scaleX(1); }
+.collab-card:hover { border-color: rgba(245,245,245,0.12); transform: translateY(-3px); }
+.collab-card-art {
+  height: 160px; position: relative; overflow: hidden;
+}
+.collab-card-art-inner { width: 100%; height: 100%; transition: transform 0.5s var(--ease); }
+.collab-card:hover .collab-card-art-inner { transform: scale(1.05); }
+.collab-card-body { padding: 20px; }
+.collab-badges { display: flex; gap: 6px; margin-bottom: 12px; }
+.collab-badge {
+  font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 3px 8px; border: 1px solid;
+}
+.collab-badge.vocals     { border-color: var(--red); color: var(--red); }
+.collab-badge.production { border-color: #667eea; color: #667eea; }
+.collab-badge.remix      { border-color: #ed8936; color: #ed8936; }
+.collab-badge.songwrite  { border-color: #48bb78; color: #48bb78; }
+.collab-badge.challenge  { border-color: #f6e05e; color: #f6e05e; }
+.collab-badge.open   { border-color: #48bb78; color: #48bb78; }
+.collab-badge.closed { border-color: var(--steel); color: var(--steel); }
+.collab-badge.progress { border-color: #ed8936; color: #ed8936; }
+.collab-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 22px; text-transform: uppercase;
+  line-height: 1.1; margin-bottom: 8px;
+  transition: color 0.2s ease;
+}
+.collab-card:hover .collab-card-title { color: var(--red); }
+.collab-card-artist { font-size: 10px; letter-spacing: 0.08em; color: var(--steel); text-transform: uppercase; margin-bottom: 10px; }
+.collab-card-desc { font-size: 10px; color: rgba(245,245,245,0.5); line-height: 1.8; margin-bottom: 16px; }
+.collab-card-footer { display: flex; align-items: center; justify-content: space-between; }
+.collab-card-action {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 8px 16px;
+  border: 1px solid var(--border); background: transparent; color: var(--white);
+  cursor: pointer; transition: all 0.2s ease;
+}
+.collab-card-action:hover { border-color: var(--red); background: var(--red); }
+.collab-card-spots { font-size: 9px; letter-spacing: 0.1em; color: var(--steel); text-transform: uppercase; }
+
+/* CHALLENGE CARDS */
+.challenge-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px; padding: 0 40px;
+}
+.challenge-card { border: 1px solid var(--border); overflow: hidden; cursor: pointer; }
+.challenge-card-header {
+  height: 180px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 20px;
+}
+.challenge-card-header-bg { position: absolute; inset: 0; transition: transform 0.5s var(--ease); }
+.challenge-card:hover .challenge-card-header-bg { transform: scale(1.04); }
+.challenge-card-header-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,11,11,0.9) 0%, transparent 60%); }
+.challenge-card-header-content { position: relative; z-index: 1; }
+.challenge-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 28px; text-transform: uppercase;
+  line-height: 0.9; letter-spacing: -0.02em;
+}
+.challenge-line { width: 40px; height: 2px; background: var(--red); margin-top: 8px; transition: width 0.4s var(--ease); }
+.challenge-card:hover .challenge-line { width: 80px; }
+.challenge-body { background: var(--bg2); padding: 20px; }
+.challenge-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--border); margin-bottom: 16px; }
+.challenge-stat { padding: 12px; border-right: 1px solid var(--border); }
+.challenge-stat:last-child { border-right: none; }
+.challenge-stat-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 22px; }
+.challenge-stat-label { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--steel); margin-top: 2px; }
+.btn-challenge {
+  width: 100%; padding: 12px; background: var(--red); color: var(--white);
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  text-transform: uppercase; border: none; cursor: pointer; transition: background 0.25s ease;
+}
+.btn-challenge:hover { background: var(--white); color: var(--bg); }
+</style>
+</head>
+<body class="page-loading">
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" onclick="closeSearch()">&#215; CLOSE</button>
+  <div class="search-inner">
+    <p class="search-eyebrow">SEARCH THE DISTRICT</p>
+    <div class="search-field">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      <input type="text" placeholder="ARTIST, TRACK, GENRE..." id="searchInput" autocomplete="off">
+    </div>
+    <div class="search-genre-row">
+      <button class="sg-pill active" onclick="togglePill(this)">ALL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFROBEATS</button>
+      <button class="sg-pill" onclick="togglePill(this)">AMAPIANO</button>
+      <button class="sg-pill" onclick="togglePill(this)">HIGHLIFE</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO SOUL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO HOUSE</button>
+      <button class="sg-pill" onclick="togglePill(this)">DRILL</button>
+    </div>
+    <div class="search-trending">
+      <p class="search-trend-label">TRENDING NOW</p>
+      <div class="search-trend-tags">
+        <button class="search-trend-tag">ACCRA NIGHTS</button>
+        <button class="search-trend-tag">DAKAR FREQUENCY</button>
+        <button class="search-trend-tag">LAGOS RITUAL</button>
+        <button class="search-trend-tag">JOBURG GRID</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/0logo.png" height="56" alt="0 Promo Recs" style="display:block;width:auto;">
+    </a>
+    <ul class="nav-routes">
+      <li><a href="index.html">/HOME</a></li>
+      <li><a href="radio.html">/RADIO</a></li>
+      <li><a href="studio.html">/STUDIO</a></li>
+      <li><a href="collab.html" class="active">/COLLAB</a></li>
+      <li><a href="community.html">/NETWORK</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <button class="search-btn" onclick="openSearch()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      SEARCH
+    </button>
+    <div class="nav-signal"><div class="nav-signal-dot"></div>48 OPEN</div>
+    <button class="btn-nav">SIGN IN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="collab-hero">
+  <div class="collab-hero-bg"></div>
+  <div class="collab-hero-overlay"></div>
+  <div class="collab-hero-content">
+    <div class="hero-badge" style="margin-bottom:20px;"><div class="hero-badge-dot"></div>D-03 · COLLABORATION DISTRICT</div>
+    <h1 class="collab-hero-title">BUILD<br>TOGETHER</h1>
+    <p class="collab-hero-sub">FIND COLLABORATORS · REMIX CHALLENGES · OPEN SESSIONS · 48 ACTIVE</p>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner">
+  <span class="ticker-item">ECHO DELTA — JOBURG GRID REMIX CHALLENGE OPEN · $500 PRIZE <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">KOFI MANU — SEEKING VOCALIST FOR AFROBEATS COLLAB <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">ZARA.B — PRODUCTION PARTNER NEEDED <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">48 ACTIVE COLLABORATIONS THIS WEEK <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">ECHO DELTA — JOBURG GRID REMIX CHALLENGE OPEN · $500 PRIZE <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">KOFI MANU — SEEKING VOCALIST FOR AFROBEATS COLLAB <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">ZARA.B — PRODUCTION PARTNER NEEDED <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">48 ACTIVE COLLABORATIONS THIS WEEK <span class="ticker-sep">·</span></span>
+</div></div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter(this,'all')">ALL</button>
+  <button class="filter-btn" onclick="setFilter(this,'vocals')">VOCALS</button>
+  <button class="filter-btn" onclick="setFilter(this,'production')">PRODUCTION</button>
+  <button class="filter-btn" onclick="setFilter(this,'remix')">REMIX</button>
+  <button class="filter-btn" onclick="setFilter(this,'songwriting')">SONGWRITING</button>
+  <button class="filter-btn" onclick="setFilter(this,'challenges')">CHALLENGES</button>
+  <input class="filter-search" type="text" placeholder="SEARCH COLLABS...">
+</div>
+
+<!-- COLLAB BOARD -->
+<section class="section section-dark" style="padding-top:40px;">
+  <div class="section-head reveal"><div><p class="section-eyebrow">OPEN REQUESTS</p><h2 class="section-title">COLLAB BOARD</h2></div><span style="font-size:9px;letter-spacing:0.12em;color:var(--steel);text-transform:uppercase;">48 ACTIVE REQUESTS</span></div>
+  <div class="collab-grid">
+    <div class="collab-card reveal">
+      <div class="collab-card-art"><div class="collab-card-art-inner art-red"><div class="art-label" style="font-size:60px;opacity:0.15;">V</div></div></div>
+      <div class="collab-card-body">
+        <div class="collab-badges"><span class="collab-badge vocals">VOCALS</span><span class="collab-badge open">OPEN</span></div>
+        <div class="collab-card-title">Need Female Vocalist</div>
+        <div class="collab-card-artist">Kofi Manu · Afrobeats</div>
+        <div class="collab-card-desc">Looking for a female vocalist for a mid-tempo Afrobeats track. BPM 102. Hook + verse only.</div>
+        <div class="collab-card-footer"><button class="collab-card-action">APPLY</button><span class="collab-card-spots">3 SPOTS LEFT</span></div>
+      </div>
+    </div>
+    <div class="collab-card reveal reveal-delay-1">
+      <div class="collab-card-art"><div class="collab-card-art-inner art-purple"><div class="art-label" style="font-size:60px;opacity:0.15;">P</div></div></div>
+      <div class="collab-card-body">
+        <div class="collab-badges"><span class="collab-badge production">PRODUCTION</span><span class="collab-badge progress">IN PROGRESS</span></div>
+        <div class="collab-card-title">Joburg Grid Remix</div>
+        <div class="collab-card-artist">Echo Delta × Ofo Beats</div>
+        <div class="collab-card-desc">Joint remix project. Need a mixing engineer. Track is Afro-Electronic. Deadline Feb 28.</div>
+        <div class="collab-card-footer"><button class="collab-card-action">REQUEST JOIN</button><span class="collab-card-spots">1 SPOT LEFT</span></div>
+      </div>
+    </div>
+    <div class="collab-card reveal reveal-delay-2">
+      <div class="collab-card-art"><div class="collab-card-art-inner art-amber"><div class="art-label" style="font-size:60px;opacity:0.15;">R</div></div></div>
+      <div class="collab-card-body">
+        <div class="collab-badges"><span class="collab-badge remix">REMIX</span><span class="collab-badge open">OPEN</span></div>
+        <div class="collab-card-title">Lagos Ritual Remix</div>
+        <div class="collab-card-artist">Zara.B · Afro Soul</div>
+        <div class="collab-card-desc">Open remix pack available. Any genre welcome. Best remix wins feature on Radio District.</div>
+        <div class="collab-card-footer"><button class="collab-card-action">GET STEMS</button><span class="collab-card-spots">UNLIMITED</span></div>
+      </div>
+    </div>
+    <div class="collab-card reveal reveal-delay-3">
+      <div class="collab-card-art"><div class="collab-card-art-inner art-green"><div class="art-label" style="font-size:60px;opacity:0.15;">S</div></div></div>
+      <div class="collab-card-body">
+        <div class="collab-badges"><span class="collab-badge songwrite">SONGWRITING</span><span class="collab-badge open">OPEN</span></div>
+        <div class="collab-card-title">Co-Write Opportunity</div>
+        <div class="collab-card-artist">Yemi.K · Afropop</div>
+        <div class="collab-card-desc">Need a co-writer for an Afropop EP. 4 tracks planned. Looking for hook specialists.</div>
+        <div class="collab-card-footer"><button class="collab-card-action">APPLY</button><span class="collab-card-spots">2 SPOTS LEFT</span></div>
+      </div>
+    </div>
+    <div class="collab-card reveal reveal-delay-4">
+      <div class="collab-card-art"><div class="collab-card-art-inner art-blue"><div class="art-label" style="font-size:60px;opacity:0.15;">P</div></div></div>
+      <div class="collab-card-body">
+        <div class="collab-badges"><span class="collab-badge production">PRODUCTION</span><span class="collab-badge open">OPEN</span></div>
+        <div class="collab-card-title">Beat Maker Needed</div>
+        <div class="collab-card-artist">Cairo Sound · Afro Fusion</div>
+        <div class="collab-card-desc">Need a producer for 3 tracks. Afro fusion direction. Send portfolio + 2 sample beats.</div>
+        <div class="collab-card-footer"><button class="collab-card-action">APPLY</button><span class="collab-card-spots">OPEN</span></div>
+      </div>
+    </div>
+    <div class="collab-card reveal">
+      <div class="collab-card-art"><div class="collab-card-art-inner art-teal"><div class="art-label" style="font-size:60px;opacity:0.15;">V</div></div></div>
+      <div class="collab-card-body">
+        <div class="collab-badges"><span class="collab-badge vocals">VOCALS</span><span class="collab-badge closed">CLOSED</span></div>
+        <div class="collab-card-title">Male Vocalist Needed</div>
+        <div class="collab-card-artist">Amara · Afro R&amp;B</div>
+        <div class="collab-card-desc">This collab is now closed. Collaborator found. Stay tuned for the release.</div>
+        <div class="collab-card-footer"><button class="collab-card-action" disabled style="opacity:0.4;cursor:not-allowed;">CLOSED</button><span class="collab-card-spots">FILLED</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED CHALLENGE BLOCK -->
+<section class="section section-dark" style="padding:0 0 72px;">
+  <div class="featured-block reveal">
+    <div class="featured-bg art-amber" style="display:flex;align-items:center;justify-content:flex-end;padding-right:60px;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:280px;color:rgba(245,245,245,0.05);letter-spacing:-0.05em;line-height:1;text-transform:uppercase;">REMIX</span></div>
+    <div class="featured-gradient"></div>
+    <div class="featured-content">
+      <p class="featured-label">FEATURED CHALLENGE · $500 PRIZE POOL</p>
+      <h2 class="featured-title">JOBURG<br>GRID REMIX</h2>
+      <div class="featured-line"></div>
+      <p class="featured-meta">BY ECHO DELTA · DEADLINE MAR 15 · 124 ENTRIES · AFRO-ELECTRONIC</p>
+      <a href="#" style="display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);text-decoration:none;">GET STEMS &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- REMIX CHALLENGES (light) -->
+<section class="section section-light">
+  <div class="section-head reveal"><div><p class="section-eyebrow">ACTIVE COMPETITIONS</p><h2 class="section-title">REMIX CHALLENGES</h2></div></div>
+  <div class="challenge-grid">
+    <div class="challenge-card reveal">
+      <div class="challenge-card-header"><div class="challenge-card-header-bg art-amber"></div><div class="challenge-card-header-overlay"></div><div class="challenge-card-header-content"><div class="challenge-title">JOBURG<br>GRID</div><div class="challenge-line"></div></div></div>
+      <div class="challenge-body">
+        <div class="challenge-stats">
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">124</div><div class="challenge-stat-label" style="color:var(--steel);">ENTRIES</div></div>
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">6D</div><div class="challenge-stat-label" style="color:var(--steel);">DEADLINE</div></div>
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">$500</div><div class="challenge-stat-label" style="color:var(--steel);">PRIZE</div></div>
+        </div>
+        <button class="btn-challenge">ENTER CHALLENGE &#8594;</button>
+      </div>
+    </div>
+    <div class="challenge-card reveal reveal-delay-1">
+      <div class="challenge-card-header"><div class="challenge-card-header-bg art-red"></div><div class="challenge-card-header-overlay"></div><div class="challenge-card-header-content"><div class="challenge-title">ACCRA<br>NIGHTS</div><div class="challenge-line"></div></div></div>
+      <div class="challenge-body">
+        <div class="challenge-stats">
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">89</div><div class="challenge-stat-label" style="color:var(--steel);">ENTRIES</div></div>
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">12D</div><div class="challenge-stat-label" style="color:var(--steel);">DEADLINE</div></div>
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">$300</div><div class="challenge-stat-label" style="color:var(--steel);">PRIZE</div></div>
+        </div>
+        <button class="btn-challenge">ENTER CHALLENGE &#8594;</button>
+      </div>
+    </div>
+    <div class="challenge-card reveal reveal-delay-2">
+      <div class="challenge-card-header"><div class="challenge-card-header-bg art-blue"></div><div class="challenge-card-header-overlay"></div><div class="challenge-card-header-content"><div class="challenge-title">DAKAR<br>FREQ</div><div class="challenge-line"></div></div></div>
+      <div class="challenge-body">
+        <div class="challenge-stats">
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">42</div><div class="challenge-stat-label" style="color:var(--steel);">ENTRIES</div></div>
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">20D</div><div class="challenge-stat-label" style="color:var(--steel);">DEADLINE</div></div>
+          <div class="challenge-stat"><div class="challenge-stat-val" style="color:var(--white);">$250</div><div class="challenge-stat-label" style="color:var(--steel);">PRIZE</div></div>
+        </div>
+        <button class="btn-challenge">ENTER CHALLENGE &#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div><img src="assets/0logo.png" class="footer-logo-img" alt="0 District"><p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p></div>
+    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="radio.html">Radio District</a></li><li><a href="studio.html">Studio District</a></li><li><a href="community.html">Network</a></li></ul></div>
+    <div><p class="footer-col-title">Collab</p><ul class="footer-links"><li><a href="#">Post Request</a></li><li><a href="#">Browse Remixes</a></li><li><a href="#">Challenges</a></li><li><a href="#">Submit Track</a></li></ul></div>
+    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="#">About 0Promo</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&#169; 2024 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
+    <div class="footer-social"><a href="#">IG</a><a href="#">TW</a><a href="#">TK</a><a href="#">YT</a></div>
+  </div>
+</footer>
+
+<!-- PLAYER BAR -->
+<div class="player-bar">
+  <div class="player-track-info"><div class="player-art"><div style="width:100%;height:100%;background:linear-gradient(135deg,#200808,#4a0e0e);display:flex;align-items:center;justify-content:center;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:rgba(245,245,245,0.3);">KM</span></div></div><div class="player-details"><div class="player-title">Accra Nights</div><div class="player-artist">Kofi Manu</div></div></div>
+  <div class="player-center"><div class="player-btns"><button class="player-btn">SHUF</button><button class="player-btn">PREV</button><button class="player-btn-play"><svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg></button><button class="player-btn">NEXT</button><button class="player-btn">LOOP</button></div><div class="player-progress-wrap"><div class="player-progress-bg"></div><div class="player-progress-fill"></div><div class="player-progress-handle"></div></div></div>
+  <div class="player-right"><div class="player-waveform"><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div></div><div class="player-vol"><span class="player-vol-label">VOL</span><div class="player-vol-bar"><div class="player-vol-fill"></div></div></div></div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+function setFilter(el, type) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>

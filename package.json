@@ -1,0 +1,12 @@
+{
+  "name": "0promo-0district",
+  "version": "1.0.0",
+  "description": "0 District – 0PromoRecords digital music city",
+  "scripts": {
+    "start": "npx live-server --port=3000 --open=index.html --no-browser",
+    "dev": "npx live-server --port=3000 --open=index.html"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

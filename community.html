@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NETWORK DISTRICT — 0 District</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ── COMMUNITY PAGE SPECIFIC ── */
+.community-hero {
+  height: 60vh; min-height: 440px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 0 60px 64px;
+}
+.community-hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #082008 0%, #0a3d0e 40%, #0B0B0B 100%);
+  animation: slow-zoom 20s ease-in-out infinite alternate;
+}
+@keyframes slow-zoom { from { transform: scale(1); } to { transform: scale(1.05); } }
+.community-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(11,11,11,0.97) 0%, rgba(11,11,11,0.4) 55%, rgba(11,11,11,0.15) 100%);
+}
+.community-hero-content { position: relative; z-index: 2; }
+.community-hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(52px, 8vw, 112px);
+  text-transform: uppercase; line-height: 0.87; letter-spacing: -0.025em;
+}
+.community-hero-sub { font-size: 11px; letter-spacing: 0.15em; color: rgba(245,245,245,0.4); text-transform: uppercase; margin-top: 14px; }
+.community-hero-stats { display: flex; gap: 32px; margin-top: 20px; }
+.hero-stat-val { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 32px; line-height: 1; }
+.hero-stat-label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--steel); }
+
+/* COMMUNITY LAYOUT */
+.community-layout {
+  display: grid; grid-template-columns: 1fr 340px; gap: 0;
+  max-width: 1400px; margin: 0 auto;
+  padding: 40px 40px 100px;
+}
+
+/* COMPOSE */
+.compose-block {
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 24px; margin-bottom: 20px;
+}
+.compose-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--steel); margin-bottom: 14px; }
+.compose-area {
+  width: 100%; background: transparent; border: 1px solid var(--border);
+  padding: 14px; color: var(--white); font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; resize: none; outline: none; transition: border-color 0.2s ease;
+  margin-bottom: 14px;
+}
+.compose-area:focus { border-color: var(--red); }
+.compose-area::placeholder { color: rgba(245,245,245,0.2); font-size: 11px; }
+.compose-footer { display: flex; align-items: center; justify-content: space-between; }
+.compose-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--border);
+  background: transparent; color: var(--steel); cursor: pointer; transition: all 0.2s ease;
+}
+.tag-btn:hover, .tag-btn.active { border-color: var(--red); color: var(--red); }
+.btn-post {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  text-transform: uppercase; padding: 10px 20px;
+  background: var(--red); color: var(--white); border: none; cursor: pointer;
+  transition: all 0.25s ease; white-space: nowrap;
+}
+.btn-post:hover { background: var(--white); color: var(--bg); }
+
+/* THREAD */
+.thread {
+  display: grid; grid-template-columns: 44px 1fr; gap: 14px;
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease; cursor: pointer;
+}
+.thread:hover { background: rgba(245,245,245,0.02); }
+.thread-avatar {
+  width: 44px; height: 44px; background: var(--red);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.thread-avatar-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 15px; }
+.thread-content {}
+.thread-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.thread-author { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; }
+.thread-time { font-size: 9px; color: var(--steel); letter-spacing: 0.06em; }
+.thread-badge {
+  font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 2px 7px; border: 1px solid;
+}
+.thread-badge.pinned { border-color: var(--red); color: var(--red); }
+.thread-badge.hot    { border-color: #ed8936; color: #ed8936; }
+.thread-body { font-size: 12px; color: rgba(245,245,245,0.65); line-height: 1.9; margin-bottom: 12px; }
+.thread-tags { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.thread-tag {
+  font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 8px; background: rgba(245,245,245,0.06); color: var(--steel);
+}
+.thread-actions { display: flex; gap: 20px; align-items: center; }
+.thread-action {
+  display: flex; align-items: center; gap: 6px; cursor: pointer;
+  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--steel); transition: color 0.2s ease; background: none; border: none;
+}
+.thread-action:hover { color: var(--white); }
+.thread-action.voted { color: var(--red); }
+
+/* SIDEBAR */
+.community-sidebar { padding-left: 32px; }
+.sidebar-widget { margin-bottom: 28px; }
+.sidebar-widget-title { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--steel); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+/* LIVE NOW */
+.live-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: #48bb78; animation: pulse 1.5s ease-in-out infinite; }
+.live-item-info { flex: 1; min-width: 0; }
+.live-item-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; }
+.live-item-sub { font-size: 9px; color: var(--steel); }
+.live-join-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 5px 10px;
+  border: 1px solid #48bb78; background: transparent; color: #48bb78;
+  cursor: pointer; white-space: nowrap; transition: all 0.2s ease;
+}
+.live-join-btn:hover { background: #48bb78; color: var(--bg); }
+
+/* PLAYLISTS */
+.playlist-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+.playlist-item:hover .playlist-title { color: var(--red); }
+.playlist-art { width: 36px; height: 36px; flex-shrink: 0; }
+.playlist-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; transition: color 0.2s ease; }
+.playlist-count { font-size: 9px; color: var(--steel); }
+
+/* TRENDING */
+.trending-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+.trending-item:hover .trending-topic { color: var(--red); }
+.trending-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 18px; color: var(--red); width: 20px; }
+.trending-topic { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; transition: color 0.2s ease; }
+.trending-count { font-size: 9px; color: var(--steel); margin-left: auto; }
+</style>
+</head>
+<body class="page-loading">
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" onclick="closeSearch()">&#215; CLOSE</button>
+  <div class="search-inner">
+    <p class="search-eyebrow">SEARCH THE DISTRICT</p>
+    <div class="search-field">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      <input type="text" placeholder="ARTIST, TRACK, GENRE..." id="searchInput" autocomplete="off">
+    </div>
+    <div class="search-genre-row">
+      <button class="sg-pill active" onclick="togglePill(this)">ALL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFROBEATS</button>
+      <button class="sg-pill" onclick="togglePill(this)">AMAPIANO</button>
+      <button class="sg-pill" onclick="togglePill(this)">HIGHLIFE</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO SOUL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO HOUSE</button>
+      <button class="sg-pill" onclick="togglePill(this)">DRILL</button>
+    </div>
+    <div class="search-trending">
+      <p class="search-trend-label">TRENDING NOW</p>
+      <div class="search-trend-tags">
+        <button class="search-trend-tag">ACCRA NIGHTS</button>
+        <button class="search-trend-tag">DAKAR FREQUENCY</button>
+        <button class="search-trend-tag">LAGOS RITUAL</button>
+        <button class="search-trend-tag">JOBURG GRID</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/0logo.png" height="56" alt="0 Promo Recs" style="display:block;width:auto;">
+    </a>
+    <ul class="nav-routes">
+      <li><a href="index.html">/HOME</a></li>
+      <li><a href="radio.html">/RADIO</a></li>
+      <li><a href="studio.html">/STUDIO</a></li>
+      <li><a href="collab.html">/COLLAB</a></li>
+      <li><a href="community.html" class="active">/NETWORK</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <button class="search-btn" onclick="openSearch()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      SEARCH
+    </button>
+    <div class="nav-signal"><div class="nav-signal-dot"></div>2,841 ONLINE</div>
+    <button class="btn-nav">SIGN IN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="community-hero">
+  <div class="community-hero-bg"></div>
+  <div class="community-hero-overlay"></div>
+  <div class="community-hero-content">
+    <div class="hero-badge" style="margin-bottom:20px;"><div class="hero-badge-dot"></div>D-04 · NETWORK DISTRICT</div>
+    <h1 class="community-hero-title">THE<br>NETWORK</h1>
+    <p class="community-hero-sub">CONNECT · DISCUSS · SHARE · 2,841 DISTRICT MEMBERS</p>
+    <div class="community-hero-stats">
+      <div><div class="hero-stat-val">2,841</div><div class="hero-stat-label">Members</div></div>
+      <div><div class="hero-stat-val">847</div><div class="hero-stat-label">Posts Today</div></div>
+      <div><div class="hero-stat-val">12</div><div class="hero-stat-label">Live Now</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner">
+  <span class="ticker-item">DJ SENEGAL IS LIVE — DAKAR NIGHTS VOL.3 <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">NEW POST: "THE STATE OF AFROBEATS IN 2024" — 128 REPLIES <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">KOFI MANU JOINED THE NETWORK <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">2,841 DISTRICT MEMBERS ONLINE <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">DJ SENEGAL IS LIVE — DAKAR NIGHTS VOL.3 <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">NEW POST: "THE STATE OF AFROBEATS IN 2024" — 128 REPLIES <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">KOFI MANU JOINED THE NETWORK <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">2,841 DISTRICT MEMBERS ONLINE <span class="ticker-sep">·</span></span>
+</div></div>
+
+<!-- COMMUNITY LAYOUT -->
+<section style="background:var(--bg);padding-top:8px;">
+  <div class="community-layout">
+    <!-- FEED -->
+    <div>
+      <!-- COMPOSE -->
+      <div class="compose-block reveal">
+        <p class="compose-title">POST TO THE DISTRICT</p>
+        <textarea class="compose-area" rows="3" placeholder="WHAT'S ON YOUR MIND? SHARE WITH THE DISTRICT..."></textarea>
+        <div class="compose-footer">
+          <div class="compose-tags">
+            <button class="tag-btn" onclick="this.classList.toggle('active')">#MUSIC</button>
+            <button class="tag-btn" onclick="this.classList.toggle('active')">#DISCUSSION</button>
+            <button class="tag-btn" onclick="this.classList.toggle('active')">#QUESTION</button>
+            <button class="tag-btn" onclick="this.classList.toggle('active')">#SHOWCASE</button>
+          </div>
+          <button class="btn-post">POST &#8594;</button>
+        </div>
+      </div>
+
+      <!-- THREADS -->
+      <div class="thread reveal">
+        <div class="thread-avatar" style="background:var(--red);"><div class="thread-avatar-text">KM</div></div>
+        <div class="thread-content">
+          <div class="thread-header"><span class="thread-author">Kofi Manu</span><span class="thread-time">2H AGO</span><span class="thread-badge pinned">PINNED</span></div>
+          <div class="thread-body">Just dropped "Accra Nights" — been working on this for 3 months. The production is heavily inspired by classic highlife but with a modern trap influence. Would love to hear what the district thinks. Full stream link in bio.</div>
+          <div class="thread-tags"><span class="thread-tag">#NEWRELEASE</span><span class="thread-tag">#AFROBEATS</span><span class="thread-tag">#GHANA</span></div>
+          <div class="thread-actions">
+            <button class="thread-action" onclick="toggleVote(this)">&#8679; <span>284</span></button>
+            <button class="thread-action">&#8617; <span>48 REPLIES</span></button>
+            <button class="thread-action">&#9654; <span>PLAY</span></button>
+            <button class="thread-action">&#9734; <span>SAVE</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="thread reveal">
+        <div class="thread-avatar" style="background:#141414;border:1px solid var(--border);"><div class="thread-avatar-text" style="font-size:13px;color:var(--steel);">DS</div></div>
+        <div class="thread-content">
+          <div class="thread-header"><span class="thread-author">DJ Senegal</span><span class="thread-time">4H AGO</span><span class="thread-badge hot">HOT</span></div>
+          <div class="thread-body">THE STATE OF AFROBEATS IN 2024 — a long thread. Afrobeats is at a crossroads. We are seeing massive global adoption but at the cost of local authenticity. Here's my take on where the genre needs to go next...</div>
+          <div class="thread-tags"><span class="thread-tag">#DISCUSSION</span><span class="thread-tag">#AFROBEATS</span><span class="thread-tag">#INDUSTRY</span></div>
+          <div class="thread-actions">
+            <button class="thread-action" onclick="toggleVote(this)">&#8679; <span>192</span></button>
+            <button class="thread-action">&#8617; <span>128 REPLIES</span></button>
+            <button class="thread-action">&#9734; <span>SAVE</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="thread reveal">
+        <div class="thread-avatar" style="background:#141414;border:1px solid var(--border);"><div class="thread-avatar-text" style="font-size:13px;color:var(--steel);">ZB</div></div>
+        <div class="thread-content">
+          <div class="thread-header"><span class="thread-author">Zara.B</span><span class="thread-time">6H AGO</span></div>
+          <div class="thread-body">Looking for producers who work in the Afro Soul / R&B space. Working on my debut EP and need someone who understands the intersection of traditional instruments and electronic production. Drop your portfolio below.</div>
+          <div class="thread-tags"><span class="thread-tag">#COLLAB</span><span class="thread-tag">#AFROSOUL</span><span class="thread-tag">#PRODUCTION</span></div>
+          <div class="thread-actions">
+            <button class="thread-action" onclick="toggleVote(this)">&#8679; <span>87</span></button>
+            <button class="thread-action">&#8617; <span>34 REPLIES</span></button>
+            <button class="thread-action">&#9734; <span>SAVE</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="thread reveal">
+        <div class="thread-avatar" style="background:#141414;border:1px solid var(--border);"><div class="thread-avatar-text" style="font-size:13px;color:var(--steel);">OB</div></div>
+        <div class="thread-content">
+          <div class="thread-header"><span class="thread-author">Ofo Beats</span><span class="thread-time">8H AGO</span></div>
+          <div class="thread-body">Free sample pack drop — 24 Afrobeats loops, 16 drum patterns, 8 bass lines. All royalty-free for District members. Check the link in my profile. Use tag #OFOPACK when you post something made with it!</div>
+          <div class="thread-tags"><span class="thread-tag">#FREESAMPLES</span><span class="thread-tag">#PRODUCTION</span><span class="thread-tag">#AFROBEATS</span></div>
+          <div class="thread-actions">
+            <button class="thread-action" onclick="toggleVote(this)">&#8679; <span>241</span></button>
+            <button class="thread-action">&#8617; <span>67 REPLIES</span></button>
+            <button class="thread-action">&#9993; <span>DOWNLOAD</span></button>
+            <button class="thread-action">&#9734; <span>SAVE</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="thread reveal">
+        <div class="thread-avatar" style="background:var(--red);"><div class="thread-avatar-text">ED</div></div>
+        <div class="thread-content">
+          <div class="thread-header"><span class="thread-author">Echo Delta</span><span class="thread-time">12H AGO</span></div>
+          <div class="thread-body">The Joburg Grid Remix Challenge is now live. $500 prize pool. Get the stems from my profile — deadline is March 15. Looking forward to hearing what the district creates. Let's see what you've got.</div>
+          <div class="thread-tags"><span class="thread-tag">#CHALLENGE</span><span class="thread-tag">#REMIX</span><span class="thread-tag">#JOBURGGRID</span></div>
+          <div class="thread-actions">
+            <button class="thread-action" onclick="toggleVote(this)">&#8679; <span>156</span></button>
+            <button class="thread-action">&#8617; <span>82 REPLIES</span></button>
+            <a href="collab.html" class="thread-action" style="color:var(--red);">&#8594; <span>ENTER CHALLENGE</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="community-sidebar">
+
+      <!-- LIVE NOW -->
+      <div class="sidebar-widget reveal">
+        <p class="sidebar-widget-title">LIVE NOW</p>
+        <div class="live-item">
+          <div class="live-dot"></div>
+          <div class="live-item-info"><div class="live-item-name">DJ Senegal</div><div class="live-item-sub">DAKAR NIGHTS VOL.3 · 847 LISTENING</div></div>
+          <button class="live-join-btn">JOIN</button>
+        </div>
+        <div class="live-item">
+          <div class="live-dot"></div>
+          <div class="live-item-info"><div class="live-item-name">Kofi Manu</div><div class="live-item-sub">ACCRA SESSIONS · 214 LISTENING</div></div>
+          <button class="live-join-btn">JOIN</button>
+        </div>
+        <div class="live-item">
+          <div class="live-dot"></div>
+          <div class="live-item-info"><div class="live-item-name">Echo Delta</div><div class="live-item-sub">STUDIO LIVE · 89 LISTENING</div></div>
+          <button class="live-join-btn">JOIN</button>
+        </div>
+      </div>
+
+      <!-- COMMUNITY PLAYLISTS -->
+      <div class="sidebar-widget reveal reveal-delay-1">
+        <p class="sidebar-widget-title">COMMUNITY PLAYLISTS</p>
+        <div class="playlist-item">
+          <div class="playlist-art art-red"></div>
+          <div><div class="playlist-title">Accra After Dark</div><div class="playlist-count">24 TRACKS · 841 SAVES</div></div>
+        </div>
+        <div class="playlist-item">
+          <div class="playlist-art art-blue"></div>
+          <div><div class="playlist-title">Lagos Frequency</div><div class="playlist-count">18 TRACKS · 612 SAVES</div></div>
+        </div>
+        <div class="playlist-item">
+          <div class="playlist-art art-green"></div>
+          <div><div class="playlist-title">East Africa Rising</div><div class="playlist-count">32 TRACKS · 489 SAVES</div></div>
+        </div>
+        <div class="playlist-item">
+          <div class="playlist-art art-purple"></div>
+          <div><div class="playlist-title">Joburg Underground</div><div class="playlist-count">28 TRACKS · 367 SAVES</div></div>
+        </div>
+      </div>
+
+      <!-- TRENDING TOPICS -->
+      <div class="sidebar-widget reveal reveal-delay-2">
+        <p class="sidebar-widget-title">TRENDING TOPICS</p>
+        <div class="trending-item"><div class="trending-num">01</div><div><div class="trending-topic">#Afrobeats2024</div><div class="trending-count" style="margin-left:0;">284 POSTS</div></div></div>
+        <div class="trending-item"><div class="trending-num">02</div><div><div class="trending-topic">#JoburgGrid</div><div class="trending-count" style="margin-left:0;">192 POSTS</div></div></div>
+        <div class="trending-item"><div class="trending-num">03</div><div><div class="trending-topic">#AccraNights</div><div class="trending-count" style="margin-left:0;">156 POSTS</div></div></div>
+        <div class="trending-item"><div class="trending-num">04</div><div><div class="trending-topic">#OfoPackFree</div><div class="trending-count" style="margin-left:0;">128 POSTS</div></div></div>
+        <div class="trending-item"><div class="trending-num">05</div><div><div class="trending-topic">#0DistrictLive</div><div class="trending-count" style="margin-left:0;">94 POSTS</div></div></div>
+      </div>
+
+      <!-- JOIN CTA -->
+      <div class="reveal" style="background:var(--red);padding:24px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:28px;text-transform:uppercase;margin-bottom:8px;">JOIN THE DISTRICT</div>
+        <div style="font-size:10px;color:rgba(245,245,245,0.7);letter-spacing:0.06em;line-height:1.8;margin-bottom:16px;">Connect with 2,841 African music creators, fans, and industry professionals.</div>
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--bg);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:10px 18px;text-decoration:none;">CREATE ACCOUNT &#8594;</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div><img src="assets/0logo.png" class="footer-logo-img" alt="0 District"><p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p></div>
+    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="radio.html">Radio District</a></li><li><a href="studio.html">Studio District</a></li><li><a href="collab.html">Collaboration</a></li></ul></div>
+    <div><p class="footer-col-title">Network</p><ul class="footer-links"><li><a href="#">Forum Rules</a></li><li><a href="#">Members</a></li><li><a href="#">Events</a></li><li><a href="#">Newsletter</a></li></ul></div>
+    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="#">About 0Promo</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&#169; 2024 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
+    <div class="footer-social"><a href="#">IG</a><a href="#">TW</a><a href="#">TK</a><a href="#">YT</a></div>
+  </div>
+</footer>
+
+<!-- PLAYER BAR -->
+<div class="player-bar">
+  <div class="player-track-info"><div class="player-art"><div style="width:100%;height:100%;background:linear-gradient(135deg,#200808,#4a0e0e);display:flex;align-items:center;justify-content:center;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:rgba(245,245,245,0.3);">KM</span></div></div><div class="player-details"><div class="player-title">Accra Nights</div><div class="player-artist">Kofi Manu</div></div></div>
+  <div class="player-center"><div class="player-btns"><button class="player-btn">SHUF</button><button class="player-btn">PREV</button><button class="player-btn-play"><svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg></button><button class="player-btn">NEXT</button><button class="player-btn">LOOP</button></div><div class="player-progress-wrap"><div class="player-progress-bg"></div><div class="player-progress-fill"></div><div class="player-progress-handle"></div></div></div>
+  <div class="player-right"><div class="player-waveform"><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div></div><div class="player-vol"><span class="player-vol-label">VOL</span><div class="player-vol-bar"><div class="player-vol-fill"></div></div></div></div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+function toggleVote(btn) {
+  btn.classList.toggle('voted');
+  const span = btn.querySelector('span');
+  const count = parseInt(span.textContent);
+  span.textContent = btn.classList.contains('voted') ? count + 1 : count - 1;
+}
+</script>
+</body>
+</html>
