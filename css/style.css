@@ -1439,3 +1439,120 @@ body { padding-bottom: 72px; }
 @media (max-width: 640px) {
   .player-btn-desktop { display: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PLAYER BAR — Final mobile fix (2-row portrait, full landscape)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Portrait mobile: proper 2-row layout ── */
+@media (max-width: 640px) {
+  .player-bar {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .player-progress-strip {
+    height: 3px !important;
+    flex-shrink: 0;
+  }
+  .player-layout {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    grid-template-areas:
+      "info  controls"
+      "prog  controls" !important;
+    height: auto !important;
+    min-height: 54px;
+    padding: 10px 16px 10px !important;
+    gap: 6px 14px !important;
+    align-items: center !important;
+  }
+  .player-track-info {
+    grid-area: info !important;
+    padding: 0 !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+  }
+  .player-center {
+    grid-area: controls !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+  }
+  .player-btns {
+    gap: 4px !important;
+  }
+  /* Show full progress row in portrait */
+  .player-time-row {
+    grid-area: prog !important;
+    display: flex !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+  .player-right { display: none !important; }
+  .player-btn-desktop { display: none !important; }
+
+  /* Smaller art + text */
+  .player-art { width: 34px !important; height: 34px !important; }
+  .player-title { font-size: 13px !important; }
+  .player-artist { font-size: 8px !important; }
+  .player-time-label { font-size: 8px !important; min-width: 24px !important; }
+  .player-btn-play { width: 28px !important; height: 28px !important; }
+  .player-btn { font-size: 8px !important; padding: 4px 3px !important; }
+
+  /* Body padding fits the 2-row player (~88px) */
+  body { padding-bottom: 90px !important; }
+}
+
+/* ── Landscape mobile: near-desktop full layout ── */
+@media (max-height: 480px) and (max-width: 900px) {
+  .player-layout {
+    display: grid !important;
+    grid-template-columns: 220px 1fr 200px !important;
+    grid-template-rows: 1fr !important;
+    grid-template-areas: none !important;
+    height: 56px !important;
+    padding: 0 16px !important;
+    gap: 0 !important;
+    align-items: center !important;
+  }
+  .player-track-info {
+    grid-area: auto !important;
+    padding: 0 0 0 0 !important;
+    gap: 10px !important;
+  }
+  .player-center {
+    grid-area: auto !important;
+    flex-direction: column !important;
+    padding: 0 12px !important;
+    gap: 5px !important;
+  }
+  .player-time-row {
+    grid-area: auto !important;
+    display: flex !important;
+  }
+  .player-right {
+    display: flex !important;
+    padding: 0 0 0 12px !important;
+    gap: 8px !important;
+  }
+  .player-waveform { display: none !important; }
+  .player-btn-desktop { display: none !important; }
+  body { padding-bottom: 62px !important; }
+}
+
+/* ── Tablet portrait (641–900px): 2-col with progress ── */
+@media (min-width: 641px) and (max-width: 900px) {
+  .player-layout {
+    grid-template-columns: 260px 1fr 180px !important;
+    height: 64px !important;
+  }
+  .player-time-row {
+    display: flex !important;
+  }
+  .player-btn-desktop { display: none !important; }
+  body { padding-bottom: 70px !important; }
+}
