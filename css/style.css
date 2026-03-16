@@ -114,7 +114,9 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 .hero-slide.active .hero-slide-bg { transform: scale(1); }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(11,11,11,0.55) 0%, rgba(11,11,11,0.30) 50%, rgba(11,11,11,0.10) 100%);
+  background:
+    linear-gradient(to top, rgba(11,11,11,0.6) 0%, rgba(11,11,11,0.25) 55%, rgba(11,11,11,0.08) 100%),
+    radial-gradient(ellipse 90% 75% at 55% 60%, transparent 50%, rgba(11,11,11,0.45) 100%);
 }
 .hero-vignette {
   position: absolute; inset: 0;
@@ -188,13 +190,16 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 @media (max-width: 600px) { .hero-enter-cta { left: 20px; bottom: 28px; } }
 
 /* === HERO BRAND IMAGE (transparent-bg PNG) === */
-/* picture wrapper fills the hero the same way as the old absolute img */
+/* picture wrapper fills the hero */
 .hero-brand-picture {
   position: absolute;
   inset: 0;
   display: block;
   pointer-events: none;
   z-index: 1;
+  /* dark ambient glow around all cut-out elements — blends chrome/white edges
+     into the background and adds natural depth */
+  filter: drop-shadow(0 0 32px rgba(0,0,0,0.72));
 }
 .hero-brand-img {
   width: 100%;
@@ -202,15 +207,6 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
   object-fit: cover;
   object-position: bottom center;
   display: block;
-  /* soft edge mask: fades outer 4% left/right and top to dissolve any cutout halo */
-  -webkit-mask-image:
-    linear-gradient(to right,  transparent 0%, black 4%, black 96%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 3%, black 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to right,  transparent 0%, black 4%, black 96%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 3%, black 100%);
-  mask-composite: intersect;
   animation: heroBrandFadeIn 2.4s 0.3s var(--ease) both;
 }
 @keyframes heroBrandFadeIn {
