@@ -190,16 +190,15 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 @media (max-width: 600px) { .hero-enter-cta { left: 20px; bottom: 28px; } }
 
 /* === HERO BRAND IMAGE (transparent-bg PNG) === */
-/* picture wrapper fills the hero */
+/* picture wrapper fills the hero — multiply erases ALL white/chrome against
+   the coloured slide background (white × slide-colour = slide-colour = hidden) */
 .hero-brand-picture {
   position: absolute;
   inset: 0;
   display: block;
   pointer-events: none;
   z-index: 1;
-  /* dark ambient glow around all cut-out elements — blends chrome/white edges
-     into the background and adds natural depth */
-  filter: drop-shadow(0 0 32px rgba(0,0,0,0.72));
+  mix-blend-mode: multiply;
 }
 .hero-brand-img {
   width: 100%;
@@ -207,6 +206,8 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
   object-fit: cover;
   object-position: bottom center;
   display: block;
+  -webkit-mask-image: none;
+  mask-image: none;
   animation: heroBrandFadeIn 2.4s 0.3s var(--ease) both;
 }
 @keyframes heroBrandFadeIn {
@@ -650,6 +651,12 @@ footer {
 .art-green  { background: linear-gradient(135deg, #084a08, #12a012); }
 .art-amber  { background: linear-gradient(135deg, #5a2800, #c47800); }
 .art-purple { background: linear-gradient(135deg, #28085a, #6818c4); }
+
+/* Hero slides need brighter backgrounds so multiply blend preserves element
+   detail (white × bright-red = bright-red; dark × bright-red = dark) */
+.hero .hero-slide-bg.art-red    { background: linear-gradient(135deg, #a01212, #d42020); }
+.hero .hero-slide-bg.art-blue   { background: linear-gradient(135deg, #1212a0, #2020d4); }
+.hero .hero-slide-bg.art-purple { background: linear-gradient(135deg, #5512a0, #8820d4); }
 .art-teal   { background: linear-gradient(135deg, #08404a, #1898aa); }
 .art-mono   { background: linear-gradient(135deg, #1e1e1e, #3a3a3a); }
 .art-label  { color: rgba(245,245,245,0.28); }
