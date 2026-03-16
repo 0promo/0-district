@@ -2110,3 +2110,72 @@ body { padding-bottom: 72px; }
   }
   .playlist-play-btn { display: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   DSP STREAMING LINKS — player bar (shows which platform is playing
+   + "Also on" links for other platforms)
+   ═══════════════════════════════════════════════════════════════════ */
+.player-dsp-links {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.dsp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border: 1px solid rgba(245,245,245,0.1);
+  border-radius: 2px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,245,245,0.4);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.dsp-link:hover {
+  color: var(--white);
+  border-color: rgba(245,245,245,0.35);
+}
+/* Active = currently playing engine */
+.dsp-link.dsp-link-active {
+  border-color: rgba(245,245,245,0.25);
+  color: rgba(245,245,245,0.7);
+}
+
+/* Platform accent colours on hover */
+.dsp-link-soundcloud:hover { border-color: #ff5500; color: #ff5500; }
+.dsp-link-youtube:hover    { border-color: #ff0000; color: #ff4040; }
+.dsp-link-spotify:hover    { border-color: #1db954; color: #1db954; }
+.dsp-link-apple:hover      { border-color: #fc3c44; color: #fc3c44; }
+.dsp-link-tidal:hover      { border-color: #00e5ff; color: #00e5ff; }
+
+/* Collapse text labels on tablet, show only icons */
+@media (max-width: 900px) {
+  .dsp-link span { display: none; }
+  .dsp-link { padding: 4px 5px; gap: 0; }
+}
+/* Hide entire DSP links on mobile (player-right is already hidden) */
+@media (max-width: 640px) {
+  .player-dsp-links { display: none !important; }
+}
+
+/* ── Track card active state (currently playing) ──────────────────── */
+.track-card-active {
+  outline: 2px solid var(--red);
+  outline-offset: -2px;
+}
+.track-card-active .track-card-badge {
+  background: var(--red);
+}
+
+/* ── art-mono colour ──────────────────────────────────────────────── */
+.art-mono {
+  background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
+}

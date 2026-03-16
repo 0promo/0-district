@@ -1,45 +1,53 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  0 DISTRICT — Convex Database Schema
-//  Platform: African music city / 0PromoRecords
-//  Tables: users, tracks, radio, collabs, challenges, community, playlists,
-//          follows, notifications, analytics, cities, broadcastLog
+//  Platform: African music curation & discovery / 0PromoRecords
+//
+//  Roles:
+//    fan      — browse, like, follow, post, save playlists
+//    artist   — fan + profile editor, track stats, submit tracks for review
+//    curator  — artist + add/edit tracks, manage playlists, broadcasts, approvals
+//    admin    — full platform control
+//
+//  Audio model:
+//    No audio files are hosted. Tracks have streamingLinks (Spotify / Apple /
+//    Tidal / SoundCloud / YouTube). Play button opens the streaming platform.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default defineSchema({
+  // Convex Auth tables (sessions, accounts, verificationCodes, etc.)
+  ...authTables,
 
   // ── USERS ──────────────────────────────────────────────────────────────────
-  // All platform members: artists, fans, label reps, admins
   users: defineTable({
-    // Identity
-    clerkId:        v.string(),          // Clerk auth provider ID
+    // Identity (linked to Convex Auth)
     email:          v.string(),
-    name:           v.string(),          // Full name
-    displayName:    v.string(),          // Stage name / public handle (e.g. "KOFI MANU")
+    name:           v.string(),
+    displayName:    v.string(),          // Stage name / public handle
     avatarInitials: v.string(),          // e.g. "KM"
-    avatarColor:    v.string(),          // e.g. "art-red", "art-blue"
-    avatarStorageId: v.optional(v.id("_storage")), // uploaded photo
+    avatarColor:    v.string(),          // e.g. "art-red"
 
     // Role & status
     role:           v.union(
                       v.literal("fan"),
-                      v.literal("creator"),
-                      v.literal("label"),
+                      v.literal("artist"),
+                      v.literal("curator"),
                       v.literal("admin")
                     ),
     isVerified:     v.boolean(),
     isLive:         v.boolean(),
 
     // Location
-    city:           v.string(),          // e.g. "ACCRA"
-    country:        v.string(),          // e.g. "Ghana"
-    countryCode:    v.string(),          // e.g. "GH"
+    city:           v.optional(v.string()),
+    country:        v.optional(v.string()),
+    countryCode:    v.optional(v.string()),
 
     // Profile
     bio:            v.optional(v.string()),
-    genres:         v.array(v.string()), // e.g. ["Afrobeats", "Afro Soul"]
+    genres:         v.array(v.string()),
     websiteUrl:     v.optional(v.string()),
     socialLinks:    v.optional(v.object({
                       instagram: v.optional(v.string()),
@@ -48,33 +56,34 @@ export default defineSchema({
                       youtube:   v.optional(v.string()),
                     })),
 
-    // Cached counters (updated by mutations, read fast)
+    // Cached counters
     followerCount:  v.number(),
     followingCount: v.number(),
-    trackCount:     v.number(),
-    totalPlays:     v.number(),
-    revenueCents:   v.number(),          // lifetime earnings in cents
+    trackCount:     v.number(),          // tracks on the platform featuring this artist
+    totalClicks:    v.number(),          // total streaming link clicks across all their tracks
 
     // Live session ref
     liveSessionId:  v.optional(v.id("liveSessions")),
   })
-    .index("by_clerk_id",   ["clerkId"])
-    .index("by_email",      ["email"])
-    .index("by_role",       ["role"])
-    .index("by_city",       ["city"])
-    .index("by_total_plays",["totalPlays"]),
+    .index("by_email",        ["email"])
+    .index("by_role",         ["role"])
+    .index("by_city",         ["city"])
+    .index("by_total_clicks", ["totalClicks"]),
 
   // ── TRACKS ─────────────────────────────────────────────────────────────────
-  // All music uploaded by creators
+  // All tracks curated onto the platform by curators / label operatives.
+  // No audio is hosted — tracks link out to streaming platforms.
   tracks: defineTable({
-    // Ownership
-    artistId:       v.id("users"),
-    artistName:     v.string(),          // denormalised for fast reads
+    // Ownership / curation
+    artistId:       v.id("users"),       // the artist on the platform
+    artistName:     v.string(),          // denormalised
+    curatorId:      v.id("users"),       // who added this to 0 District
+    curatorName:    v.string(),
 
     // Metadata
     title:          v.string(),
     slug:           v.string(),          // url-safe, unique
-    genre:          v.string(),          // e.g. "Afrobeats"
+    genre:          v.string(),
     subGenre:       v.optional(v.string()),
     releaseType:    v.union(
                       v.literal("SINGLE"),
@@ -84,9 +93,8 @@ export default defineSchema({
                       v.literal("TRACK")
                     ),
     status:         v.union(
-                      v.literal("DRAFT"),
-                      v.literal("REVIEW"),
-                      v.literal("LIVE"),
+                      v.literal("PENDING"),    // submitted, awaiting curator review
+                      v.literal("LIVE"),       // visible on platform
                       v.literal("REMOVED")
                     ),
 
@@ -95,58 +103,122 @@ export default defineSchema({
     country:        v.string(),
     countryCode:    v.string(),
 
-    // Art
+    // Art (platform art style — no image upload)
     artColor:       v.string(),          // e.g. "art-red"
     artInitials:    v.string(),          // e.g. "KM"
-    artStorageId:   v.optional(v.id("_storage")),
 
-    // Audio
-    audioStorageId: v.optional(v.id("_storage")),
-    duration:       v.optional(v.number()),   // seconds
-    format:         v.optional(v.string()),   // e.g. "WAV 320kbps"
-    bpm:            v.optional(v.number()),
+    // Streaming links — at least one required to go LIVE
+    streamingLinks: v.object({
+      spotify:      v.optional(v.string()),   // full Spotify track URL
+      apple:        v.optional(v.string()),   // Apple Music URL
+      tidal:        v.optional(v.string()),
+      soundcloud:   v.optional(v.string()),
+      youtube:      v.optional(v.string()),
+    }),
 
-    // Content
+    // Editorial
     description:    v.optional(v.string()),
-    lyrics:         v.optional(v.string()),
-    label:          v.string(),          // default "0PROMO"
     tags:           v.array(v.string()),
+    label:          v.string(),          // default "0PROMO"
+    isFeatured:     v.boolean(),
 
-    // Stats (cached)
-    playCount:      v.number(),
-    revenueCents:   v.number(),
+    // Stats (cached — incremented on streaming link click)
+    clickCount:     v.number(),          // total streaming platform clicks
     saveCount:      v.number(),
-    completionRate: v.optional(v.number()), // 0-100 %
-    avgListenSecs:  v.optional(v.number()),
+    playlistCount:  v.number(),          // how many playlists it appears in
 
     // Dates
-    releaseDate:    v.number(),          // Unix timestamp
+    releaseDate:    v.number(),          // Unix timestamp (original release)
+    addedAt:        v.number(),          // when curator added it to 0 District
   })
     .index("by_artist",       ["artistId"])
+    .index("by_curator",      ["curatorId"])
     .index("by_status",       ["status"])
     .index("by_genre",        ["genre"])
     .index("by_slug",         ["slug"])
     .index("by_release_type", ["releaseType"])
-    .index("by_play_count",   ["playCount"])
+    .index("by_click_count",  ["clickCount"])
     .index("by_city",         ["city"])
-    .index("by_release_date", ["releaseDate"]),
+    .index("by_featured",     ["isFeatured"])
+    .index("by_added_at",     ["addedAt"]),
+
+  // ── STREAMING CLICKS ───────────────────────────────────────────────────────
+  // Log every time a user clicks through to a streaming platform.
+  streamingClicks: defineTable({
+    trackId:        v.id("tracks"),
+    artistId:       v.id("users"),
+    userId:         v.optional(v.id("users")),   // null = anonymous
+    platform:       v.union(
+                      v.literal("spotify"),
+                      v.literal("apple"),
+                      v.literal("tidal"),
+                      v.literal("soundcloud"),
+                      v.literal("youtube")
+                    ),
+    country:        v.optional(v.string()),
+    source:         v.union(
+                      v.literal("radio"),
+                      v.literal("home"),
+                      v.literal("playlist"),
+                      v.literal("search"),
+                      v.literal("collab"),
+                      v.literal("direct")
+                    ),
+    timestamp:      v.number(),
+  })
+    .index("by_track",     ["trackId"])
+    .index("by_artist",    ["artistId"])
+    .index("by_platform",  ["platform"])
+    .index("by_timestamp", ["timestamp"]),
+
+  // ── TRACK SUBMISSIONS ──────────────────────────────────────────────────────
+  // Artists can submit their tracks for curator review.
+  trackSubmissions: defineTable({
+    artistId:       v.id("users"),
+    artistName:     v.string(),
+
+    title:          v.string(),
+    genre:          v.string(),
+    city:           v.string(),
+    country:        v.string(),
+    countryCode:    v.string(),
+    releaseType:    v.string(),
+    description:    v.optional(v.string()),
+    streamingLinks: v.object({
+      spotify:      v.optional(v.string()),
+      apple:        v.optional(v.string()),
+      tidal:        v.optional(v.string()),
+      soundcloud:   v.optional(v.string()),
+      youtube:      v.optional(v.string()),
+    }),
+
+    status:         v.union(
+                      v.literal("pending"),
+                      v.literal("approved"),
+                      v.literal("rejected")
+                    ),
+    curatorNote:    v.optional(v.string()),
+    reviewedBy:     v.optional(v.id("users")),
+    submittedAt:    v.number(),
+  })
+    .index("by_artist",   ["artistId"])
+    .index("by_status",   ["status"]),
 
   // ── RADIO QUEUE ────────────────────────────────────────────────────────────
-  // Current live broadcast queue (ordered by position)
+  // Curator-managed broadcast queue (ordered by position).
   radioQueue: defineTable({
     trackId:        v.id("tracks"),
-    trackTitle:     v.string(),          // denormalised
-    artistName:     v.string(),          // denormalised
+    trackTitle:     v.string(),
+    artistName:     v.string(),
     artColor:       v.string(),
     artInitials:    v.string(),
     position:       v.number(),
-    type:           v.union(v.literal("NEXT"), v.literal("QUEUE")),
+    type:           v.union(v.literal("PLAYING"), v.literal("NEXT"), v.literal("QUEUE")),
     addedBy:        v.string(),          // "system" | userId
   })
     .index("by_position", ["position"]),
 
   // ── RADIO HISTORY ──────────────────────────────────────────────────────────
-  // Log of every track played on the radio
   radioHistory: defineTable({
     trackId:        v.id("tracks"),
     trackTitle:     v.string(),
@@ -154,29 +226,28 @@ export default defineSchema({
     artColor:       v.string(),
     artInitials:    v.string(),
     playedAt:       v.number(),
-    listenerCount:  v.number(),
-    durationSecs:   v.optional(v.number()),
+    clickCount:     v.number(),          // streaming clicks during this broadcast slot
   })
     .index("by_played_at", ["playedAt"]),
 
   // ── BROADCASTS ─────────────────────────────────────────────────────────────
-  // Scheduled and past takeover / live broadcast events
   broadcasts: defineTable({
     artistId:       v.id("users"),
     artistName:     v.string(),
-    title:          v.string(),          // e.g. "DJ SENEGAL TAKEOVER"
-    description:    v.string(),          // e.g. "3HR LIVE SET · AFRO HOUSE"
+    title:          v.string(),
+    description:    v.string(),
     genre:          v.string(),
-    scheduledAt:    v.number(),          // Unix timestamp
+    scheduledAt:    v.number(),
     durationMins:   v.number(),
     status:         v.union(
                       v.literal("UPCOMING"),
                       v.literal("LIVE"),
                       v.literal("ENDED")
                     ),
-    listenerCount:  v.number(),
     isFeatured:     v.boolean(),
     reminderCount:  v.number(),
+    // streaming link for the live session itself
+    streamUrl:      v.optional(v.string()),
   })
     .index("by_artist",       ["artistId"])
     .index("by_status",       ["status"])
@@ -192,13 +263,13 @@ export default defineSchema({
     .index("by_user",      ["userId"]),
 
   // ── LIVE SESSIONS ──────────────────────────────────────────────────────────
-  // Real-time listening rooms (community sidebar "LIVE NOW")
   liveSessions: defineTable({
     artistId:       v.id("users"),
     artistName:     v.string(),
-    title:          v.string(),          // e.g. "DAKAR NIGHTS VOL.3"
+    title:          v.string(),
     genre:          v.string(),
     listenerCount:  v.number(),
+    streamUrl:      v.optional(v.string()),   // link to the live stream
     status:         v.union(v.literal("active"), v.literal("ended")),
     startedAt:      v.number(),
     endedAt:        v.optional(v.number()),
@@ -207,13 +278,54 @@ export default defineSchema({
     .index("by_artist",     ["artistId"])
     .index("by_started_at", ["startedAt"]),
 
+  // ── PLAYLISTS ──────────────────────────────────────────────────────────────
+  // Created and managed by curators or editorial team.
+  playlists: defineTable({
+    curatorId:      v.id("users"),
+    curatorName:    v.string(),
+    title:          v.string(),
+    artColor:       v.string(),
+    description:    v.optional(v.string()),
+    type:           v.union(
+                      v.literal("editorial"),   // made by 0Promo curators
+                      v.literal("community"),   // made by verified artists/fans
+                      v.literal("artist")       // an artist's own selection
+                    ),
+    isPublished:    v.boolean(),
+    trackCount:     v.number(),
+    saveCount:      v.number(),
+    isFeatured:     v.boolean(),
+  })
+    .index("by_curator",   ["curatorId"])
+    .index("by_type",      ["type"])
+    .index("by_published", ["isPublished"])
+    .index("by_featured",  ["isFeatured"]),
+
+  // ── PLAYLIST TRACKS ────────────────────────────────────────────────────────
+  playlistTracks: defineTable({
+    playlistId:     v.id("playlists"),
+    trackId:        v.id("tracks"),
+    position:       v.number(),
+    addedAt:        v.number(),
+    addedBy:        v.id("users"),
+  })
+    .index("by_playlist",          ["playlistId"])
+    .index("by_track",             ["trackId"])
+    .index("by_playlist_position", ["playlistId", "position"]),
+
+  // ── PLAYLIST SAVES ─────────────────────────────────────────────────────────
+  playlistSaves: defineTable({
+    playlistId:     v.id("playlists"),
+    userId:         v.id("users"),
+  })
+    .index("by_playlist", ["playlistId"])
+    .index("by_user",     ["userId"]),
+
   // ── COLLABS ────────────────────────────────────────────────────────────────
-  // Open collaboration requests (collab board)
   collabs: defineTable({
     creatorId:      v.id("users"),
     creatorName:    v.string(),
-
-    title:          v.string(),          // e.g. "Need Female Vocalist"
+    title:          v.string(),
     type:           v.union(
                       v.literal("vocals"),
                       v.literal("production"),
@@ -227,23 +339,17 @@ export default defineSchema({
                       v.literal("in_progress"),
                       v.literal("closed")
                     ),
-
     description:    v.string(),
     genre:          v.string(),
     bpm:            v.optional(v.number()),
     deadline:       v.optional(v.number()),
-
-    // Spots
-    spotsTotal:     v.optional(v.number()),  // null = unlimited
+    spotsTotal:     v.optional(v.number()),
     spotsFilled:    v.number(),
-
-    // Art
     artColor:       v.string(),
     artInitials:    v.string(),
-
-    // Optional linked track (for remix collabs)
-    trackId:        v.optional(v.id("tracks")),
-    stemStorageId:  v.optional(v.id("_storage")),
+    linkedTrackId:  v.optional(v.id("tracks")),
+    // No stemStorageId — collab details link to external references
+    referenceUrl:   v.optional(v.string()),   // link to reference track on streaming platform
   })
     .index("by_creator",  ["creatorId"])
     .index("by_type",     ["type"])
@@ -268,33 +374,25 @@ export default defineSchema({
     .index("by_status",    ["status"]),
 
   // ── CHALLENGES ─────────────────────────────────────────────────────────────
-  // Remix challenges (collab page)
   challenges: defineTable({
-    artistId:       v.id("users"),
-    artistName:     v.string(),
-
-    title:          v.string(),          // e.g. "JOBURG GRID"
-    slug:           v.string(),
-    description:    v.string(),
-    genre:          v.string(),
-
-    trackId:        v.id("tracks"),      // the original track to remix
-    stemStorageId:  v.optional(v.id("_storage")),
-
-    // Prize
-    prizeAmountCents: v.number(),        // e.g. 50000 = $500
+    artistId:         v.id("users"),
+    artistName:       v.string(),
+    title:            v.string(),
+    slug:             v.string(),
+    description:      v.string(),
+    genre:            v.string(),
+    linkedTrackId:    v.id("tracks"),
+    referenceUrl:     v.optional(v.string()),   // streaming link to original track
     prizeDescription: v.string(),
-
-    deadline:       v.number(),          // Unix timestamp
-    status:         v.union(
-                      v.literal("active"),
-                      v.literal("judging"),
-                      v.literal("closed")
-                    ),
-    entryCount:     v.number(),
-    isFeatured:     v.boolean(),
-
-    artColor:       v.string(),
+    deadline:         v.number(),
+    status:           v.union(
+                        v.literal("active"),
+                        v.literal("judging"),
+                        v.literal("closed")
+                      ),
+    entryCount:       v.number(),
+    isFeatured:       v.boolean(),
+    artColor:         v.string(),
   })
     .index("by_artist",   ["artistId"])
     .index("by_status",   ["status"])
@@ -303,15 +401,14 @@ export default defineSchema({
     .index("by_deadline", ["deadline"]),
 
   // ── CHALLENGE SUBMISSIONS ──────────────────────────────────────────────────
+  // Submissions link to external work (SoundCloud, YouTube, Google Drive etc.)
   challengeSubmissions: defineTable({
     challengeId:    v.id("challenges"),
     submitterId:    v.id("users"),
     submitterName:  v.string(),
-
     title:          v.string(),
     description:    v.optional(v.string()),
-    audioStorageId: v.id("_storage"),
-
+    submissionUrl:  v.string(),          // link to submitted work (external)
     status:         v.union(
                       v.literal("pending"),
                       v.literal("shortlisted"),
@@ -327,15 +424,13 @@ export default defineSchema({
     .index("by_vote_count", ["voteCount"]),
 
   // ── POSTS ──────────────────────────────────────────────────────────────────
-  // Community feed posts / threads (network page)
   posts: defineTable({
     authorId:       v.id("users"),
     authorName:     v.string(),
     authorInitials: v.string(),
     authorColor:    v.string(),
-
     content:        v.string(),
-    tags:           v.array(v.string()),  // e.g. ["#NEWRELEASE", "#AFROBEATS"]
+    tags:           v.array(v.string()),
     type:           v.union(
                       v.literal("post"),
                       v.literal("release"),
@@ -343,17 +438,11 @@ export default defineSchema({
                       v.literal("challenge"),
                       v.literal("sample_drop")
                     ),
-
-    // Flags
     isPinned:       v.boolean(),
     isHot:          v.boolean(),
-
-    // Counts (cached)
     voteCount:      v.number(),
     replyCount:     v.number(),
     saveCount:      v.number(),
-
-    // Optional links to other entities
     linkedTrackId:     v.optional(v.id("tracks")),
     linkedCollabId:    v.optional(v.id("collabs")),
     linkedChallengeId: v.optional(v.id("challenges")),
@@ -374,187 +463,122 @@ export default defineSchema({
     content:        v.string(),
     voteCount:      v.number(),
   })
-    .index("by_post",       ["postId"])
-    .index("by_author",     ["authorId"]),
+    .index("by_post",   ["postId"])
+    .index("by_author", ["authorId"]),
 
   // ── POST VOTES ─────────────────────────────────────────────────────────────
   postVotes: defineTable({
-    postId:         v.id("posts"),
-    userId:         v.id("users"),
+    postId:  v.id("posts"),
+    userId:  v.id("users"),
   })
-    .index("by_post",            ["postId"])
-    .index("by_user",            ["userId"])
-    .index("by_post_and_user",   ["postId", "userId"]),
+    .index("by_post",          ["postId"])
+    .index("by_user",          ["userId"])
+    .index("by_post_and_user", ["postId", "userId"]),
 
   // ── POST SAVES ─────────────────────────────────────────────────────────────
   postSaves: defineTable({
-    postId:         v.id("posts"),
-    userId:         v.id("users"),
+    postId:  v.id("posts"),
+    userId:  v.id("users"),
   })
     .index("by_post", ["postId"])
     .index("by_user", ["userId"]),
 
   // ── FOLLOWS ────────────────────────────────────────────────────────────────
   follows: defineTable({
-    followerId:     v.id("users"),       // the user doing the following
-    followingId:    v.id("users"),       // the user being followed
+    followerId:  v.id("users"),
+    followingId: v.id("users"),
   })
     .index("by_follower",           ["followerId"])
     .index("by_following",          ["followingId"])
     .index("by_follower_following", ["followerId", "followingId"]),
 
-  // ── PLAYLISTS ──────────────────────────────────────────────────────────────
-  playlists: defineTable({
-    creatorId:      v.optional(v.id("users")),  // null = editorial/system
-    title:          v.string(),
-    artColor:       v.string(),
-    description:    v.optional(v.string()),
-    type:           v.union(
-                      v.literal("community"),
-                      v.literal("editorial"),
-                      v.literal("artist")
-                    ),
-    isEditorial:    v.boolean(),
-    trackCount:     v.number(),
-    saveCount:      v.number(),
-  })
-    .index("by_creator",   ["creatorId"])
-    .index("by_type",      ["type"])
-    .index("by_editorial", ["isEditorial"]),
-
-  // ── PLAYLIST TRACKS ────────────────────────────────────────────────────────
-  playlistTracks: defineTable({
-    playlistId:     v.id("playlists"),
-    trackId:        v.id("tracks"),
-    position:       v.number(),
-    addedAt:        v.number(),
-    addedBy:        v.id("users"),
-  })
-    .index("by_playlist",          ["playlistId"])
-    .index("by_track",             ["trackId"])
-    .index("by_playlist_position", ["playlistId", "position"]),
-
-  // ── PLAYLIST SAVES ─────────────────────────────────────────────────────────
-  playlistSaves: defineTable({
-    playlistId:     v.id("playlists"),
-    userId:         v.id("users"),
-  })
-    .index("by_playlist", ["playlistId"])
-    .index("by_user",     ["userId"]),
-
-  // ── NOTIFICATIONS ──────────────────────────────────────────────────────────
-  notifications: defineTable({
-    userId:         v.id("users"),
-    type:           v.union(
-                      v.literal("play"),
-                      v.literal("follow"),
-                      v.literal("collab_accept"),
-                      v.literal("collab_request"),
-                      v.literal("challenge_new"),
-                      v.literal("review_complete"),
-                      v.literal("revenue"),
-                      v.literal("mention"),
-                      v.literal("reply"),
-                      v.literal("challenge_win")
-                    ),
-    title:          v.string(),
-    message:        v.string(),
-    isRead:         v.boolean(),
-    linkedId:       v.optional(v.string()),
-    linkedType:     v.optional(v.string()),  // "track" | "collab" | "post" | "challenge"
-  })
-    .index("by_user",          ["userId"])
-    .index("by_user_unread",   ["userId", "isRead"]),
-
-  // ── BROADCAST LOG ──────────────────────────────────────────────────────────
-  // Real-time activity feed (homepage "BROADCAST LOG" section)
-  broadcastLog: defineTable({
-    type:           v.union(
-                      v.literal("TRACK"),
-                      v.literal("LIVE"),
-                      v.literal("JOIN"),
-                      v.literal("COLLAB"),
-                      v.literal("SYSTEM"),
-                      v.literal("CHALLENGE"),
-                      v.literal("RELEASE")
-                    ),
-    actorName:      v.string(),
-    actorId:        v.optional(v.id("users")),
-    content:        v.string(),
-    actionLabel:    v.string(),
-    actionUrl:      v.optional(v.string()),
-    timestamp:      v.number(),
-  })
-    .index("by_timestamp", ["timestamp"])
-    .index("by_type",      ["type"]),
-
-  // ── CITIES (AFRICA MAP) ────────────────────────────────────────────────────
-  // The 8 District Signal Map cities + expansion cities
-  cities: defineTable({
-    name:           v.string(),          // e.g. "CAIRO"
-    country:        v.string(),          // e.g. "Egypt"
-    countryCode:    v.string(),          // e.g. "EG"
-    lat:            v.number(),
-    lng:            v.number(),
-    isActive:       v.boolean(),
-    districtCode:   v.optional(v.string()),  // e.g. "D-01-ACC"
-
-    // Cached stats
-    artistCount:    v.number(),
-    trackCount:     v.number(),
-    liveCount:      v.number(),
-  })
-    .index("by_country",  ["countryCode"])
-    .index("by_active",   ["isActive"]),
-
-  // ── PLAY ANALYTICS ─────────────────────────────────────────────────────────
-  // Per-play records for detailed analytics (studio dashboard)
-  playEvents: defineTable({
-    trackId:        v.id("tracks"),
-    artistId:       v.id("users"),
-    listenerId:     v.optional(v.id("users")),  // null = anonymous
-    country:        v.optional(v.string()),
-    city:           v.optional(v.string()),
-    completedPct:   v.number(),          // 0-100
-    durationSecs:   v.number(),
-    source:         v.union(
-                      v.literal("radio"),
-                      v.literal("direct"),
-                      v.literal("playlist"),
-                      v.literal("search")
-                    ),
-    timestamp:      v.number(),
-  })
-    .index("by_track",     ["trackId"])
-    .index("by_artist",    ["artistId"])
-    .index("by_timestamp", ["timestamp"])
-    .index("by_country",   ["country"]),
-
-  // ── PLATFORM STATS ─────────────────────────────────────────────────────────
-  // Singleton row — cached global stats for the homepage stats strip
-  platformStats: defineTable({
-    artistCount:      v.number(),
-    trackCount:       v.number(),
-    activeDistricts:  v.number(),
-    liveCount:        v.number(),
-    memberCount:      v.number(),
-    updatedAt:        v.number(),
-  }),
-
   // ── TRACK SAVES ────────────────────────────────────────────────────────────
   trackSaves: defineTable({
-    trackId:        v.id("tracks"),
-    userId:         v.id("users"),
+    trackId: v.id("tracks"),
+    userId:  v.id("users"),
   })
     .index("by_track", ["trackId"])
     .index("by_user",  ["userId"]),
 
+  // ── NOTIFICATIONS ──────────────────────────────────────────────────────────
+  notifications: defineTable({
+    userId:      v.id("users"),
+    type:        v.union(
+                   v.literal("follow"),
+                   v.literal("collab_accept"),
+                   v.literal("collab_request"),
+                   v.literal("challenge_new"),
+                   v.literal("track_live"),       // curator approved your submission
+                   v.literal("track_rejected"),
+                   v.literal("mention"),
+                   v.literal("reply"),
+                   v.literal("challenge_win"),
+                   v.literal("broadcast_reminder")
+                 ),
+    title:       v.string(),
+    message:     v.string(),
+    isRead:      v.boolean(),
+    linkedId:    v.optional(v.string()),
+    linkedType:  v.optional(v.string()),
+  })
+    .index("by_user",        ["userId"])
+    .index("by_user_unread", ["userId", "isRead"]),
+
+  // ── BROADCAST LOG ──────────────────────────────────────────────────────────
+  // Real-time activity feed — homepage "BROADCAST LOG" section
+  broadcastLog: defineTable({
+    type:        v.union(
+                   v.literal("TRACK"),       // new track added to platform
+                   v.literal("LIVE"),        // artist going live
+                   v.literal("JOIN"),        // new member joined
+                   v.literal("COLLAB"),      // collab posted
+                   v.literal("SYSTEM"),      // platform notice
+                   v.literal("CHALLENGE"),   // new challenge
+                   v.literal("PLAYLIST")     // new playlist published
+                 ),
+    actorName:   v.string(),
+    actorId:     v.optional(v.id("users")),
+    content:     v.string(),
+    actionLabel: v.string(),
+    actionUrl:   v.optional(v.string()),
+    timestamp:   v.number(),
+  })
+    .index("by_timestamp", ["timestamp"])
+    .index("by_type",      ["type"]),
+
+  // ── CITIES ─────────────────────────────────────────────────────────────────
+  cities: defineTable({
+    name:          v.string(),
+    country:       v.string(),
+    countryCode:   v.string(),
+    lat:           v.number(),
+    lng:           v.number(),
+    isActive:      v.boolean(),
+    districtCode:  v.optional(v.string()),
+    artistCount:   v.number(),
+    trackCount:    v.number(),
+    liveCount:     v.number(),
+  })
+    .index("by_country", ["countryCode"])
+    .index("by_active",  ["isActive"]),
+
+  // ── PLATFORM STATS ─────────────────────────────────────────────────────────
+  // Singleton row — cached global stats for homepage stats strip
+  platformStats: defineTable({
+    artistCount:     v.number(),
+    trackCount:      v.number(),
+    activeDistricts: v.number(),
+    liveCount:       v.number(),
+    memberCount:     v.number(),
+    totalClicks:     v.number(),         // total streaming platform clicks all-time
+    updatedAt:       v.number(),
+  }),
+
   // ── EMAIL SIGNUPS ──────────────────────────────────────────────────────────
-  // Join section email capture (pre-registration)
   emailSignups: defineTable({
-    email:          v.string(),
-    source:         v.string(),          // e.g. "homepage_join"
-    convertedAt:    v.optional(v.number()),
+    email:       v.string(),
+    source:      v.string(),
+    convertedAt: v.optional(v.number()),
   })
     .index("by_email", ["email"]),
 
