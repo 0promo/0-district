@@ -196,8 +196,8 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
   height: auto;
   object-fit: contain;
   object-position: bottom right;
-  /* no mix-blend-mode — PNG already has transparent background */
-  filter: drop-shadow(0 -20px 60px rgba(0,0,0,0.55));
+  /* multiply blend erases the white background on the dark hero */
+  mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 1;
   transform-origin: bottom right;
