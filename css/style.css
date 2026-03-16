@@ -170,6 +170,23 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 }
 .hero-dot.active { width: 48px; background: var(--red); }
 
+/* === HERO ENTER CTA === */
+.hero-enter-cta {
+  position: absolute; bottom: 44px; left: 60px;
+  z-index: 3;
+}
+.hero-enter-link {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(245,245,245,0.45); text-decoration: none;
+  transition: color 0.3s var(--ease);
+}
+.hero-enter-link:hover { color: var(--white); }
+.hero-enter-link svg { opacity: 0.5; transition: opacity 0.3s var(--ease); }
+.hero-enter-link:hover svg { opacity: 1; }
+@media (max-width: 600px) { .hero-enter-cta { left: 20px; bottom: 28px; } }
+
 /* === HERO BRAND IMAGE === */
 .hero-brand-img {
   position: absolute;

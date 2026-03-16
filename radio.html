@@ -178,6 +178,218 @@
   font-weight: 900; font-size: 9px; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--white); text-align: center;
 }
+
+/* ── QUEUE STRIP ── */
+.queue-count {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: 0.18em; color: rgba(245,245,245,0.3); text-transform: uppercase;
+}
+.queue-strip { display: flex; flex-direction: column; gap: 0; }
+.queue-row {
+  display: grid;
+  grid-template-columns: 36px 28px 36px 1fr auto auto;
+  align-items: center; gap: 14px;
+  padding: 12px 60px;
+  border-bottom: 1px solid rgba(245,245,245,0.06);
+  cursor: pointer; transition: background 0.2s ease;
+}
+.queue-row:hover { background: rgba(245,245,245,0.03); }
+.queue-row.playing { background: rgba(218,41,28,0.06); }
+.queue-pos {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: 0.1em; color: rgba(245,245,245,0.3);
+  text-transform: uppercase;
+}
+.queue-row.playing .queue-pos { color: var(--red); }
+.queue-bars { display: flex; gap: 2px; align-items: flex-end; height: 16px; }
+.queue-bars.inactive .playlist-playing-bar { animation-play-state: paused; opacity: 0.2; }
+.queue-art {
+  width: 36px; height: 36px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: 10px; color: rgba(245,245,245,0.4);
+}
+.queue-info { min-width: 0; }
+.queue-title {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.queue-artist {
+  font-size: 9px; letter-spacing: 0.1em; color: var(--steel); text-transform: uppercase;
+  margin-top: 2px;
+}
+.queue-genre {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+  letter-spacing: 0.12em; color: rgba(245,245,245,0.3); text-transform: uppercase;
+}
+.queue-dur {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 0.08em; color: var(--steel);
+}
+@media (max-width: 768px) {
+  .queue-row { grid-template-columns: 36px 28px 36px 1fr auto; padding: 11px 20px; }
+  .queue-genre { display: none; }
+}
+
+/* ── PLAYLIST CARDS GRID ── */
+.playlists-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.pl-card {
+  cursor: pointer; position: relative; overflow: hidden;
+  background: var(--bg2); transition: transform 0.3s var(--ease);
+}
+.pl-card:hover { transform: translateY(-3px); }
+.pl-card-art {
+  aspect-ratio: 1; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.pl-card-monogram {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(64px, 8vw, 100px);
+  color: rgba(245,245,245,0.09); letter-spacing: -0.04em; text-transform: uppercase;
+  pointer-events: none; user-select: none;
+}
+.pl-card-overlay {
+  position: absolute; inset: 0; display: flex;
+  align-items: center; justify-content: center;
+  background: rgba(11,11,11,0); transition: background 0.3s ease;
+}
+.pl-card:hover .pl-card-overlay { background: rgba(11,11,11,0.4); }
+.pl-play-btn {
+  width: 44px; height: 44px; border: 1.5px solid var(--white);
+  background: transparent; color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(0.85);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+  padding-left: 3px;
+}
+.pl-card:hover .pl-play-btn { opacity: 1; transform: scale(1); }
+.pl-play-btn:hover { background: var(--white); color: var(--bg); }
+.pl-card-info { padding: 16px 20px 20px; }
+.pl-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 17px; text-transform: uppercase;
+  letter-spacing: 0.02em; line-height: 1.1;
+}
+.pl-card-meta {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+  letter-spacing: 0.12em; color: var(--steel); text-transform: uppercase; margin-top: 5px;
+}
+.pl-card-tag {
+  display: inline-block; margin-top: 10px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 7px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 3px 8px; border: 1px solid rgba(245,245,245,0.1);
+  color: rgba(245,245,245,0.4);
+}
+@media (max-width: 900px) { .playlists-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 540px) { .playlists-grid { grid-template-columns: 1fr; } }
+
+/* ── PLAYLIST POPUP MODAL ── */
+.pl-modal-backdrop {
+  position: fixed; inset: 0; z-index: 900;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s var(--ease);
+}
+.pl-modal-backdrop.open { opacity: 1; pointer-events: all; }
+.pl-modal {
+  position: fixed; z-index: 901;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -46%);
+  width: min(680px, 95vw);
+  max-height: 85vh; overflow-y: auto;
+  background: var(--bg2); border: 1px solid var(--border);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.pl-modal.open {
+  opacity: 1; pointer-events: all;
+  transform: translate(-50%, -50%);
+}
+.pl-modal-head {
+  display: grid; grid-template-columns: 100px 1fr 40px;
+  gap: 24px; align-items: start;
+  padding: 28px 28px 0;
+}
+.pl-modal-art { width: 100px; height: 100px; }
+.pl-modal-eyebrow {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+  letter-spacing: 0.18em; color: var(--red); text-transform: uppercase;
+}
+.pl-modal-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 28px; text-transform: uppercase;
+  letter-spacing: -0.02em; line-height: 1; margin-top: 6px;
+}
+.pl-modal-subtitle {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  letter-spacing: 0.12em; color: var(--steel); text-transform: uppercase; margin-top: 8px;
+}
+.pl-modal-play-all {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 16px;
+  background: var(--red); color: var(--white); border: none;
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 10px 20px; cursor: pointer; transition: background 0.2s ease;
+}
+.pl-modal-play-all:hover { background: #c0261a; }
+.pl-modal-close {
+  background: transparent; border: none; color: var(--steel);
+  font-size: 20px; line-height: 1; cursor: pointer; padding: 0;
+  transition: color 0.2s ease; margin-top: 2px;
+}
+.pl-modal-close:hover { color: var(--white); }
+.pl-modal-tracks {
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.pl-modal-row {
+  display: grid;
+  grid-template-columns: 28px 36px 1fr auto auto;
+  align-items: center; gap: 14px;
+  padding: 11px 28px;
+  border-bottom: 1px solid rgba(245,245,245,0.04);
+  cursor: pointer; transition: background 0.15s ease;
+}
+.pl-modal-row:hover { background: rgba(245,245,245,0.04); }
+.pl-modal-row.playing { background: rgba(218,41,28,0.08); }
+.pl-modal-num {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  color: rgba(245,245,245,0.3); text-align: right;
+}
+.pl-modal-art {
+  width: 36px; height: 36px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 10px; color: rgba(245,245,245,0.4);
+}
+.pl-modal-info .pl-modal-track-title {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 15px; text-transform: uppercase; letter-spacing: 0.02em;
+}
+.pl-modal-info .pl-modal-track-artist {
+  font-size: 9px; color: var(--steel); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-top: 2px;
+}
+.pl-modal-genre {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+  letter-spacing: 0.1em; color: rgba(245,245,245,0.3); text-transform: uppercase;
+}
+.pl-modal-dur {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  color: var(--steel);
+}
+@media (max-width: 540px) {
+  .pl-modal-head { grid-template-columns: 72px 1fr 32px; gap: 16px; padding: 20px 16px 0; }
+  .pl-modal-art-wrap .pl-modal-art { width: 72px; height: 72px; }
+  .pl-modal-row { padding: 10px 16px; }
+  .pl-modal-genre { display: none; }
+}
 </style>
 </head>
 <body class="page-loading">
@@ -331,239 +543,175 @@
   <span class="ticker-item">LISTENER COUNT: 2,847 <span class="ticker-sep">·</span></span>
 </div></div>
 
-<!-- PLAYLIST (light section) -->
-<section class="section section-light">
-  <div class="section-head reveal">
-    <div>
-      <p class="section-eyebrow">UP NEXT</p>
-      <h2 class="section-title">PLAYLIST</h2>
+<!-- UP NEXT QUEUE (compact strip) -->
+<section class="section section-dark" style="padding:32px 0;">
+  <div class="section-head reveal" style="margin-bottom:12px;">
+    <div><p class="section-eyebrow">LIVE QUEUE</p><h2 class="section-title" style="font-size:clamp(22px,3vw,32px);">UP NEXT</h2></div>
+    <span class="queue-count">4 QUEUED</span>
+  </div>
+  <div class="queue-strip reveal" id="queueStrip">
+    <div class="queue-row playing" onclick="playlistSelect(0)">
+      <span class="queue-pos">NOW</span>
+      <div class="queue-bars"><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div></div>
+      <div class="queue-art art-red"><div class="art-label">KM</div></div>
+      <div class="queue-info"><p class="queue-title">Accra Nights</p><p class="queue-artist">Kofi Manu</p></div>
+      <span class="queue-genre">Afrobeats</span>
+      <span class="queue-dur">3:47</span>
     </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;color:rgba(245,245,245,0.35);text-transform:uppercase;">12 TRACKS</span>
+    <div class="queue-row" onclick="playlistSelect(1)">
+      <span class="queue-pos">01</span>
+      <div class="queue-bars inactive"><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div></div>
+      <div class="queue-art art-blue"><div class="art-label">DS</div></div>
+      <div class="queue-info"><p class="queue-title">Dakar Frequency</p><p class="queue-artist">DJ Senegal</p></div>
+      <span class="queue-genre">Afro House</span>
+      <span class="queue-dur">4:12</span>
+    </div>
+    <div class="queue-row" onclick="playlistSelect(2)">
+      <span class="queue-pos">02</span>
+      <div class="queue-bars inactive"><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div></div>
+      <div class="queue-art art-purple"><div class="art-label">ZB</div></div>
+      <div class="queue-info"><p class="queue-title">Lagos Ritual</p><p class="queue-artist">Zara.B</p></div>
+      <span class="queue-genre">Afro Soul</span>
+      <span class="queue-dur">3:28</span>
+    </div>
+    <div class="queue-row" onclick="playlistSelect(3)">
+      <span class="queue-pos">03</span>
+      <div class="queue-bars inactive"><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div></div>
+      <div class="queue-art art-green"><div class="art-label">OB</div></div>
+      <div class="queue-info"><p class="queue-title">Midnight Lagos</p><p class="queue-artist">Ofo Beats</p></div>
+      <span class="queue-genre">Afrobeats</span>
+      <span class="queue-dur">4:55</span>
     </div>
   </div>
-  <div class="radio-playlist reveal" id="radioPlaylist">
+</section>
 
-    <div class="playlist-row playing" data-track-idx="0" onclick="playlistSelect(0)">
-      <div class="playlist-num">1</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div>
+<!-- CURATED PLAYLISTS -->
+<section class="section section-light">
+  <div class="section-head reveal">
+    <div><p class="section-eyebrow">HANDPICKED BY CURATORS</p><h2 class="section-title">PLAYLISTS</h2></div>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;color:rgba(245,245,245,0.3);text-transform:uppercase;">6 COLLECTIONS</span>
+  </div>
+  <div class="playlists-grid reveal">
+
+    <div class="pl-card" onclick="openPlaylist('essentials')">
+      <div class="pl-card-art art-red">
+        <span class="pl-card-monogram">DE</span>
+        <div class="pl-card-overlay">
+          <button class="pl-play-btn" onclick="event.stopPropagation();openPlaylist('essentials')">
+            <svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="playlist-art art-red"><div class="art-label">KM</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Accra Nights</p>
-        <p class="playlist-artist">Kofi Manu · Accra, GH</p>
+      <div class="pl-card-info">
+        <p class="pl-card-title">District Essentials</p>
+        <p class="pl-card-meta">12 TRACKS · ALL GENRES</p>
+        <p class="pl-card-tag">CURATOR PICK</p>
       </div>
-      <div class="playlist-genre">Afrobeats</div>
-      <div class="playlist-duration">3:47</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(0)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
     </div>
 
-    <div class="playlist-row" data-track-idx="1" onclick="playlistSelect(1)">
-      <div class="playlist-num">2</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+    <div class="pl-card" onclick="openPlaylist('afrohousesessions')">
+      <div class="pl-card-art art-blue">
+        <span class="pl-card-monogram">AH</span>
+        <div class="pl-card-overlay">
+          <button class="pl-play-btn" onclick="event.stopPropagation();openPlaylist('afrohousesessions')">
+            <svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="playlist-art art-blue"><div class="art-label">DS</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Dakar Frequency</p>
-        <p class="playlist-artist">DJ Senegal · Dakar, SN</p>
+      <div class="pl-card-info">
+        <p class="pl-card-title">Afro House Sessions</p>
+        <p class="pl-card-meta">4 TRACKS · AFRO HOUSE</p>
+        <p class="pl-card-tag">WEEKLY MIX</p>
       </div>
-      <div class="playlist-genre">Afro House</div>
-      <div class="playlist-duration">4:12</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(1)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
     </div>
 
-    <div class="playlist-row" data-track-idx="2" onclick="playlistSelect(2)">
-      <div class="playlist-num">3</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+    <div class="pl-card" onclick="openPlaylist('latenightlagos')">
+      <div class="pl-card-art art-purple">
+        <span class="pl-card-monogram">LN</span>
+        <div class="pl-card-overlay">
+          <button class="pl-play-btn" onclick="event.stopPropagation();openPlaylist('latenightlagos')">
+            <svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="playlist-art art-purple"><div class="art-label">ZB</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Lagos Ritual</p>
-        <p class="playlist-artist">Zara.B · Lagos, NG</p>
+      <div class="pl-card-info">
+        <p class="pl-card-title">Late Night Lagos</p>
+        <p class="pl-card-meta">3 TRACKS · AFRO SOUL</p>
+        <p class="pl-card-tag">LATE NIGHT</p>
       </div>
-      <div class="playlist-genre">Afro Soul</div>
-      <div class="playlist-duration">3:28</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(2)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
     </div>
 
-    <div class="playlist-row" data-track-idx="3" onclick="playlistSelect(3)">
-      <div class="playlist-num">4</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+    <div class="pl-card" onclick="openPlaylist('eastafrica')">
+      <div class="pl-card-art art-teal">
+        <span class="pl-card-monogram">EA</span>
+        <div class="pl-card-overlay">
+          <button class="pl-play-btn" onclick="event.stopPropagation();openPlaylist('eastafrica')">
+            <svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="playlist-art art-green"><div class="art-label">OB</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Midnight Lagos</p>
-        <p class="playlist-artist">Ofo Beats · Lagos, NG</p>
+      <div class="pl-card-info">
+        <p class="pl-card-title">East Africa Frequencies</p>
+        <p class="pl-card-meta">3 TRACKS · AFROPOP · AMAPIANO</p>
+        <p class="pl-card-tag">RISING</p>
       </div>
-      <div class="playlist-genre">Afrobeats</div>
-      <div class="playlist-duration">4:55</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(3)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
     </div>
 
-    <div class="playlist-row" data-track-idx="4" onclick="playlistSelect(4)">
-      <div class="playlist-num">5</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+    <div class="pl-card" onclick="openPlaylist('westafrica')">
+      <div class="pl-card-art art-amber">
+        <span class="pl-card-monogram">WA</span>
+        <div class="pl-card-overlay">
+          <button class="pl-play-btn" onclick="event.stopPropagation();openPlaylist('westafrica')">
+            <svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="playlist-art art-amber"><div class="art-label">ED</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Joburg Grid</p>
-        <p class="playlist-artist">Echo Delta · Johannesburg, ZA</p>
+      <div class="pl-card-info">
+        <p class="pl-card-title">West Africa Vibes</p>
+        <p class="pl-card-meta">4 TRACKS · AFROBEATS · HIGHLIFE</p>
+        <p class="pl-card-tag">TOP RATED</p>
       </div>
-      <div class="playlist-genre">Electronic</div>
-      <div class="playlist-duration">5:01</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(4)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
     </div>
 
-    <div class="playlist-row" data-track-idx="5" onclick="playlistSelect(5)">
-      <div class="playlist-num">6</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
+    <div class="pl-card" onclick="openPlaylist('electronic')">
+      <div class="pl-card-art art-mono">
+        <span class="pl-card-monogram">EC</span>
+        <div class="pl-card-overlay">
+          <button class="pl-play-btn" onclick="event.stopPropagation();openPlaylist('electronic')">
+            <svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="playlist-art art-teal"><div class="art-label">YK</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Nairobi Rise</p>
-        <p class="playlist-artist">Yemi.K · Nairobi, KE</p>
+      <div class="pl-card-info">
+        <p class="pl-card-title">Electronic Continent</p>
+        <p class="pl-card-meta">3 TRACKS · ELECTRONIC</p>
+        <p class="pl-card-tag">NEW</p>
       </div>
-      <div class="playlist-genre">Afropop</div>
-      <div class="playlist-duration">3:33</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(5)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
-    </div>
-
-    <div class="playlist-row" data-track-idx="6" onclick="playlistSelect(6)">
-      <div class="playlist-num">7</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-      </div>
-      <div class="playlist-art art-purple"><div class="art-label">AP</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Afro Pulse</p>
-        <p class="playlist-artist">Amara X Pulse · Abidjan, CI</p>
-      </div>
-      <div class="playlist-genre">Afrobeats</div>
-      <div class="playlist-duration">4:08</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(6)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
-    </div>
-
-    <div class="playlist-row" data-track-idx="7" onclick="playlistSelect(7)">
-      <div class="playlist-num">8</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-      </div>
-      <div class="playlist-art art-red"><div class="art-label">NB</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Nile Blue</p>
-        <p class="playlist-artist">Cairo Sound · Cairo, EG</p>
-      </div>
-      <div class="playlist-genre">Electronic</div>
-      <div class="playlist-duration">3:52</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(7)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
-    </div>
-
-    <div class="playlist-row" data-track-idx="8" onclick="playlistSelect(8)">
-      <div class="playlist-num">9</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-      </div>
-      <div class="playlist-art art-mono"><div class="art-label">TW</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Third Wave</p>
-        <p class="playlist-artist">Pulse Network · Kinshasa, CD</p>
-      </div>
-      <div class="playlist-genre">Amapiano</div>
-      <div class="playlist-duration">6:14</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(8)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
-    </div>
-
-    <div class="playlist-row" data-track-idx="9" onclick="playlistSelect(9)">
-      <div class="playlist-num">10</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-      </div>
-      <div class="playlist-art art-teal"><div class="art-label">SV</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Signal Void</p>
-        <p class="playlist-artist">Freq District · Nairobi, KE</p>
-      </div>
-      <div class="playlist-genre">Electronic</div>
-      <div class="playlist-duration">4:44</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(9)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
-    </div>
-
-    <div class="playlist-row" data-track-idx="10" onclick="playlistSelect(10)">
-      <div class="playlist-num">11</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-      </div>
-      <div class="playlist-art art-amber"><div class="art-label">GS</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Gold Shore</p>
-        <p class="playlist-artist">Tema Coast · Accra, GH</p>
-      </div>
-      <div class="playlist-genre">Highlife</div>
-      <div class="playlist-duration">3:19</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(10)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
-    </div>
-
-    <div class="playlist-row" data-track-idx="11" onclick="playlistSelect(11)">
-      <div class="playlist-num">12</div>
-      <div class="playlist-playing-icon">
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-        <div class="playlist-playing-bar"></div><div class="playlist-playing-bar"></div>
-      </div>
-      <div class="playlist-art art-green"><div class="art-label">KW</div></div>
-      <div class="playlist-info">
-        <p class="playlist-title">Kinshasa Wake</p>
-        <p class="playlist-artist">River Bloc · Kinshasa, CD</p>
-      </div>
-      <div class="playlist-genre">Afro House</div>
-      <div class="playlist-duration">5:28</div>
-      <button class="playlist-play-btn" onclick="event.stopPropagation();playlistSelect(11)">
-        <svg width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="currentColor"/></svg>
-      </button>
     </div>
 
   </div>
 </section>
+
+<!-- PLAYLIST POPUP MODAL -->
+<div class="pl-modal-backdrop" id="plModalBackdrop" onclick="closePlaylist()"></div>
+<div class="pl-modal" id="plModal" role="dialog" aria-modal="true">
+  <div class="pl-modal-head">
+    <div class="pl-modal-art-wrap">
+      <div class="pl-modal-art" id="plModalArt"></div>
+    </div>
+    <div class="pl-modal-meta">
+      <p class="pl-modal-eyebrow" id="plModalTag">CURATOR PICK</p>
+      <h2 class="pl-modal-title" id="plModalTitle">District Essentials</h2>
+      <p class="pl-modal-subtitle" id="plModalSub">12 TRACKS · ALL GENRES</p>
+      <button class="pl-modal-play-all" id="plModalPlayAll">
+        <svg width="10" height="12" viewBox="0 0 10 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/></svg>
+        PLAY ALL
+      </button>
+    </div>
+    <button class="pl-modal-close" onclick="closePlaylist()">&#215;</button>
+  </div>
+  <div class="pl-modal-tracks" id="plModalTracks"></div>
+</div>
 
 <!-- FEATURED BROADCAST BLOCK -->
 <section class="section section-dark" style="padding:0 0 72px;">
@@ -681,9 +829,12 @@ function playlistSelect(idx) {
   // Update vinyl label
   var vl = document.querySelector('.vinyl-label-text');
   if (vl) { var parts = track.title.toUpperCase().split(' '); vl.innerHTML = parts[0] + '<br>' + (parts[1]||''); }
-  // Highlight playlist row
-  document.querySelectorAll('.playlist-row').forEach(function(row, i) {
-    row.classList.toggle('playing', i === idx);
+  // Highlight queue row
+  document.querySelectorAll('.queue-row').forEach(function(row, i) {
+    var isNow = i === idx;
+    row.classList.toggle('playing', isNow);
+    var bars = row.querySelector('.queue-bars');
+    if (bars) bars.classList.toggle('inactive', !isNow);
   });
   // Trigger product.js player if available
   if (typeof playerLoad === 'function') playerLoad(idx, true);
@@ -696,6 +847,111 @@ function switchTrack(title, artist) {
   var idx = RADIO_TRACKS.findIndex(function(t){ return t.title === title; });
   if (idx >= 0) playlistSelect(idx);
 }
+
+// ── CURATED PLAYLISTS DATA ──
+var CURATED_PLAYLISTS = {
+  essentials: {
+    id: 'essentials', title: 'District Essentials', tag: 'CURATOR PICK',
+    sub: '12 TRACKS · ALL GENRES', artClass: 'art-red', monogram: 'DE',
+    tracks: [0,1,2,3,4,5,6,7,8,9,10,11]
+  },
+  afrohousesessions: {
+    id: 'afrohousesessions', title: 'Afro House Sessions', tag: 'WEEKLY MIX',
+    sub: '4 TRACKS · AFRO HOUSE', artClass: 'art-blue', monogram: 'AH',
+    tracks: [1,4,11,9]
+  },
+  latenightlagos: {
+    id: 'latenightlagos', title: 'Late Night Lagos', tag: 'LATE NIGHT',
+    sub: '3 TRACKS · AFRO SOUL', artClass: 'art-purple', monogram: 'LN',
+    tracks: [2,3,7]
+  },
+  eastafrica: {
+    id: 'eastafrica', title: 'East Africa Frequencies', tag: 'RISING',
+    sub: '3 TRACKS · AFROPOP · AMAPIANO', artClass: 'art-teal', monogram: 'EA',
+    tracks: [5,8,9]
+  },
+  westafrica: {
+    id: 'westafrica', title: 'West Africa Vibes', tag: 'TOP RATED',
+    sub: '4 TRACKS · AFROBEATS · HIGHLIFE', artClass: 'art-amber', monogram: 'WA',
+    tracks: [0,10,6,3]
+  },
+  electronic: {
+    id: 'electronic', title: 'Electronic Continent', tag: 'NEW',
+    sub: '3 TRACKS · ELECTRONIC', artClass: 'art-mono', monogram: 'EC',
+    tracks: [4,9,7]
+  }
+};
+
+var _openPlId = null;
+
+function openPlaylist(id) {
+  var pl = CURATED_PLAYLISTS[id];
+  if (!pl) return;
+  _openPlId = id;
+
+  // Populate modal header
+  document.getElementById('plModalTag').textContent = pl.tag;
+  document.getElementById('plModalTitle').textContent = pl.title;
+  document.getElementById('plModalSub').textContent = pl.sub;
+
+  // Art
+  var artEl = document.getElementById('plModalArt');
+  artEl.className = 'pl-modal-art ' + pl.artClass;
+  artEl.innerHTML = '<span style="font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:36px;color:rgba(245,245,245,0.15);letter-spacing:-0.03em;">' + pl.monogram + '</span>';
+  artEl.style.display = 'flex'; artEl.style.alignItems = 'center'; artEl.style.justifyContent = 'center';
+
+  // Build track list
+  var tracksEl = document.getElementById('plModalTracks');
+  tracksEl.innerHTML = '';
+  pl.tracks.forEach(function(trackIdx, i) {
+    var t = RADIO_TRACKS[trackIdx];
+    if (!t) return;
+    var isPlaying = trackIdx === radioTrackIdx;
+    var artColors = ['art-red','art-blue','art-purple','art-green','art-amber','art-teal','art-purple','art-red','art-mono','art-teal','art-amber','art-green'];
+    var artLabels = ['KM','DS','ZB','OB','ED','YK','AP','NB','TW','SV','GS','KW'];
+    var durations  = ['3:47','4:12','3:28','4:55','5:01','3:33','4:08','3:52','6:14','4:44','3:19','5:28'];
+    var genres = ['Afrobeats','Afro House','Afro Soul','Afrobeats','Electronic','Afropop','Afrobeats','Electronic','Amapiano','Electronic','Highlife','Afro House'];
+
+    var row = document.createElement('div');
+    row.className = 'pl-modal-row' + (isPlaying ? ' playing' : '');
+    row.setAttribute('data-track-idx', trackIdx);
+    row.onclick = function() {
+      playlistSelect(trackIdx);
+      // Update playing state in modal
+      tracksEl.querySelectorAll('.pl-modal-row').forEach(function(r){ r.classList.remove('playing'); });
+      row.classList.add('playing');
+    };
+    row.innerHTML =
+      '<span class="pl-modal-num">' + (i+1) + '</span>' +
+      '<div class="pl-modal-art ' + artColors[trackIdx] + '" style="display:flex;align-items:center;justify-content:center;font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:10px;color:rgba(245,245,245,0.35);">' + artLabels[trackIdx] + '</div>' +
+      '<div class="pl-modal-info"><p class="pl-modal-track-title">' + t.title + '</p><p class="pl-modal-track-artist">' + t.artist + ' · ' + (t.meta.split(' · ')[1]||'') + '</p></div>' +
+      '<span class="pl-modal-genre">' + genres[trackIdx] + '</span>' +
+      '<span class="pl-modal-dur">' + durations[trackIdx] + '</span>';
+    tracksEl.appendChild(row);
+  });
+
+  // Play-all button
+  document.getElementById('plModalPlayAll').onclick = function() {
+    if (pl.tracks.length > 0) { playlistSelect(pl.tracks[0]); closePlaylist(); }
+  };
+
+  // Open
+  document.getElementById('plModalBackdrop').classList.add('open');
+  document.getElementById('plModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePlaylist() {
+  document.getElementById('plModalBackdrop').classList.remove('open');
+  document.getElementById('plModal').classList.remove('open');
+  document.body.style.overflow = '';
+  _openPlId = null;
+}
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePlaylist();
+});
 
 setInterval(() => {
   if (!radioPlaying) return;
