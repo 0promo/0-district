@@ -114,7 +114,7 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 .hero-slide.active .hero-slide-bg { transform: scale(1); }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(11,11,11,0.96) 0%, rgba(11,11,11,0.45) 50%, rgba(11,11,11,0.15) 100%);
+  background: linear-gradient(to top, rgba(11,11,11,0.55) 0%, rgba(11,11,11,0.30) 50%, rgba(11,11,11,0.10) 100%);
 }
 .hero-vignette {
   position: absolute; inset: 0;
@@ -190,39 +190,18 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 /* === HERO BRAND IMAGE (transparent-bg PNG) === */
 .hero-brand-img {
   position: absolute;
-  bottom: 0;
-  right: -2%;
-  width: min(78vh, 820px);
-  height: auto;
-  object-fit: contain;
-  object-position: bottom right;
-  /* multiply blend erases the white background on the dark hero */
-  mix-blend-mode: multiply;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom center;
   pointer-events: none;
   z-index: 1;
-  transform-origin: bottom right;
-  animation: heroBrandFadeIn 2.2s 0.4s var(--ease) both;
+  animation: heroBrandFadeIn 2.4s 0.3s var(--ease) both;
 }
 @keyframes heroBrandFadeIn {
-  from { opacity: 0; transform: translateY(24px) scale(0.97); }
-  to   { opacity: 1;  transform: translateY(0)    scale(1); }
-}
-@media (max-width: 1100px) {
-  .hero-brand-img { width: min(65vh, 640px); right: -4%; }
-}
-@media (max-width: 768px) {
-  .hero-brand-img { width: min(56vw, 440px); right: -6%; }
-}
-@media (max-width: 540px) {
-  .hero-brand-img {
-    width: 90vw; right: 50%;
-    transform: translateX(50%);
-    animation: heroBrandFadeInSm 2.2s 0.4s var(--ease) both;
-  }
-  @keyframes heroBrandFadeInSm {
-    from { opacity: 0; transform: translateX(50%) translateY(20px); }
-    to   { opacity: 0.85; transform: translateX(50%) translateY(0); }
-  }
+  from { opacity: 0; transform: scale(1.04); }
+  to   { opacity: 1;  transform: scale(1); }
 }
 
 /* === TICKER TAPE === */
