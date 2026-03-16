@@ -89,8 +89,11 @@
     <div class="hero-slide"><div class="hero-slide-bg art-blue"></div></div>
     <div class="hero-slide"><div class="hero-slide-bg art-purple"></div></div>
   </div>
-  <!-- Brand image — transparent-bg PNG, placed full-hero -->
-  <img src="assets/0promo-brand.png" class="hero-brand-img" alt="" aria-hidden="true">
+  <!-- Brand image — WebP with PNG fallback, full-hero cover -->
+  <picture class="hero-brand-picture">
+    <source srcset="assets/0promo-brand.webp" type="image/webp">
+    <img src="assets/0promo-brand.png" class="hero-brand-img" alt="" aria-hidden="true" fetchpriority="high" decoding="sync">
+  </picture>
   <div class="hero-overlay"></div>
   <div class="hero-vignette"></div>
   <div class="hero-enter-cta">
