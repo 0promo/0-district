@@ -19,6 +19,7 @@ async function sbFetch(table, params = '') {
       'apikey': SUPABASE_KEY,
       'Authorization': `Bearer ${SUPABASE_KEY}`,
       'Accept': 'application/json',
+      'Prefer': 'return=representation',
     },
   });
   if (!res.ok) throw new Error(`Supabase error ${res.status}: ${await res.text()}`);

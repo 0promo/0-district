@@ -117,11 +117,16 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 .hero-slide.active .hero-slide-bg { transform: scale(1); }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(11,11,11,0.72) 0%, rgba(11,11,11,0.3) 45%, rgba(11,11,11,0.05) 100%);
+  background: linear-gradient(to top,
+    rgba(11,11,11,0.92) 0%,
+    rgba(11,11,11,0.70) 28%,
+    rgba(11,11,11,0.38) 55%,
+    rgba(11,11,11,0.08) 80%,
+    transparent 100%);
 }
 .hero-vignette {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at center, transparent 45%, rgba(11,11,11,0.55) 100%);
+  background: radial-gradient(ellipse at center, transparent 35%, rgba(11,11,11,0.65) 100%);
 }
 .hero-content {
   position: relative; z-index: 2;
@@ -142,11 +147,14 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
   font-weight: 900; text-transform: uppercase; line-height: 0.87;
   letter-spacing: -0.025em; color: var(--white);
   font-size: clamp(60px, 11vw, 152px);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.3);
 }
 .hero-title .accent { color: var(--red); }
 .hero-sub {
-  margin-top: 20px; font-size: 11px;
-  letter-spacing: 0.12em; color: rgba(245,245,245,0.4); text-transform: uppercase;
+  margin-top: 20px; font-size: 12px;
+  letter-spacing: 0.13em; color: rgba(245,245,245,0.88); text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+  font-weight: 400;
 }
 .hero-actions { margin-top: 36px; display: flex; align-items: center; gap: 24px; }
 .hero-play-btn {
@@ -161,7 +169,8 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 .hero-play-btn:hover .hero-play-circle svg path { fill: var(--bg); }
 .hero-play-label {
   font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(245,245,245,0.55);
+  color: rgba(245,245,245,0.90);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
 }
 .hero-dots {
   position: absolute; bottom: 36px; right: 60px;
@@ -182,11 +191,12 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
   display: inline-flex; align-items: center; gap: 12px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(245,245,245,0.45); text-decoration: none;
+  color: rgba(245,245,245,0.80); text-decoration: none;
   transition: color 0.3s var(--ease);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
 }
 .hero-enter-link:hover { color: var(--white); }
-.hero-enter-link svg { opacity: 0.5; transition: opacity 0.3s var(--ease); }
+.hero-enter-link svg { opacity: 0.75; transition: opacity 0.3s var(--ease); }
 .hero-enter-link:hover svg { opacity: 1; }
 @media (max-width: 600px) { .hero-enter-cta { left: 20px; bottom: 28px; } }
 
@@ -377,7 +387,7 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 .featured-block:hover .featured-line { width: 120px; }
 .featured-meta {
   margin-top: 14px; font-size: 9px;
-  letter-spacing: 0.12em; color: rgba(245,245,245,0.4); text-transform: uppercase;
+  letter-spacing: 0.12em; color: rgba(245,245,245,0.75); text-transform: uppercase;
 }
 
 /* === DISTRICT GRID === */
@@ -445,9 +455,9 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 .broadcast-badge.system { border-color: var(--steel); color: var(--steel); }
 .broadcast-text {
   font-size: 11px; letter-spacing: 0.04em;
-  color: rgba(245,245,245,0.6);
+  color: rgba(245,245,245,0.80);
 }
-.broadcast-text strong { color: var(--white); font-weight: 500; }
+.broadcast-text strong { color: var(--white); font-weight: 600; }
 .broadcast-action {
   font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--steel); transition: color 0.2s ease; cursor: pointer;
@@ -462,7 +472,7 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 .join-bg { position: absolute; inset: 0; }
 .join-overlay {
   position: absolute; inset: 0;
-  background: rgba(11,11,11,0.6);
+  background: linear-gradient(to right, rgba(11,11,11,0.88) 0%, rgba(11,11,11,0.55) 65%, rgba(11,11,11,0.12) 100%);
 }
 .join-content { position: relative; z-index: 2; padding: 72px 60px; max-width: 640px; }
 .join-label {
@@ -488,7 +498,7 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
   font-size: 12px; letter-spacing: 0.08em;
 }
 .join-form input::placeholder {
-  color: rgba(245,245,245,0.3); text-transform: uppercase;
+  color: rgba(245,245,245,0.55); text-transform: uppercase;
   font-size: 10px; letter-spacing: 0.15em;
 }
 .join-submit {
@@ -2314,8 +2324,8 @@ body { padding-bottom: 72px; }
   color: var(--white); line-height: 1.1;
 }
 .btt-card-excerpt {
-  font-size: 11px; line-height: 1.7;
-  color: rgba(245,245,245,0.45);
+  font-size: 12px; line-height: 1.75;
+  color: rgba(245,245,245,0.72);
   flex: 1;
 }
 .btt-card-footer {
@@ -2329,7 +2339,7 @@ body { padding-bottom: 72px; }
   font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--steel);
 }
-.btt-card-curator strong { color: rgba(245,245,245,0.55); font-weight: 500; }
+.btt-card-curator strong { color: rgba(245,245,245,0.82); font-weight: 500; }
 .btt-card-link {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
@@ -2353,15 +2363,7 @@ body { padding-bottom: 72px; }
   .btt-card-art { height: 160px; }
 }
 
-/* ── Hero enter-link secondary CTA ── */
-.hero-enter-link {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(245,245,245,0.5); text-decoration: none;
-  transition: color 0.3s var(--ease);
-}
-.hero-enter-link:hover { color: var(--white); }
+/* ── Hero enter-link secondary CTA (consolidated above, kept for reference) ── */
 
 /* ── art-mono colour ──────────────────────────────────────────────── */
 .art-mono {
@@ -2408,10 +2410,10 @@ body { padding-bottom: 72px; }
   color: var(--white);
   padding-left: 72px;
 }
-.platform-row:hover .platform-row-desc { color: rgba(245,245,245,0.45); }
+.platform-row:hover .platform-row-desc { color: rgba(245,245,245,0.72); }
 .platform-row:hover .platform-row-tags span {
-  border-color: rgba(245,245,245,0.15);
-  color: rgba(245,245,245,0.45);
+  border-color: rgba(245,245,245,0.25);
+  color: rgba(245,245,245,0.70);
 }
 .platform-row:hover .platform-num { color: var(--red); }
 .platform-row:hover .platform-row-arrow { color: var(--white); }
@@ -2432,8 +2434,8 @@ body { padding-bottom: 72px; }
   transition: color 0.25s ease;
 }
 .platform-row-desc {
-  font-size: 11px; line-height: 1.65;
-  color: var(--steel); max-width: 520px;
+  font-size: 12px; line-height: 1.7;
+  color: rgba(11,11,11,0.58); max-width: 520px;
   transition: color 0.25s ease;
 }
 
