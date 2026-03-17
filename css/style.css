@@ -114,9 +114,7 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 .hero-slide.active .hero-slide-bg { transform: scale(1); }
 .hero-overlay {
   position: absolute; inset: 0;
-  background:
-    linear-gradient(to top, rgba(11,11,11,0.6) 0%, rgba(11,11,11,0.25) 55%, rgba(11,11,11,0.08) 100%),
-    radial-gradient(ellipse 90% 75% at 55% 60%, transparent 50%, rgba(11,11,11,0.45) 100%);
+  background: linear-gradient(to top, rgba(11,11,11,0.72) 0%, rgba(11,11,11,0.3) 45%, rgba(11,11,11,0.05) 100%);
 }
 .hero-vignette {
   position: absolute; inset: 0;
@@ -189,25 +187,20 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 .hero-enter-link:hover svg { opacity: 1; }
 @media (max-width: 600px) { .hero-enter-cta { left: 20px; bottom: 28px; } }
 
-/* === HERO BRAND IMAGE (transparent-bg PNG) === */
-/* picture wrapper fills the hero — multiply erases ALL white/chrome against
-   the coloured slide background (white × slide-colour = slide-colour = hidden) */
+/* === HERO BRAND IMAGE — full scene, no bg removal needed === */
 .hero-brand-picture {
   position: absolute;
   inset: 0;
   display: block;
   pointer-events: none;
   z-index: 1;
-  mix-blend-mode: multiply;
 }
 .hero-brand-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: bottom center;
+  object-position: center center;
   display: block;
-  -webkit-mask-image: none;
-  mask-image: none;
   animation: heroBrandFadeIn 2.4s 0.3s var(--ease) both;
 }
 @keyframes heroBrandFadeIn {
@@ -652,11 +645,6 @@ footer {
 .art-amber  { background: linear-gradient(135deg, #5a2800, #c47800); }
 .art-purple { background: linear-gradient(135deg, #28085a, #6818c4); }
 
-/* Hero slides need brighter backgrounds so multiply blend preserves element
-   detail (white × bright-red = bright-red; dark × bright-red = dark) */
-.hero .hero-slide-bg.art-red    { background: linear-gradient(135deg, #a01212, #d42020); }
-.hero .hero-slide-bg.art-blue   { background: linear-gradient(135deg, #1212a0, #2020d4); }
-.hero .hero-slide-bg.art-purple { background: linear-gradient(135deg, #5512a0, #8820d4); }
 .art-teal   { background: linear-gradient(135deg, #08404a, #1898aa); }
 .art-mono   { background: linear-gradient(135deg, #1e1e1e, #3a3a3a); }
 .art-label  { color: rgba(245,245,245,0.28); }
