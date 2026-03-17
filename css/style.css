@@ -2236,6 +2236,133 @@ body { padding-bottom: 72px; }
   background: var(--red);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   BEHIND THE TRACK — editorial section
+   ═══════════════════════════════════════════════════════════════ */
+.btt-section { padding-bottom: 80px; }
+
+.btt-view-all {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--steel); text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+.btt-view-all:hover { color: var(--white); }
+.btt-view-all svg { transition: transform 0.2s ease; }
+.btt-view-all:hover svg { transform: translateX(3px); }
+
+.btt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border);
+  padding: 0 0;
+}
+
+.btt-card {
+  display: flex; flex-direction: column;
+  border-right: 1px solid var(--border);
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+.btt-card:last-child { border-right: none; }
+.btt-card:hover { background: rgba(245,245,245,0.02); }
+
+/* Art block */
+.btt-card-art {
+  position: relative;
+  height: 200px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.btt-card-art-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 72px;
+  color: rgba(245,245,245,0.12); letter-spacing: -0.03em;
+  user-select: none;
+}
+.btt-card-play-tag {
+  position: absolute; bottom: 14px; left: 16px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(245,245,245,0.5);
+  border: 1px solid rgba(245,245,245,0.18);
+  padding: 5px 10px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.btt-card:hover .btt-card-play-tag {
+  color: var(--white);
+  border-color: rgba(245,245,245,0.5);
+}
+
+/* Body */
+.btt-card-body {
+  padding: 24px 28px 28px;
+  flex: 1; display: flex; flex-direction: column; gap: 10px;
+  border-top: 1px solid var(--border);
+}
+.btt-card-eyebrow {
+  font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--red);
+}
+.btt-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 22px;
+  letter-spacing: 0.02em; text-transform: uppercase;
+  color: var(--white); line-height: 1.1;
+}
+.btt-card-excerpt {
+  font-size: 11px; line-height: 1.7;
+  color: rgba(245,245,245,0.45);
+  flex: 1;
+}
+.btt-card-footer {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.btt-card-curator {
+  font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--steel);
+}
+.btt-card-curator strong { color: rgba(245,245,245,0.55); font-weight: 500; }
+.btt-card-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--steel); text-decoration: none;
+  transition: color 0.2s ease;
+}
+.btt-card-link:hover { color: var(--white); }
+.btt-card-link svg { transition: transform 0.2s ease; }
+.btt-card-link:hover svg { transform: translateX(3px); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .btt-grid { grid-template-columns: repeat(2, 1fr); }
+  .btt-card:nth-child(2) { border-right: none; }
+  .btt-card:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+}
+@media (max-width: 640px) {
+  .btt-grid { grid-template-columns: 1fr; }
+  .btt-card { border-right: none !important; border-bottom: 1px solid var(--border); }
+  .btt-card-body { padding: 20px; }
+  .btt-card-art { height: 160px; }
+}
+
+/* ── Hero enter-link secondary CTA ── */
+.hero-enter-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(245,245,245,0.5); text-decoration: none;
+  transition: color 0.3s var(--ease);
+}
+.hero-enter-link:hover { color: var(--white); }
+
 /* ── art-mono colour ──────────────────────────────────────────────── */
 .art-mono {
   background: linear-gradient(135deg, #1a1a1a, #2e2e2e);

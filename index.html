@@ -49,10 +49,11 @@
     </a>
     <ul class="nav-routes">
       <li><a href="index.html" class="active">/HOME</a></li>
-      <li><a href="radio.html">/RADIO</a></li>
-      <li><a href="studio.html">/STUDIO</a></li>
-      <li><a href="collab.html">/COLLAB</a></li>
-      <li><a href="community.html">/NETWORK</a></li>
+      <li><a href="#radio">/RADIO</a></li>
+      <li><a href="control-room.html">/CTRL ROOM</a></li>
+      <li><a href="#behind-the-track">/BEHIND THE TRACK</a></li>
+      <li><a href="about.html">/ABOUT</a></li>
+      <li><a href="about.html#contact">/CONTACT</a></li>
     </ul>
   </div>
   <div class="nav-right">
@@ -71,10 +72,11 @@
 <div class="nav-mobile-menu" id="navMobileMenu">
   <ul class="nav-mobile-links">
     <li><a href="index.html" class="active">/HOME</a></li>
-    <li><a href="radio.html">/RADIO</a></li>
-    <li><a href="studio.html">/STUDIO</a></li>
-    <li><a href="collab.html">/COLLAB</a></li>
-    <li><a href="community.html">/NETWORK</a></li>
+    <li><a href="#radio">/RADIO</a></li>
+    <li><a href="control-room.html">/CTRL ROOM</a></li>
+    <li><a href="#behind-the-track">/BEHIND THE TRACK</a></li>
+    <li><a href="about.html">/ABOUT</a></li>
+    <li><a href="about.html#contact">/CONTACT</a></li>
   </ul>
   <div class="nav-mobile-footer">
     <div class="nav-mobile-signal"><div class="nav-signal-dot"></div>SIGNAL LIVE</div>
@@ -83,7 +85,7 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="home">
   <div class="hero-slides">
     <div class="hero-slide active"><div class="hero-slide-bg art-red"></div></div>
     <div class="hero-slide"><div class="hero-slide-bg art-blue"></div></div>
@@ -96,11 +98,24 @@
   </picture>
   <div class="hero-overlay"></div>
   <div class="hero-vignette"></div>
-  <div class="hero-enter-cta">
-    <a href="radio.html" class="hero-enter-link">
-      <svg width="10" height="13" viewBox="0 0 10 13"><polygon points="0,0 10,6.5 0,13" fill="currentColor"/></svg>
-      ENTER THE DISTRICT
-    </a>
+  <div class="hero-content">
+    <div class="hero-badge"><div class="hero-badge-dot"></div>0PROMORECORDS · 0 DISTRICT</div>
+    <h1 class="hero-title">Your music,<br>your <span class="accent">control</span></h1>
+    <p class="hero-sub">Upload, manage, and collaborate —<br>from tracks to labels</p>
+    <div class="hero-actions">
+      <a href="#radio" class="hero-play-btn">
+        <div class="hero-play-circle">
+          <svg width="11" height="13" viewBox="0 0 11 13"><polygon points="0,0 11,6.5 0,13" fill="currentColor"/></svg>
+        </div>
+        <span class="hero-play-label">TUNE IN</span>
+      </a>
+      <a href="control-room.html" class="hero-enter-link">ENTER CONTROL ROOM <svg width="18" height="9" viewBox="0 0 18 9" style="vertical-align:middle;margin-left:6px;"><line x1="0" y1="4.5" x2="16" y2="4.5" stroke="currentColor" stroke-width="1.5"/><polyline points="11,1 16,4.5 11,8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="hero-dot active"></div>
+    <div class="hero-dot"></div>
+    <div class="hero-dot"></div>
   </div>
 </section>
 
@@ -143,8 +158,8 @@
   </div>
 </div>
 
-<!-- NOW PLAYING (light) -->
-<section class="section section-light">
+<!-- RADIO — anchor for nav + hero CTA -->
+<section class="section section-light" id="radio">
   <div class="section-head reveal"><div><p class="section-eyebrow">LIVE BROADCAST</p><h2 class="section-title">NOW PLAYING</h2></div><div class="carousel-arrows"><button class="carousel-arrow" data-target="now-playing" data-dir="prev">&#8592;</button><button class="carousel-arrow" data-target="now-playing" data-dir="next">&#8594;</button></div></div>
   <div class="section-filters">
     <button class="fp active" onclick="filterPill(this)">ALL</button>
@@ -204,11 +219,11 @@
 <section class="section section-light" style="padding-top:72px;padding-bottom:0;">
   <div class="section-head reveal"><div><p class="section-eyebrow">EXPLORE</p><h2 class="section-title">THE DISTRICTS</h2></div></div>
   <div class="districts-grid">
-    <a href="radio.html" class="district-block reveal"><p class="district-code">D-01</p><h3 class="district-name">Radio</h3><p class="district-desc">Live broadcasts, curated streams, artist takeovers</p><span class="district-arrow">&#8594;</span></a>
-    <a href="studio.html" class="district-block reveal reveal-delay-1"><p class="district-code">D-02</p><h3 class="district-name">Studio</h3><p class="district-desc">Upload, manage, and grow your catalogue</p><span class="district-arrow">&#8594;</span></a>
-    <a href="collab.html" class="district-block reveal reveal-delay-2"><p class="district-code">D-03</p><h3 class="district-name">Collab</h3><p class="district-desc">Find collaborators, join remix challenges</p><span class="district-arrow">&#8594;</span></a>
-    <a href="community.html" class="district-block reveal reveal-delay-3"><p class="district-code">D-04</p><h3 class="district-name">Network</h3><p class="district-desc">Connect with the district community</p><span class="district-arrow">&#8594;</span></a>
-    <a href="#" class="district-block reveal reveal-delay-4"><p class="district-code">D-05</p><h3 class="district-name">Market</h3><p class="district-desc">Beats, samples, services, licensing</p><span class="district-arrow">&#8594;</span></a>
+    <a href="#radio" class="district-block reveal"><p class="district-code">D-01</p><h3 class="district-name">Radio</h3><p class="district-desc">Live broadcasts, curated streams, artist takeovers</p><span class="district-arrow">&#8594;</span></a>
+    <a href="control-room.html" class="district-block reveal reveal-delay-1"><p class="district-code">D-02</p><h3 class="district-name">Control Room</h3><p class="district-desc">Upload, manage, and curate your catalogue</p><span class="district-arrow">&#8594;</span></a>
+    <a href="#behind-the-track" class="district-block reveal reveal-delay-2"><p class="district-code">D-03</p><h3 class="district-name">Behind The Track</h3><p class="district-desc">Curator essays, context, and reflections</p><span class="district-arrow">&#8594;</span></a>
+    <a href="about.html" class="district-block reveal reveal-delay-3"><p class="district-code">D-04</p><h3 class="district-name">About</h3><p class="district-desc">Platform story, team, and mission</p><span class="district-arrow">&#8594;</span></a>
+    <a href="about.html#contact" class="district-block reveal reveal-delay-4"><p class="district-code">D-05</p><h3 class="district-name">Contact</h3><p class="district-desc">Get in touch, submit music, partner with us</p><span class="district-arrow">&#8594;</span></a>
     <a href="#" class="district-block reveal"><p class="district-code">D-06</p><h3 class="district-name">Playlists</h3><p class="district-desc">Curated drops from district editors</p><span class="district-arrow">&#8594;</span></a>
   </div>
 </section>
@@ -265,6 +280,80 @@
   </div>
 </section>
 
+<!-- BEHIND THE TRACK -->
+<section class="section section-dark btt-section" id="behind-the-track">
+  <div class="section-head reveal">
+    <div>
+      <p class="section-eyebrow">EDITORIAL</p>
+      <h2 class="section-title">BEHIND THE TRACK</h2>
+    </div>
+    <a href="#" class="btt-view-all">ALL ESSAYS <svg width="18" height="9" viewBox="0 0 18 9"><line x1="0" y1="4.5" x2="16" y2="4.5" stroke="currentColor" stroke-width="1.5"/><polyline points="11,1 16,4.5 11,8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+  </div>
+  <div class="btt-grid">
+
+    <!-- Post 1 -->
+    <article class="btt-card reveal">
+      <div class="btt-card-art art-red">
+        <div class="btt-card-art-label">KM</div>
+        <div class="btt-card-play-tag">
+          <svg width="8" height="9" viewBox="0 0 8 9"><polygon points="0,0 8,4.5 0,9" fill="currentColor"/></svg>
+          PLAY
+        </div>
+      </div>
+      <div class="btt-card-body">
+        <p class="btt-card-eyebrow">AFROBEATS · ACCRA</p>
+        <h3 class="btt-card-title">The Architecture of Accra Nights</h3>
+        <p class="btt-card-excerpt">How Kofi Manu layers percussive silence and high-life guitar to build tension across four minutes of pure intention.</p>
+        <div class="btt-card-footer">
+          <span class="btt-card-curator">by <strong>District Curator 01</strong></span>
+          <a href="#" class="btt-card-link">READ <svg width="14" height="7" viewBox="0 0 14 7"><line x1="0" y1="3.5" x2="12" y2="3.5" stroke="currentColor" stroke-width="1.5"/><polyline points="8,1 12,3.5 8,6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Post 2 -->
+    <article class="btt-card reveal reveal-delay-1">
+      <div class="btt-card-art art-blue">
+        <div class="btt-card-art-label">DS</div>
+        <div class="btt-card-play-tag">
+          <svg width="8" height="9" viewBox="0 0 8 9"><polygon points="0,0 8,4.5 0,9" fill="currentColor"/></svg>
+          PLAY
+        </div>
+      </div>
+      <div class="btt-card-body">
+        <p class="btt-card-eyebrow">AFRO HOUSE · DAKAR</p>
+        <h3 class="btt-card-title">Frequency Maps: Dakar's Electronic Underground</h3>
+        <p class="btt-card-excerpt">DJ Senegal's Dakar Frequency isn't a track — it's a field recording of a city mid-transformation. A deep dive into the signal.</p>
+        <div class="btt-card-footer">
+          <span class="btt-card-curator">by <strong>District Curator 02</strong></span>
+          <a href="#" class="btt-card-link">READ <svg width="14" height="7" viewBox="0 0 14 7"><line x1="0" y1="3.5" x2="12" y2="3.5" stroke="currentColor" stroke-width="1.5"/><polyline points="8,1 12,3.5 8,6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Post 3 -->
+    <article class="btt-card reveal reveal-delay-2">
+      <div class="btt-card-art art-purple">
+        <div class="btt-card-art-label">ZB</div>
+        <div class="btt-card-play-tag">
+          <svg width="8" height="9" viewBox="0 0 8 9"><polygon points="0,0 8,4.5 0,9" fill="currentColor"/></svg>
+          PLAY
+        </div>
+      </div>
+      <div class="btt-card-body">
+        <p class="btt-card-eyebrow">AFRO SOUL · LAGOS</p>
+        <h3 class="btt-card-title">Lagos Ritual and the Grammar of Grief</h3>
+        <p class="btt-card-excerpt">Zara.B writes music like correspondence — each note addressed to someone specific. Lagos Ritual is her most intimate letter yet.</p>
+        <div class="btt-card-footer">
+          <span class="btt-card-curator">by <strong>District Curator 03</strong></span>
+          <a href="#" class="btt-card-link">READ <svg width="14" height="7" viewBox="0 0 14 7"><line x1="0" y1="3.5" x2="12" y2="3.5" stroke="currentColor" stroke-width="1.5"/><polyline points="8,1 12,3.5 8,6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
 <!-- JOIN SECTION -->
 <section class="join-section reveal">
   <div class="join-bg art-red" style="display:flex;align-items:center;justify-content:flex-end;padding-right:80px;"><span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:240px;color:rgba(245,245,245,0.04);letter-spacing:-0.05em;line-height:1;text-transform:uppercase;">JOIN</span></div>
@@ -284,9 +373,9 @@
       <img src="assets/0logo.png" class="footer-logo-img" alt="0 Promo Recs">
       <p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p>
     </div>
-    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="radio.html">Radio District</a></li><li><a href="studio.html">Studio District</a></li><li><a href="collab.html">Collaboration</a></li><li><a href="community.html">Network</a></li></ul></div>
-    <div><p class="footer-col-title">Platform</p><ul class="footer-links"><li><a href="#">Submit Demo</a></li><li><a href="#">For Artists</a></li><li><a href="#">For Labels</a></li><li><a href="#">Advertising</a></li></ul></div>
-    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="#">About 0Promo</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="#radio">Radio</a></li><li><a href="control-room.html">Control Room</a></li><li><a href="#behind-the-track">Behind The Track</a></li><li><a href="about.html">About</a></li></ul></div>
+    <div><p class="footer-col-title">Platform</p><ul class="footer-links"><li><a href="control-room.html">For Artists</a></li><li><a href="control-room.html">For Labels</a></li><li><a href="control-room.html">For Curators</a></li><li><a href="#">Submit Demo</a></li></ul></div>
+    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="about.html">About 0Promo</a></li><li><a href="about.html#contact">Contact</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span class="footer-copy">&#169; 2024 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
