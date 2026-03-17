@@ -2405,18 +2405,7 @@ body { padding-bottom: 72px; }
   transition: background 0.25s ease, padding-left 0.25s ease;
   cursor: pointer;
 }
-.platform-row:hover {
-  background: var(--bg);
-  color: var(--white);
-  padding-left: 72px;
-}
-.platform-row:hover .platform-row-desc { color: rgba(245,245,245,0.72); }
-.platform-row:hover .platform-row-tags span {
-  border-color: rgba(245,245,245,0.25);
-  color: rgba(245,245,245,0.70);
-}
-.platform-row:hover .platform-num { color: var(--red); }
-.platform-row:hover .platform-row-arrow { color: var(--white); }
+/* platform-row:hover — moved to @media (hover: hover) block below */
 
 .platform-num {
   font-family: 'Barlow Condensed', sans-serif;
@@ -2457,13 +2446,13 @@ body { padding-bottom: 72px; }
   transition: color 0.25s ease, transform 0.25s ease;
   padding-left: 8px;
 }
-.platform-row:hover .platform-row-arrow { transform: translateX(6px); }
+/* platform-row arrow transform — moved to hover:hover block */
 
 /* Responsive */
 @media (max-width: 900px) {
   .platform-list-head { padding: 0 24px 36px; }
   .platform-row { grid-template-columns: 48px 1fr auto; gap: 0 20px; padding: 28px 24px; }
-  .platform-row:hover { padding-left: 32px; }
+  /* platform-row:hover padding handled in hover:hover block */
   .platform-row-tags { display: none; }
   .platform-row-arrow { grid-column: 3; }
 }
@@ -2471,7 +2460,7 @@ body { padding-bottom: 72px; }
   .platform-list-section { padding-top: 56px; }
   .platform-list-head { padding: 0 20px 28px; }
   .platform-row { grid-template-columns: 40px 1fr auto; gap: 0 16px; padding: 22px 20px; }
-  .platform-row:hover { padding-left: 24px; }
+  /* platform-row:hover padding handled in hover:hover block */
   .platform-row-title { font-size: 22px; }
   .platform-row-desc { display: none; }
 }
@@ -2507,3 +2496,380 @@ body { padding-bottom: 72px; }
 }
 .track-genre { text-transform: uppercase; letter-spacing: .04em; }
 .track-plays { margin-left: auto; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE-FIRST OVERHAUL — Full responsive pass
+   Breakpoints: 900px (tablet), 640px (mobile), 400px (small)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Hover states → only on pointer-precise (non-touch) devices ── */
+/* Prevents hover states getting "stuck" after tap on iOS/Android     */
+@media (hover: hover) and (pointer: fine) {
+  .track-card:hover            { transform: translateY(-5px); }
+  .track-card:hover .track-card-play { opacity: 1; }
+  .track-card:hover .track-card-art-inner { transform: scale(1.07); }
+  .track-card:hover .track-card-title    { color: var(--red); }
+
+  .artist-card:hover           { transform: translateY(-5px); }
+  .artist-card:hover .artist-card-photo-inner { transform: scale(1.07); }
+  .artist-card:hover .artist-card-name        { color: var(--red); }
+
+  .featured-block:hover .featured-bg  { transform: scale(1.03); }
+  .featured-block:hover .featured-line { width: 120px; }
+
+  .district-block:hover           { background: rgba(11,11,11,0.04); }
+  .district-block:hover::after    { transform: scaleX(1); }
+  .district-block:hover .district-arrow { opacity: 1; transform: translateX(0); }
+
+  .btt-card:hover { background: rgba(245,245,245,0.02); }
+  .btt-card:hover .btt-card-play-tag { color: var(--white); border-color: rgba(245,245,245,0.5); }
+
+  .city-pin:hover .city-core { background: var(--white); transform: scale(1.4); }
+  .city-pin:hover .city-name  { color: var(--white); }
+
+  .platform-row:hover {
+    background: var(--bg);
+    color: var(--white);
+    padding-left: 72px;
+  }
+  .platform-row:hover .platform-row-desc   { color: rgba(245,245,245,0.72); }
+  .platform-row:hover .platform-row-tags span { border-color: rgba(245,245,245,0.25); color: rgba(245,245,245,0.70); }
+  .platform-row:hover .platform-num        { color: var(--red); }
+  .platform-row:hover .platform-row-arrow  { color: var(--white); transform: translateX(6px); }
+
+  .broadcast-action:hover { color: var(--white); }
+  .hero-play-btn:hover .hero-play-circle  { background: var(--white); }
+  .hero-enter-link:hover  { color: var(--white); }
+  .hero-enter-link:hover svg { opacity: 1; }
+}
+
+/* On touch: platform row gets a gentle active state instead */
+@media (hover: none) {
+  .platform-row:active {
+    background: var(--bg);
+    color: var(--white);
+  }
+  .platform-row:active .platform-num { color: var(--red); }
+  .track-card:active .track-card-play { opacity: 1; }
+}
+
+/* ── 2. Global mobile typography improvements ── */
+@media (max-width: 640px) {
+  /* Eyebrow labels — bump 9px → 11px for legibility */
+  .section-eyebrow,
+  .featured-label,
+  .btt-card-eyebrow,
+  .join-label,
+  .broadcast-time,
+  .stat-label          { font-size: 10px; }
+
+  /* Filter pills */
+  .fp { font-size: 10px; padding: 7px 14px; min-height: 34px; }
+
+  /* Stats strip numbers + labels */
+  .stat-num   { font-size: 26px; }
+  .stat-label { font-size: 9px; letter-spacing: 0.15em; }
+
+  /* Hero counter visibility */
+  .hero-counter { color: rgba(245,245,245,0.65); }
+
+  /* Track card city tag */
+  .track-card-city { font-size: 9px; }
+
+  /* Artist card genre */
+  .artist-card-genre { font-size: 9px; }
+
+  /* Broadcast text */
+  .broadcast-text  { font-size: 11px; }
+  .broadcast-time  { font-size: 9px; }
+
+  /* BTT card art scale down */
+  .btt-card-art        { height: 160px; }
+  .btt-card-art-label  { font-size: 52px; }
+  .btt-card-body       { padding: 20px 20px 24px; gap: 8px; }
+  .btt-card-title      { font-size: 19px; }
+  .btt-card-excerpt    { font-size: 12px; }
+
+  /* Section head title */
+  .section-head h2 { font-size: clamp(22px, 6.5vw, 40px); }
+
+  /* Africa map city labels */
+  .city-name { font-size: 9px; }
+  .city-core { width: 10px; height: 10px; margin-top: 10px; }
+  .city-ring:nth-child(1) { width: 18px; height: 18px; }
+  .city-ring:nth-child(2) { width: 30px; height: 30px; }
+  .city-ring:nth-child(3) { width: 44px; height: 44px; }
+}
+
+/* ── 3. Hero section — phone-specific polish ── */
+@media (max-width: 640px) {
+  .hero-badge {
+    font-size: 8px;
+    padding: 5px 10px;
+    letter-spacing: 0.15em;
+  }
+
+  .hero-title {
+    font-size: clamp(48px, 14vw, 80px);
+    line-height: 0.88;
+  }
+
+  .hero-sub {
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    line-height: 1.8;
+  }
+
+  /* TUNE IN button — bigger tap target */
+  .hero-play-circle {
+    width: 48px;
+    height: 48px;
+  }
+  .hero-play-label { font-size: 10px; }
+
+  /* ENTER CONTROL ROOM — compact on small screens */
+  .hero-enter-link {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    gap: 8px;
+  }
+
+  /* Dots — slightly bigger tap area */
+  .hero-dot { height: 3px; }
+
+  /* Hero overlay slightly stronger on mobile (small screens, bright ambient light) */
+  .hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(11,11,11,0.95) 0%,
+      rgba(11,11,11,0.75) 22%,
+      rgba(11,11,11,0.42) 50%,
+      rgba(11,11,11,0.10) 80%,
+      transparent 100%
+    );
+  }
+}
+
+/* ── 4. Featured block — fix watermark text overflow on mobile ── */
+@media (max-width: 900px) {
+  /* The inline 280px watermark font needs to scale with viewport */
+  .featured-bg {
+    font-size: clamp(80px, 28vw, 280px);
+  }
+  .featured-bg span {
+    font-size: inherit !important;
+  }
+  .featured-title {
+    font-size: clamp(40px, 9vw, 96px);
+  }
+}
+@media (max-width: 640px) {
+  .featured-block { margin: 0; border-radius: 0; height: 300px; }
+  .featured-content { bottom: 28px; left: 20px; right: 20px; }
+  .featured-title { font-size: clamp(38px, 12vw, 72px); line-height: 0.9; }
+  .featured-label { font-size: 9px; margin-bottom: 8px; }
+  .featured-meta  { font-size: 9px; letter-spacing: 0.10em; }
+  .featured-line  { margin-top: 12px; }
+}
+
+/* ── 5. Section filters — ensure pills visible + properly padded ── */
+@media (max-width: 640px) {
+  .section-filters {
+    padding: 0 20px 16px;
+    gap: 8px;
+    /* Fade right edge to hint at scrollability */
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  }
+  /* Restore last item so it peeks fully */
+  .section-filters::after {
+    content: '';
+    flex-shrink: 0;
+    width: 20px;
+  }
+}
+
+/* ── 6. Carousel — edge fade on mobile to hint scrollability ── */
+@media (max-width: 640px) {
+  .carousel-track {
+    /* Right fade: hint there's more to scroll */
+    -webkit-mask-image: linear-gradient(to right, black 88%, transparent 100%);
+    mask-image: linear-gradient(to right, black 88%, transparent 100%);
+  }
+}
+
+/* ── 7. Platform list — mobile touch improvements ── */
+@media (max-width: 640px) {
+  .platform-list-head {
+    padding: 0 20px 28px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .platform-list-head .section-title { font-size: clamp(32px, 10vw, 56px); }
+
+  .platform-row {
+    padding: 22px 20px;
+    gap: 0 16px;
+    /* Remove padding-left animation on touch — use background instead */
+    transition: background 0.2s ease;
+  }
+  /* No padding-left lurch on touch */
+  .platform-row:hover,
+  .platform-row:active { padding-left: 20px !important; }
+
+  .platform-num         { font-size: 11px; }
+  .platform-row-title   { font-size: clamp(20px, 5.5vw, 32px); margin-bottom: 5px; }
+  .platform-row-desc    { font-size: 11px; line-height: 1.6; display: block; }
+  .platform-row-arrow   { font-size: 18px; }
+  .platform-row-tags    { display: none; }
+}
+
+/* ── 8. Africa section — mobile optimisation ── */
+@media (max-width: 640px) {
+  .africa-section   { padding: 48px 0 0; }
+  .africa-head      { padding: 0 20px 28px; gap: 20px; }
+  .africa-map-container { padding-bottom: 48px; }
+  .africa-svg-wrap  { max-width: 100%; padding: 0 16px; }
+  .africa-stat-row  { flex-wrap: wrap; padding: 0 20px; margin-top: 0; }
+  .africa-stat      { flex: 0 0 50%; border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .africa-stat:nth-child(odd)  { padding-right: 20px; border-right: 1px solid var(--border); }
+  .africa-stat:nth-child(even) { padding-left: 20px; }
+  .africa-stat:nth-last-child(-n+2) { border-bottom: none; }
+  .africa-stat-num  { font-size: 32px; }
+  .africa-stat-label { font-size: 9px; }
+}
+
+/* ── 9. Broadcast log — mobile readability ── */
+@media (max-width: 640px) {
+  .broadcast-log { padding: 0 20px; }
+  .broadcast-row {
+    grid-template-columns: 60px 1fr;
+    gap: 10px; padding: 14px 0;
+  }
+  .broadcast-badge  { display: none; }
+  .broadcast-action { display: none; }
+  .broadcast-text   { font-size: 11px; line-height: 1.55; }
+  .broadcast-text strong { display: block; margin-bottom: 2px; }
+}
+
+/* ── 10. Join section — full-width form on mobile ── */
+@media (max-width: 640px) {
+  .join-content  { padding: 52px 20px 48px; max-width: 100%; }
+  .join-title    { font-size: clamp(36px, 11vw, 64px); margin-bottom: 24px; }
+  .join-form     { max-width: 100%; }
+  .join-form input { font-size: 16px; } /* prevent iOS zoom */
+  .join-section  { min-height: 360px; }
+}
+
+/* ── 11. Footer — tighten up on mobile ── */
+@media (max-width: 640px) {
+  footer                { padding: 40px 20px 24px; }
+  .footer-grid          { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+  .footer-col-title     { font-size: 9px; letter-spacing: 0.18em; margin-bottom: 10px; }
+  .footer-links li a    { font-size: 10px; padding: 5px 0; display: block; } /* bigger tap target */
+  .footer-tagline       { font-size: 10px; line-height: 1.7; }
+  .footer-bottom        { flex-direction: column; align-items: flex-start; gap: 16px; padding-top: 20px; }
+  .footer-copy          { font-size: 8px; letter-spacing: 0.08em; }
+  .footer-social a      { min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+}
+@media (max-width: 400px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ── 12. Stats strip — ensure touch-friendly sizing ── */
+@media (max-width: 640px) {
+  .stats-strip-inner { height: auto; flex-wrap: wrap; padding: 0; }
+  .stat-item {
+    flex: 0 0 50%;
+    padding: 18px 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .stat-item:nth-child(odd)         { border-right: 1px solid var(--border); }
+  .stat-item:nth-last-child(-n+2)   { border-bottom: none; }
+  .stat-item:first-child            { padding-left: 20px; }
+}
+
+/* ── 13. Search overlay — full screen on mobile ── */
+@media (max-width: 640px) {
+  .search-inner       { padding: 0 20px; width: 100%; }
+  .search-eyebrow     { font-size: 10px; }
+  .search-field input { font-size: 16px; } /* prevent iOS zoom */
+  .search-genre-row   { flex-wrap: wrap; gap: 8px; padding: 0; }
+  .sg-pill            { font-size: 10px; padding: 7px 14px; }
+  .search-trend-tag   { font-size: 10px; padding: 7px 12px; }
+}
+
+/* ── 14. Nav mobile menu — ensure links have proper tap size ── */
+@media (max-width: 900px) {
+  .nav-mobile-links li a {
+    padding: 14px 0;
+    display: block;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* ── 15. Touch targets — all interactive elements min 44×44px ── */
+@media (max-width: 900px) {
+  button, [role="button"],
+  .carousel-arrow,
+  .hero-dot,
+  .btt-card-link,
+  .platform-row {
+    touch-action: manipulation;
+  }
+  .carousel-arrow { width: 44px; height: 44px; }
+  .hero-dot       { padding: 8px 0; cursor: pointer; }
+}
+
+/* ── 16. Scroll smoothness + overflow containment ── */
+html { scroll-behavior: smooth; }
+.carousel-track { -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+
+/* ── 17. Modal — full screen on small mobile ── */
+@media (max-width: 480px) {
+  .modal-box           { padding: 32px 20px 28px; }
+  .modal-title         { font-size: 28px; margin-bottom: 24px; }
+  .btn-modal-submit,
+  .btn-modal-google    { padding: 16px; font-size: 11px; }
+}
+@media (max-width: 380px) {
+  .modal-overlay       { padding: 0; align-items: flex-end; }
+  .modal-box           { max-width: 100%; border-left: none; border-right: none; border-bottom: none; padding-bottom: env(safe-area-inset-bottom, 20px); }
+}
+
+/* ── 18. Very small screens (≤ 360px) ── */
+@media (max-width: 360px) {
+  .hero-title   { font-size: clamp(42px, 13vw, 60px); }
+  .hero-actions { gap: 14px; }
+  .hero-play-circle { width: 42px; height: 42px; }
+  .track-card   { flex: 0 0 152px; }
+  .artist-card  { flex: 0 0 130px; }
+  .btt-card-title { font-size: 17px; }
+}
+
+/* ── 19. iOS safe area insets (notch, home bar) ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .player-bar {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  @media (max-width: 640px) {
+    body { padding-bottom: calc(92px + env(safe-area-inset-bottom)); }
+  }
+}
+
+/* ── 20. Prevent horizontal overflow (the #1 mobile layout killer) ── */
+html, body { max-width: 100vw; overflow-x: hidden; }
+
+.hero, .ticker, .stats-strip, .section,
+.platform-list-section, .africa-section,
+.join-section, footer { overflow-x: hidden; }
+
+/* ── Featured block watermark text — responsive font size ── */
+.featured-watermark-text {
+  font-size: clamp(80px, 28vw, 280px);
+}
