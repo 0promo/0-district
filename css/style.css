@@ -40,6 +40,9 @@ body { transition: opacity 0.5s var(--ease); }
 a { color: inherit; text-decoration: none; }
 button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 
+/* Touch: remove 300ms tap delay on all interactive elements */
+a, button, [role="button"], input, select, textarea { touch-action: manipulation; }
+
 /* === NAV === */
 .nav {
   position: fixed;
@@ -258,6 +261,8 @@ button { font-family: 'IBM Plex Mono', monospace; cursor: pointer; }
 .carousel-track {
   display: flex; gap: 16px; overflow-x: auto;
   scrollbar-width: none; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   scroll-behavior: smooth; padding: 0 40px;
 }
 .carousel-track::-webkit-scrollbar { display: none; }
@@ -1162,7 +1167,8 @@ textarea:focus-visible { outline: 1.5px solid var(--red); outline-offset: 2px; }
   /* Nav */
   .nav { padding: 0 20px; }
 
-  /* Hero */
+  /* Hero — use svh so iOS browser chrome doesn't clip the hero */
+  .hero { height: 100svh; min-height: 560px; }
   .hero-content { padding: 0 20px 64px; }
   .hero-actions { flex-wrap: wrap; gap: 16px; }
   .hero-dots { right: 20px; bottom: 24px; }
@@ -1225,6 +1231,9 @@ textarea:focus-visible { outline: 1.5px solid var(--red); outline-offset: 2px; }
   /* Section head: stack on tiny screens */
   .section-head { align-items: flex-start; }
   .carousel-arrows { align-self: flex-end; }
+
+  /* iOS Safari: prevent zoom-on-focus (triggers when font-size < 16px) */
+  input, select, textarea { font-size: 16px !important; }
 }
 
 /* ══ SMALL MOBILE (≤400px) ══════════════════════════════════ */
@@ -1756,7 +1765,7 @@ body { padding-bottom: 72px; }
   .player-btns { gap: 3px !important; }
   .player-btn-mobile { display: flex !important; align-items: center; justify-content: center; padding: 4px 5px !important; }
   .player-btn-desktop { display: none !important; }
-  .player-btn-play { width: 28px !important; height: 28px !important; }
+  .player-btn-play { width: 36px !important; height: 36px !important; }
 
   /* Right panel — show mute icon only */
   .player-right {
