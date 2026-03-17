@@ -1,0 +1,43 @@
+# netlify.toml — 0 District static site config
+# This is a pure static HTML/CSS/JS site — no build step needed.
+# Without this file, Netlify detects package.json and runs npm install
+# (wasting build minutes on Convex + dev dependencies).
+
+[build]
+  command   = ""          # no build command
+  publish   = "."         # serve from repo root
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Cache-control headers — aggressive caching for assets, no-cache for HTML
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirect trailing slashes + clean URLs
+[[redirects]]
+  from   = "/index"
+  to     = "/"
+  status = 301
+
+[[redirects]]
+  from   = "/home"
+  to     = "/"
+  status = 301

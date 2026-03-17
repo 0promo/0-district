@@ -2367,3 +2367,141 @@ body { padding-bottom: 72px; }
 .art-mono {
   background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PLATFORM LIST SECTION — replaces districts grid
+   ═══════════════════════════════════════════════════════════════ */
+.platform-list-section {
+  padding: 80px 0 0;
+  background: var(--white);
+  color: var(--bg);
+}
+.platform-list-head {
+  padding: 0 60px 48px;
+  border-bottom: 1px solid var(--border-l);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.platform-list-head .section-title {
+  color: var(--bg);
+  font-size: clamp(36px, 5vw, 72px);
+}
+.platform-list-head .section-eyebrow { color: var(--red); }
+
+.platform-list { display: flex; flex-direction: column; }
+
+.platform-row {
+  display: grid;
+  grid-template-columns: 64px 1fr auto auto;
+  align-items: center;
+  gap: 0 32px;
+  padding: 32px 60px;
+  border-bottom: 1px solid var(--border-l);
+  text-decoration: none;
+  color: var(--bg);
+  transition: background 0.25s ease, padding-left 0.25s ease;
+  cursor: pointer;
+}
+.platform-row:hover {
+  background: var(--bg);
+  color: var(--white);
+  padding-left: 72px;
+}
+.platform-row:hover .platform-row-desc { color: rgba(245,245,245,0.45); }
+.platform-row:hover .platform-row-tags span {
+  border-color: rgba(245,245,245,0.15);
+  color: rgba(245,245,245,0.45);
+}
+.platform-row:hover .platform-num { color: var(--red); }
+.platform-row:hover .platform-row-arrow { color: var(--white); }
+
+.platform-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 13px;
+  letter-spacing: 0.15em; color: var(--steel);
+  transition: color 0.25s ease;
+}
+
+.platform-row-main { min-width: 0; }
+.platform-row-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(24px, 3vw, 40px);
+  text-transform: uppercase; letter-spacing: 0.02em;
+  line-height: 1; margin-bottom: 8px;
+  transition: color 0.25s ease;
+}
+.platform-row-desc {
+  font-size: 11px; line-height: 1.65;
+  color: var(--steel); max-width: 520px;
+  transition: color 0.25s ease;
+}
+
+.platform-row-tags {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.platform-row-tags span {
+  font-size: 7px; letter-spacing: 0.18em; text-transform: uppercase;
+  border: 1px solid rgba(11,11,11,0.15);
+  color: var(--steel);
+  padding: 4px 8px;
+  transition: border-color 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+}
+
+.platform-row-arrow {
+  font-size: 20px; color: var(--steel);
+  transition: color 0.25s ease, transform 0.25s ease;
+  padding-left: 8px;
+}
+.platform-row:hover .platform-row-arrow { transform: translateX(6px); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .platform-list-head { padding: 0 24px 36px; }
+  .platform-row { grid-template-columns: 48px 1fr auto; gap: 0 20px; padding: 28px 24px; }
+  .platform-row:hover { padding-left: 32px; }
+  .platform-row-tags { display: none; }
+  .platform-row-arrow { grid-column: 3; }
+}
+@media (max-width: 640px) {
+  .platform-list-section { padding-top: 56px; }
+  .platform-list-head { padding: 0 20px 28px; }
+  .platform-row { grid-template-columns: 40px 1fr auto; gap: 0 16px; padding: 22px 20px; }
+  .platform-row:hover { padding-left: 24px; }
+  .platform-row-title { font-size: 22px; }
+  .platform-row-desc { display: none; }
+}
+
+/* ─── SUPABASE SKELETON LOADING ─────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton-block,
+.skeleton-line {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 4px;
+}
+.track-card.skeleton .track-cover { height: 160px; }
+.skeleton-line { height: 12px; margin: 8px 0; }
+.skeleton-line.w70 { width: 70%; }
+.skeleton-line.w50 { width: 50%; }
+
+/* Playing state for track play button */
+.track-play-btn.playing svg polygon { fill: var(--accent, #e8ff00); }
+.track-cover-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: #1a1a1a; color: #555;
+}
+.track-cover-placeholder svg { width: 40px; height: 40px; }
+.track-meta {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  font-size: 11px; color: #666; margin-top: 4px;
+}
+.track-genre { text-transform: uppercase; letter-spacing: .04em; }
+.track-plays { margin-left: auto; }

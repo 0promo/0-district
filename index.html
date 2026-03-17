@@ -45,7 +45,10 @@
 <nav class="nav" id="nav">
   <div class="nav-left">
     <a href="index.html" class="nav-logo">
-      <img src="assets/0logo.png" height="56" alt="0 Promo Recs" style="display:block;width:auto;">
+      <picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" height="56" alt="0 Promo Recs" style="display:block;width:auto;" fetchpriority="high">
+      </picture>
     </a>
     <ul class="nav-routes">
       <li><a href="index.html" class="active">/HOME</a></li>
@@ -215,16 +218,62 @@
   </div>
 </section>
 
-<!-- THE DISTRICTS (light) -->
-<section class="section section-light" style="padding-top:72px;padding-bottom:0;">
-  <div class="section-head reveal"><div><p class="section-eyebrow">EXPLORE</p><h2 class="section-title">THE DISTRICTS</h2></div></div>
-  <div class="districts-grid">
-    <a href="#radio" class="district-block reveal"><p class="district-code">D-01</p><h3 class="district-name">Radio</h3><p class="district-desc">Live broadcasts, curated streams, artist takeovers</p><span class="district-arrow">&#8594;</span></a>
-    <a href="control-room.html" class="district-block reveal reveal-delay-1"><p class="district-code">D-02</p><h3 class="district-name">Control Room</h3><p class="district-desc">Upload, manage, and curate your catalogue</p><span class="district-arrow">&#8594;</span></a>
-    <a href="#behind-the-track" class="district-block reveal reveal-delay-2"><p class="district-code">D-03</p><h3 class="district-name">Behind The Track</h3><p class="district-desc">Curator essays, context, and reflections</p><span class="district-arrow">&#8594;</span></a>
-    <a href="about.html" class="district-block reveal reveal-delay-3"><p class="district-code">D-04</p><h3 class="district-name">About</h3><p class="district-desc">Platform story, team, and mission</p><span class="district-arrow">&#8594;</span></a>
-    <a href="about.html#contact" class="district-block reveal reveal-delay-4"><p class="district-code">D-05</p><h3 class="district-name">Contact</h3><p class="district-desc">Get in touch, submit music, partner with us</p><span class="district-arrow">&#8594;</span></a>
-    <a href="#" class="district-block reveal"><p class="district-code">D-06</p><h3 class="district-name">Playlists</h3><p class="district-desc">Curated drops from district editors</p><span class="district-arrow">&#8594;</span></a>
+<!-- PLATFORM SECTIONS — horizontal feature list -->
+<section class="platform-list-section section-light">
+  <div class="platform-list-head reveal">
+    <p class="section-eyebrow">THE PLATFORM</p>
+    <h2 class="section-title">EVERYTHING<br>IN ONE ROOM</h2>
+  </div>
+  <div class="platform-list">
+
+    <a href="#radio" class="platform-row reveal">
+      <span class="platform-num">01</span>
+      <div class="platform-row-main">
+        <h3 class="platform-row-title">Radio</h3>
+        <p class="platform-row-desc">Curated African music streams, featured tracks, and live sets — all in one place. No algorithm. Just selection.</p>
+      </div>
+      <div class="platform-row-tags">
+        <span>STREAMS</span><span>PLAYLISTS</span><span>LIVE</span>
+      </div>
+      <span class="platform-row-arrow">&#8594;</span>
+    </a>
+
+    <a href="control-room.html" class="platform-row reveal reveal-delay-1">
+      <span class="platform-num">02</span>
+      <div class="platform-row-main">
+        <h3 class="platform-row-title">Control Room</h3>
+        <p class="platform-row-desc">The artist and label dashboard. Upload tracks, manage metadata, build your catalogue, and pitch to curators.</p>
+      </div>
+      <div class="platform-row-tags">
+        <span>ARTISTS</span><span>LABELS</span><span>CURATORS</span>
+      </div>
+      <span class="platform-row-arrow">&#8594;</span>
+    </a>
+
+    <a href="#behind-the-track" class="platform-row reveal reveal-delay-2">
+      <span class="platform-num">03</span>
+      <div class="platform-row-main">
+        <h3 class="platform-row-title">Behind The Track</h3>
+        <p class="platform-row-desc">Curator essays and editorial deep-dives into the music. Context, history, and reflection on every featured track.</p>
+      </div>
+      <div class="platform-row-tags">
+        <span>EDITORIAL</span><span>ESSAYS</span><span>CONTEXT</span>
+      </div>
+      <span class="platform-row-arrow">&#8594;</span>
+    </a>
+
+    <a href="about.html" class="platform-row reveal reveal-delay-3">
+      <span class="platform-num">04</span>
+      <div class="platform-row-main">
+        <h3 class="platform-row-title">About &amp; Contact</h3>
+        <p class="platform-row-desc">The story behind 0PromoRecords. Submit your music, partner with the platform, or just get in touch.</p>
+      </div>
+      <div class="platform-row-tags">
+        <span>SUBMIT</span><span>PARTNER</span><span>CONTACT</span>
+      </div>
+      <span class="platform-row-arrow">&#8594;</span>
+    </a>
+
   </div>
 </section>
 
@@ -370,7 +419,10 @@
 <footer>
   <div class="footer-grid">
     <div>
-      <img src="assets/0logo.png" class="footer-logo-img" alt="0 Promo Recs">
+      <picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" class="footer-logo-img" alt="0 Promo Recs">
+      </picture>
       <p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p>
     </div>
     <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="#radio">Radio</a></li><li><a href="control-room.html">Control Room</a></li><li><a href="#behind-the-track">Behind The Track</a></li><li><a href="about.html">About</a></li></ul></div>
@@ -501,6 +553,7 @@
 <script src="js/convex-layer.js"></script>
 <script src="js/lyrics.js"></script>
 <script src="js/product.js"></script>
+<script type="module" src="js/home.js"></script>
 <!-- SIGN IN MODAL -->
 <div class="modal-overlay" id="signInModal" onclick="if(event.target===this)closeSignIn()">
   <div class="modal-box">
