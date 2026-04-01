@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="0; url=control-room.html">
 <title>STUDIO DISTRICT — 0 District</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
@@ -204,14 +205,17 @@
 <nav class="nav scrolled" id="nav">
   <div class="nav-left">
     <a href="index.html" class="nav-logo">
-      <img src="assets/0logo.png" height="56" alt="0 Promo Recs" style="display:block;width:auto;">
+      <picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" class="nav-logo-img" alt="0 Promo Recs">
+      </picture>
     </a>
     <ul class="nav-routes">
       <li><a href="index.html">/HOME</a></li>
-      <li><a href="radio.html">/RADIO</a></li>
-      <li><a href="studio.html" class="active">/STUDIO</a></li>
-      <li><a href="collab.html">/COLLAB</a></li>
-      <li><a href="community.html">/NETWORK</a></li>
+      <li><a href="radio.html">/0PR RADIO</a></li>
+      <li><a href="control-room.html" class="active">/CTRL ROOM</a></li>
+      <li><a href="editorial.html">/EDITORIAL</a></li>
+      <li><a href="about.html">/ABOUT</a></li>
     </ul>
   </div>
   <div class="nav-right">
@@ -220,24 +224,27 @@
       SEARCH
     </button>
     <div class="nav-signal"><div class="nav-signal-dot"></div>CREATOR MODE</div>
-    <button class="btn-nav">SIGN IN</button>
+    <button class="btn-nav" onclick="openSignIn()">SIGN IN</button>
+    <button data-signout style="display:none;background:none;border:1px solid var(--border);color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;cursor:pointer;">SIGN OUT</button>
     <button class="nav-menu-btn" id="navMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
+
+
 <!-- MOBILE MENU -->
 <div class="nav-mobile-menu" id="navMobileMenu">
   <ul class="nav-mobile-links">
     <li><a href="index.html">/HOME</a></li>
-    <li><a href="radio.html">/RADIO</a></li>
-    <li><a href="studio.html" class="active">/STUDIO</a></li>
-    <li><a href="collab.html">/COLLAB</a></li>
-    <li><a href="community.html">/NETWORK</a></li>
+    <li><a href="radio.html">/0PR RADIO</a></li>
+    <li><a href="control-room.html" class="active">/CTRL ROOM</a></li>
+    <li><a href="editorial.html">/EDITORIAL</a></li>
+    <li><a href="about.html">/ABOUT</a></li>
   </ul>
   <div class="nav-mobile-footer">
     <div class="nav-mobile-signal"><div class="nav-signal-dot"></div>CREATOR MODE</div>
-    <button class="btn-nav-mobile">SIGN IN</button>
+    <button class="btn-nav-mobile" onclick="openSignIn()">SIGN IN</button>
   </div>
 </div>
 
@@ -245,13 +252,13 @@
   <!-- SIDEBAR -->
   <aside class="studio-sidebar">
     <div class="sidebar-artist">
-      <div class="sidebar-avatar"><div class="sidebar-avatar-text">AG</div></div>
-      <div class="sidebar-name">Ama Gold</div>
+      <div class="sidebar-avatar"><div class="sidebar-avatar-text" style="font-size:10px;letter-spacing:0.12em;">0PR</div></div>
+      <div class="sidebar-name" style="font-size:12px;letter-spacing:0.08em;">YOUR STUDIO</div>
       <div class="sidebar-role">District Creator</div>
       <div class="sidebar-stats">
-        <div><div class="sidebar-stat-val">47</div><div class="sidebar-stat-label">Tracks</div></div>
-        <div><div class="sidebar-stat-val">12K</div><div class="sidebar-stat-label">Plays</div></div>
-        <div><div class="sidebar-stat-val">841</div><div class="sidebar-stat-label">Fans</div></div>
+        <div><div class="sidebar-stat-val">—</div><div class="sidebar-stat-label">Tracks</div></div>
+        <div><div class="sidebar-stat-val">—</div><div class="sidebar-stat-label">Plays</div></div>
+        <div><div class="sidebar-stat-val">—</div><div class="sidebar-stat-label">Fans</div></div>
       </div>
     </div>
     <nav class="sidebar-nav">
@@ -275,59 +282,20 @@
 
     <!-- PANEL: MY MUSIC -->
     <div class="panel active" id="panel-music">
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-card-val">12,847</div><div class="stat-card-label">Total Plays</div><div class="stat-card-change">&#8593; +18% this week</div></div>
-        <div class="stat-card"><div class="stat-card-val">841</div><div class="stat-card-label">Followers</div><div class="stat-card-change">&#8593; +24 this week</div></div>
-        <div class="stat-card"><div class="stat-card-val">47</div><div class="stat-card-label">Tracks</div><div class="stat-card-change">3 pending review</div></div>
-        <div class="stat-card"><div class="stat-card-val">$284</div><div class="stat-card-label">Revenue MTD</div><div class="stat-card-change">&#8593; +$42 this week</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;padding:64px 40px;text-align:center;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:18px;">/ A-00 · MY MUSIC</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:52px;text-transform:uppercase;letter-spacing:0.02em;line-height:0.95;margin-bottom:18px;">NOTHING<br>IN THE VAULT.</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--steel);line-height:1.9;max-width:420px;margin-bottom:28px;">Your tracks, plays, and revenue live here once you drop music into the District. Upload your first track to begin.</div>
+        <a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);text-decoration:none;border:1px solid rgba(196,24,24,0.35);padding:11px 22px;">UPLOAD A TRACK &#8594;</a>
       </div>
-      <table class="track-table">
-        <thead><tr><th></th><th>TITLE</th><th>GENRE</th><th>PLAYS</th><th>REVENUE</th><th>STATUS</th><th>DATE</th></tr></thead>
-        <tbody>
-          <tr><td><div class="track-table-art"><div style="width:36px;height:36px;background:linear-gradient(135deg,#5a0808,#c41818);"></div></div></td><td><div class="track-table-title">Accra Nights</div><div class="track-table-artist">Ama Gold</div></td><td style="color:var(--steel);font-size:10px;">Afrobeats</td><td style="font-size:12px;">4,281</td><td style="color:#48bb78;font-size:12px;">$84.20</td><td><span class="status-badge live">LIVE</span></td><td style="color:var(--steel);font-size:10px;">2024-01-12</td></tr>
-          <tr><td><div class="track-table-art"><div style="width:36px;height:36px;background:linear-gradient(135deg,#08085a,#1818c4);"></div></div></td><td><div class="track-table-title">Lagos Ritual</div><div class="track-table-artist">Ama Gold</div></td><td style="color:var(--steel);font-size:10px;">Afro Soul</td><td style="font-size:12px;">3,194</td><td style="color:#48bb78;font-size:12px;">$62.10</td><td><span class="status-badge live">LIVE</span></td><td style="color:var(--steel);font-size:10px;">2024-01-08</td></tr>
-          <tr><td><div class="track-table-art"><div style="width:36px;height:36px;background:linear-gradient(135deg,#084a08,#12a012);"></div></div></td><td><div class="track-table-title">Midnight Lagos</div><div class="track-table-artist">Ama Gold</div></td><td style="color:var(--steel);font-size:10px;">Afro R&amp;B</td><td style="font-size:12px;">2,840</td><td style="color:#48bb78;font-size:12px;">$55.80</td><td><span class="status-badge live">LIVE</span></td><td style="color:var(--steel);font-size:10px;">2023-12-28</td></tr>
-          <tr><td><div class="track-table-art"><div style="width:36px;height:36px;background:linear-gradient(135deg,#1e1e1e,#3a3a3a);"></div></div></td><td><div class="track-table-title">Nairobi Rise [Demo]</div><div class="track-table-artist">Ama Gold</div></td><td style="color:var(--steel);font-size:10px;">Afropop</td><td style="font-size:12px;">—</td><td style="color:var(--steel);font-size:12px;">—</td><td><span class="status-badge draft">DRAFT</span></td><td style="color:var(--steel);font-size:10px;">2024-01-20</td></tr>
-          <tr><td><div class="track-table-art"><div style="width:36px;height:36px;background:linear-gradient(135deg,#5a2800,#c47800);"></div></div></td><td><div class="track-table-title">Gold Shore</div><div class="track-table-artist">Ama Gold</div></td><td style="color:var(--steel);font-size:10px;">Afrobeats</td><td style="font-size:12px;">—</td><td style="color:var(--steel);font-size:12px;">—</td><td><span class="status-badge review">REVIEW</span></td><td style="color:var(--steel);font-size:10px;">2024-01-19</td></tr>
-        </tbody>
-      </table>
     </div>
 
     <!-- PANEL: ANALYTICS -->
     <div class="panel" id="panel-analytics">
-      <div class="analytics-grid">
-        <div>
-          <div class="chart-wrap">
-            <p class="chart-title">PLAYS PER DAY — LAST 7 DAYS</p>
-            <div class="bar-chart">
-              <div class="bar-col"><div class="bar-fill" style="height:40%;"></div><div class="bar-label">MON</div></div>
-              <div class="bar-col"><div class="bar-fill" style="height:65%;"></div><div class="bar-label">TUE</div></div>
-              <div class="bar-col"><div class="bar-fill" style="height:50%;"></div><div class="bar-label">WED</div></div>
-              <div class="bar-col"><div class="bar-fill" style="height:80%;"></div><div class="bar-label">THU</div></div>
-              <div class="bar-col"><div class="bar-fill" style="height:70%;"></div><div class="bar-label">FRI</div></div>
-              <div class="bar-col"><div class="bar-fill" style="height:95%;"></div><div class="bar-label">SAT</div></div>
-              <div class="bar-col"><div class="bar-fill" style="height:85%;"></div><div class="bar-label">SUN</div></div>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:20px;">
-            <div style="background:var(--bg2);padding:24px;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;">2:47</div><div style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);margin-top:4px;">AVG LISTEN TIME</div></div>
-            <div style="background:var(--bg2);padding:24px;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:40px;">68%</div><div style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);margin-top:4px;">COMPLETION RATE</div></div>
-          </div>
-        </div>
-        <div>
-          <div class="chart-wrap" style="height:100%;">
-            <p class="chart-title">TOP REGIONS</p>
-            <div class="chart-sidebar">
-              <div class="region-row"><span class="region-name">Nigeria</span><div class="region-bar-wrap"><div class="region-bar-fill" style="width:82%;"></div></div><span class="region-pct">82%</span></div>
-              <div class="region-row"><span class="region-name">Ghana</span><div class="region-bar-wrap"><div class="region-bar-fill" style="width:64%;"></div></div><span class="region-pct">64%</span></div>
-              <div class="region-row"><span class="region-name">South Africa</span><div class="region-bar-wrap"><div class="region-bar-fill" style="width:48%;"></div></div><span class="region-pct">48%</span></div>
-              <div class="region-row"><span class="region-name">Kenya</span><div class="region-bar-wrap"><div class="region-bar-fill" style="width:35%;"></div></div><span class="region-pct">35%</span></div>
-              <div class="region-row"><span class="region-name">UK</span><div class="region-bar-wrap"><div class="region-bar-fill" style="width:28%;"></div></div><span class="region-pct">28%</span></div>
-              <div class="region-row"><span class="region-name">US</span><div class="region-bar-wrap"><div class="region-bar-fill" style="width:22%;"></div></div><span class="region-pct">22%</span></div>
-              <div class="region-row"><span class="region-name">Other</span><div class="region-bar-wrap"><div class="region-bar-fill" style="width:15%;"></div></div><span class="region-pct">15%</span></div>
-            </div>
-          </div>
-        </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;padding:64px 40px;text-align:center;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:18px;">/ A-01 · ANALYTICS</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:52px;text-transform:uppercase;letter-spacing:0.02em;line-height:0.95;margin-bottom:18px;">NO SIGNAL<br>TO READ.</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--steel);line-height:1.9;max-width:420px;margin-bottom:28px;">Analytics activate when your music is live in the District. Plays, regions, listen depth — all visible once the catalog moves.</div>
       </div>
     </div>
 
@@ -343,56 +311,35 @@
         <div class="form-field"><label class="form-label">Artist Name</label><input class="form-input" type="text" placeholder="YOUR NAME"></div>
         <div class="form-field"><label class="form-label">Genre</label><input class="form-input" type="text" placeholder="AFROBEATS"></div>
         <div class="form-field"><label class="form-label">Release Date</label><input class="form-input" type="date"></div>
+        <div class="form-field"><label class="form-label">SoundCloud URL</label><input class="form-input" type="url" placeholder="https://soundcloud.com/..."></div>
+        <div class="form-field"><label class="form-label">YouTube URL</label><input class="form-input" type="url" placeholder="https://youtube.com/watch?v=..."></div>
         <div class="form-field" style="grid-column:1/-1;"><label class="form-label">Description</label><textarea class="form-input" rows="3" placeholder="TRACK DESCRIPTION..." style="resize:vertical;"></textarea></div>
       </div>
-      <button class="btn-submit">SUBMIT TRACK &#8594;</button>
+      <button class="btn-submit" onclick="submitTrack()">SUBMIT TRACK &#8594;</button>
     </div>
 
     <!-- PANEL: COLLAB -->
     <div class="panel" id="panel-collab">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div style="background:var(--bg2);border:1px solid var(--border);padding:24px;">
-          <div style="display:flex;gap:8px;margin-bottom:12px;"><span style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;border:1px solid var(--red);color:var(--red);padding:3px 7px;">VOCALS</span><span style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;border:1px solid #48bb78;color:#48bb78;padding:3px 7px;">OPEN</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;margin-bottom:6px;">NEED VOCALIST</div>
-          <div style="font-size:10px;color:var(--steel);line-height:1.8;margin-bottom:16px;">Looking for a female vocalist for an Afrobeats track. Genre: Afrobeats/Pop. BPM: 102.</div>
-          <button style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border);background:transparent;color:var(--white);cursor:pointer;">MESSAGE</button>
-        </div>
-        <div style="background:var(--bg2);border:1px solid var(--border);padding:24px;">
-          <div style="display:flex;gap:8px;margin-bottom:12px;"><span style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;border:1px solid #667eea;color:#667eea;padding:3px 7px;">PRODUCTION</span><span style="font-size:8px;letter-spacing:0.12em;text-transform:uppercase;border:1px solid #ed8936;color:#ed8936;padding:3px 7px;">IN PROGRESS</span></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;text-transform:uppercase;margin-bottom:6px;">JOBURG GRID REMIX</div>
-          <div style="font-size:10px;color:var(--steel);line-height:1.8;margin-bottom:16px;">Echo Delta x Ama Gold · Remix challenge collab. Deadline: Feb 28.</div>
-          <button style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--red);background:var(--red);color:var(--white);cursor:pointer;">VIEW PROJECT</button>
-        </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;padding:64px 40px;text-align:center;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:18px;">/ A-03 · COLLABS</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:52px;text-transform:uppercase;letter-spacing:0.02em;line-height:0.95;margin-bottom:18px;">NO ACTIVE<br>COLLABS.</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--steel);line-height:1.9;max-width:420px;margin-bottom:28px;">The District connects artists, producers, and vocalists across the continent. Post what you need — let the talent come to you.</div>
+        <a href="collab.html" style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);text-decoration:none;border:1px solid rgba(196,24,24,0.35);padding:11px 22px;">BROWSE COLLAB BOARD &#8594;</a>
       </div>
     </div>
 
     <!-- PANEL: NOTIFICATIONS -->
     <div class="panel" id="panel-notifs">
-      <div style="display:flex;flex-direction:column;gap:0;">
-        <div class="broadcast-row visible" style="display:grid;grid-template-columns:100px 72px 1fr;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid var(--border);"><span class="broadcast-time">2h AGO</span><span class="broadcast-badge track">PLAY</span><span class="broadcast-text"><strong>841 listeners</strong> played "Accra Nights" today</span></div>
-        <div class="broadcast-row" style="display:grid;grid-template-columns:100px 72px 1fr;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid var(--border);"><span class="broadcast-time">4h AGO</span><span class="broadcast-badge join">FOLLOW</span><span class="broadcast-text"><strong>24 new followers</strong> this week · 841 total</span></div>
-        <div class="broadcast-row" style="display:grid;grid-template-columns:100px 72px 1fr;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid var(--border);"><span class="broadcast-time">6h AGO</span><span class="broadcast-badge collab">COLLAB</span><span class="broadcast-text"><strong>Echo Delta</strong> accepted your remix collaboration</span></div>
-        <div class="broadcast-row" style="display:grid;grid-template-columns:100px 72px 1fr;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid var(--border);"><span class="broadcast-time">1d AGO</span><span class="broadcast-badge system">REVIEW</span><span class="broadcast-text"><strong>"Gold Shore"</strong> submitted for editorial review</span></div>
-        <div class="broadcast-row" style="display:grid;grid-template-columns:100px 72px 1fr;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid var(--border);"><span class="broadcast-time">2d AGO</span><span class="broadcast-badge track">REVENUE</span><span class="broadcast-text"><strong>$42.00</strong> earned from streaming this week</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;padding:64px 40px;text-align:center;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:18px;">/ A-04 · NOTIFICATIONS</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:52px;text-transform:uppercase;letter-spacing:0.02em;line-height:0.95;margin-bottom:18px;">NOTHING<br>YET.</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--steel);line-height:1.9;max-width:420px;margin-bottom:28px;">Activity from plays, follows, collabs, editorial reviews, and revenue will surface here. Make your move first.</div>
       </div>
     </div>
   </main>
 </div>
 
-<!-- LYRICS PANEL -->
-<div class="lyrics-panel-overlay" id="lyricsPanelOverlay" onclick="toggleLyricsPanel()"></div>
-<div class="lyrics-panel" id="lyricsPanel">
-  <div class="lyrics-panel-head">
-    <div>
-      <p class="lyrics-panel-eyebrow">NOW PLAYING</p>
-      <p class="lyrics-panel-title" id="lyricsPanelTitle">LYRICS</p>
-      <p class="lyrics-header-title" id="lyricsHeaderTitle"></p>
-    </div>
-    <button class="lyrics-panel-close" onclick="toggleLyricsPanel()">&#215; CLOSE</button>
-  </div>
-  <div class="lyrics-lines" id="lyricsLines"></div>
-</div>
-
+<script src="js/supabase-data.js"></script>
 <script src="js/main.js"></script>
 <script src="js/convex-layer.js"></script>
 <script src="js/lyrics.js"></script>
@@ -419,17 +366,25 @@ function switchPanel(id, el) {
       <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
       <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="••••••••"></div>
       <button class="btn-modal-submit" onclick="handleModalSubmit()">SIGN IN →</button>
+      
+      <p style="text-align:center;margin-top:10px;"><button type="button" onclick="forgotPassword()" style="background:none;border:none;color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;">FORGOT PASSWORD?</button></p>
       <div class="modal-or">OR</div>
-      <button class="btn-modal-google" onclick="showToast('Google sign-in coming soon','')" type="button">
+      <button class="btn-modal-google" onclick="showToast('Use email & password above — Google sign-in launching soon','info')" type="button">
         <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.47 7.47 0 0 1 12 4.5c1.88 0 3.56.69 4.87 1.81l3.63-3.63A12 12 0 0 0 0 12c0 2 .49 3.88 1.36 5.55l3.9-3.78z"/><path fill="#34A853" d="M12 24a11.96 11.96 0 0 0 8.29-3.34l-3.84-3.24A7.5 7.5 0 0 1 4.68 13.5l-3.9 3.78A12 12 0 0 0 12 24z"/><path fill="#4A90D9" d="M23.49 12.27c0-.85-.07-1.45-.2-2.27H12v4.51h6.47a5.56 5.56 0 0 1-2.39 3.64l3.84 3.24C22.2 19.37 23.49 16 23.49 12.27z"/><path fill="#FBBC05" d="M4.68 13.5A7.47 7.47 0 0 1 4.5 12c0-.52.07-1.02.18-1.5l-3.9-3.78A12 12 0 0 0 0 12c0 1.65.33 3.22.9 4.66l3.78-3.16z"/></svg>
         CONTINUE WITH GOOGLE
       </button>
     </div>
-    <div id="panel-register" class="modal-panel" style="display:none">
-      <div class="modal-form-group"><label class="modal-label">Artist / Label Name</label><input class="modal-input" type="text" placeholder="Your name or label"></div>
+        <div id="panel-register" class="modal-panel" style="display:none">
+      <p style="font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);margin-bottom:10px;">I&#8217;M JOINING THE DISTRICT AS AN</p>
+      <div class="role-select-row" id="roleSelectRow">
+        <button type="button" class="role-select-btn active" data-role="artist" onclick="selectRole(this)">ARTIST</button>
+        <button type="button" class="role-select-btn" data-role="label" onclick="selectRole(this)">LABEL</button>
+        <button type="button" class="role-select-btn" data-role="curator" onclick="selectRole(this)">CURATOR</button>
+      </div>
+      <div class="modal-form-group"><label class="modal-label">Your Name / Label Name</label><input class="modal-input" type="text" placeholder="Your name or label"></div>
       <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
-      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="Create a password"></div>
-      <button class="btn-modal-submit" onclick="handleModalSubmit()">CREATE ACCOUNT →</button>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="Min. 8 characters"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">BECOME AN OPERATOR &#8594;</button>
     </div>
   </div>
 </div>
@@ -445,17 +400,17 @@ function switchPanel(id, el) {
     <div class="player-track-info">
       <div class="player-art" id="playerArt">
         <div class="art-red" id="playerArtBg" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:rgba(245,245,245,0.4);" id="playerArtLabel">KM</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:rgba(245,245,245,0.4);" id="playerArtLabel">0PR</span>
         </div>
       </div>
       <div class="player-details">
-        <div class="player-title" id="playerTitle">Accra Nights</div>
+        <div class="player-title" id="playerTitle">— NOTHING PLAYING —</div>
         <div class="player-meta-row">
-          <span class="player-artist" id="playerArtist">Kofi Manu</span>
+          <span class="player-artist" id="playerArtist">0 DISTRICT</span>
           <span class="player-sep">·</span>
-          <span class="player-genre-tag" id="playerGenre">Afrobeats</span>
+          <span class="player-genre-tag" id="playerGenre">—</span>
           <span class="player-sep player-hide-xs">·</span>
-          <span class="player-city-tag player-hide-xs" id="playerCity">ACCRA · GH</span>
+          <span class="player-city-tag player-hide-xs" id="playerCity">—</span>
         </div>
       </div>
       <button class="player-like-btn" id="playerLikeBtn" onclick="playerLike()" title="Like track">

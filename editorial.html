@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEHIND THE TRACK — 0 District Editorial</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ── EDITORIAL PAGE ─────────────────────────────────── */
+.editorial-hero {
+  min-height: 420px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 60px 40px;
+  margin-top: 64px; border-bottom: 1px solid var(--border);
+}
+.editorial-hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #1a0505 0%, #0b0b0b 60%);
+}
+.editorial-hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(11,11,11,0.95) 0%, transparent 70%);
+}
+.editorial-hero-stamp {
+  position: absolute; top: 40px; right: 40px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(100px, 15vw, 200px);
+  color: rgba(214,40,40,0.07); text-transform: uppercase;
+  letter-spacing: -0.04em; line-height: 1; user-select: none;
+  z-index: 0;
+}
+.editorial-hero-content { position: relative; z-index: 1; max-width: 700px; }
+.editorial-hero-eyebrow {
+  font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 16px;
+}
+.editorial-hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: clamp(52px, 8vw, 96px);
+  text-transform: uppercase; line-height: 0.88; letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+.editorial-hero-sub {
+  font-size: 12px; color: rgba(245,245,245,0.55);
+  line-height: 1.7; max-width: 480px; letter-spacing: 0.02em;
+}
+.editorial-hero-meta {
+  display: flex; gap: 32px; margin-top: 28px;
+}
+.editorial-hero-meta-item {
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--steel);
+}
+.editorial-hero-meta-item strong { color: var(--white); display: block; font-size: 18px; margin-bottom: 2px; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; }
+
+/* FEATURE ESSAY */
+.feature-wrap { padding: 0 40px; margin: 60px 0; }
+.feature-essay {
+  display: grid; grid-template-columns: 1fr 380px;
+  border: 1px solid var(--border); overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+.feature-essay:hover { border-color: rgba(214,40,40,0.4); }
+.feature-essay-art {
+  position: relative; min-height: 420px; overflow: hidden;
+}
+.feature-essay-art-inner {
+  position: absolute; inset: 0;
+  transition: transform 0.6s var(--ease);
+}
+.feature-essay:hover .feature-essay-art-inner { transform: scale(1.04); }
+.feature-essay-art-label {
+  position: absolute; top: 24px; left: 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 96px;
+  color: rgba(245,245,245,0.1); line-height: 1; letter-spacing: -0.04em;
+  user-select: none;
+}
+.feature-badge {
+  position: absolute; top: 24px; right: 24px;
+  font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 5px 12px; background: var(--red); color: var(--white);
+}
+.feature-essay-body {
+  background: var(--bg2); padding: 44px 36px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.feature-issue { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+.feature-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 38px; text-transform: uppercase;
+  line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 16px;
+}
+.feature-excerpt {
+  font-size: 11px; color: rgba(245,245,245,0.55); line-height: 1.85;
+  flex: 1; margin-bottom: 28px;
+}
+.feature-footer { border-top: 1px solid var(--border); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; }
+.feature-curator { font-size: 9px; color: var(--steel); letter-spacing: 0.06em; }
+.feature-curator strong { color: var(--white); }
+.feature-read-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 8px 16px; border: 1px solid var(--red);
+  background: var(--red); color: var(--white);
+  text-decoration: none; transition: all 0.2s ease;
+  display: inline-block;
+}
+.feature-read-btn:hover { background: var(--white); color: var(--bg); border-color: var(--white); }
+
+/* FILTER BAR */
+.editorial-filter-bar {
+  padding: 0 40px 0;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border); padding-bottom: 24px; margin: 0 40px 48px;
+}
+.editorial-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.ep {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 6px 14px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--steel); cursor: pointer; transition: all 0.2s ease;
+}
+.ep:hover { border-color: var(--white); color: var(--white); }
+.ep.active { border-color: var(--red); background: var(--red); color: var(--white); }
+.editorial-count { font-size: 9px; letter-spacing: 0.12em; color: var(--steel); text-transform: uppercase; }
+
+/* ESSAY GRID */
+.essay-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin: 0 40px 80px;
+}
+.essay-card {
+  background: var(--bg); overflow: hidden; cursor: pointer;
+  transition: background 0.25s ease;
+  display: flex; flex-direction: column;
+}
+.essay-card:hover { background: var(--bg2); }
+.essay-card-art {
+  height: 200px; position: relative; overflow: hidden;
+}
+.essay-card-art-inner {
+  position: absolute; inset: 0; transition: transform 0.5s var(--ease);
+}
+.essay-card:hover .essay-card-art-inner { transform: scale(1.05); }
+.essay-art-initials {
+  position: absolute; bottom: 12px; left: 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 52px;
+  color: rgba(245,245,245,0.12); line-height: 1; letter-spacing: -0.03em;
+}
+.essay-genre-tag {
+  position: absolute; top: 14px; left: 14px;
+  font-size: 7px; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 4px 9px; background: rgba(11,11,11,0.82);
+  color: var(--white); border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+.essay-card-body { padding: 22px 22px 20px; flex: 1; display: flex; flex-direction: column; }
+.essay-card-eyebrow { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+.essay-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 22px; text-transform: uppercase;
+  line-height: 0.95; letter-spacing: -0.01em; margin-bottom: 10px;
+  transition: color 0.2s ease;
+}
+.essay-card:hover .essay-card-title { color: var(--red); }
+.essay-card-excerpt { font-size: 10px; color: rgba(245,245,245,0.45); line-height: 1.8; flex: 1; margin-bottom: 16px; }
+.essay-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--border); padding-top: 14px; margin-top: auto;
+}
+.essay-card-curator { font-size: 8px; color: var(--steel); letter-spacing: 0.06em; }
+.essay-card-curator strong { color: rgba(245,245,245,0.7); }
+.essay-card-meta { display: flex; align-items: center; gap: 10px; }
+.essay-read-time { font-size: 8px; color: var(--steel); letter-spacing: 0.08em; }
+.essay-read-link {
+  font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--steel); text-decoration: none;
+  transition: color 0.2s ease;
+  display: flex; align-items: center; gap: 5px;
+}
+.essay-read-link:hover { color: var(--white); }
+
+/* SUBMIT CTA */
+.editorial-cta {
+  margin: 0 40px 80px;
+  background: var(--bg2); border: 1px solid var(--border);
+  padding: 48px; display: flex; align-items: center; justify-content: space-between;
+}
+.editorial-cta-text h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 32px; text-transform: uppercase; letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.editorial-cta-text p { font-size: 11px; color: var(--steel); line-height: 1.6; max-width: 400px; }
+.editorial-cta-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 14px 32px; border: 1px solid var(--red);
+  background: var(--red); color: var(--white);
+  text-decoration: none; transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.editorial-cta-btn:hover { background: var(--white); color: var(--bg); border-color: var(--white); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .feature-essay { grid-template-columns: 1fr; }
+  .feature-essay-art { min-height: 240px; }
+  .essay-grid { grid-template-columns: 1fr 1fr; margin: 0 24px 60px; }
+  .feature-wrap { padding: 0 24px; }
+  .editorial-filter-bar { margin: 0 24px 36px; }
+  .editorial-cta { margin: 0 24px 60px; flex-direction: column; gap: 24px; }
+  .editorial-hero { padding: 48px 24px; }
+  .editorial-hero-stamp { font-size: 80px; top: 24px; right: 24px; }
+}
+@media (max-width: 640px) {
+  .essay-grid { grid-template-columns: 1fr; margin: 0 20px 48px; }
+  .editorial-filter-bar { flex-direction: column; align-items: flex-start; gap: 16px; margin: 0 20px 32px; }
+  .editorial-cta { padding: 32px 20px; margin: 0 20px 48px; }
+  .editorial-hero { padding: 40px 20px; min-height: 320px; }
+}
+
+
+/* ── BUTTON RESET FOR ESSAY READ LINKS ── */
+button.essay-read-link, button.feature-read-btn {
+  background: none; cursor: pointer; font-family: inherit;
+}
+button.essay-read-link { border: none; padding: 0; }
+
+/* ── ESSAY READER OVERLAY ── */
+.essay-reader-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(8,8,8,0.98); display: flex; flex-direction: column;
+  overflow: hidden; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.essay-reader-overlay.open { opacity: 1; pointer-events: all; }
+.essay-reader-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 40px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.essay-reader-logo {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 0.2em; color: var(--red); text-transform: uppercase;
+}
+.essay-reader-close {
+  background: none; border: 1px solid var(--border); color: var(--white);
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.15em;
+  padding: 8px 16px; cursor: pointer; text-transform: uppercase; transition: all 0.2s;
+}
+.essay-reader-close:hover { border-color: var(--red); color: var(--red); }
+.essay-reader-body {
+  flex: 1; overflow-y: auto; padding: 60px 40px 80px;
+  max-width: 720px; margin: 0 auto; width: 100%;
+}
+.essay-reader-eyebrow {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.18em;
+  color: var(--red); text-transform: uppercase; margin-bottom: 16px;
+}
+.essay-reader-title {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+  font-size: clamp(28px, 5vw, 52px); text-transform: uppercase; line-height: 1.05;
+  margin-bottom: 20px;
+}
+.essay-reader-byline {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  color: var(--steel); border-bottom: 1px solid var(--border); padding-bottom: 28px;
+  margin-bottom: 36px; text-transform: uppercase;
+}
+.essay-reader-content p {
+  font-size: 15px; line-height: 1.85; color: rgba(245,245,245,0.85);
+  margin-bottom: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 13px;
+}
+.essay-reader-content p + p { text-indent: 0; }
+.essay-reader-content strong { color: var(--white); }
+.essay-reader-content em { color: var(--red); font-style: normal; letter-spacing: 0.05em; }
+.essay-reader-footer {
+  border-top: 1px solid var(--border); padding-top: 32px; margin-top: 48px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.essay-reader-footer-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  color: var(--steel); text-transform: uppercase;
+}
+.essay-reader-pitch {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--white); text-decoration: none;
+  border: 1px solid var(--border); padding: 10px 18px; transition: all 0.2s;
+}
+.essay-reader-pitch:hover { border-color: var(--red); color: var(--red); }
+@media (max-width: 600px) {
+  .essay-reader-header { padding: 16px 20px; }
+  .essay-reader-body { padding: 40px 20px 60px; }
+}
+
+</style>
+</head>
+<body class="page-loading">
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" onclick="closeSearch()">&#215; CLOSE</button>
+  <div class="search-inner">
+    <p class="search-eyebrow">SEARCH THE DISTRICT</p>
+    <div class="search-field">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      <input type="text" placeholder="ARTIST, TRACK, GENRE..." id="searchInput" autocomplete="off">
+    </div>
+    <div class="search-genre-row">
+      <button class="sg-pill active" onclick="togglePill(this)">ALL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFROBEATS</button>
+      <button class="sg-pill" onclick="togglePill(this)">AMAPIANO</button>
+      <button class="sg-pill" onclick="togglePill(this)">HIGHLIFE</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO SOUL</button>
+      <button class="sg-pill" onclick="togglePill(this)">AFRO HOUSE</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo">
+      <picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" class="nav-logo-img" alt="0 Promo Recs">
+      </picture>
+    </a>
+    <ul class="nav-routes">
+      <li><a href="index.html">/HOME</a></li>
+      <li><a href="radio.html">/0PR RADIO</a></li>
+      <li><a href="control-room.html">/CTRL ROOM</a></li>
+      <li><a href="editorial.html" class="active">/EDITORIAL</a></li>
+      <li><a href="about.html">/ABOUT</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <button class="search-btn" onclick="openSearch()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      SEARCH
+    </button>
+    <div class="nav-signal"><div class="nav-signal-dot"></div>SIGNAL LIVE</div>
+    <button class="btn-nav" onclick="openSignIn()">SIGN IN</button>
+    <button data-signout style="display:none;background:none;border:1px solid var(--border);color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;cursor:pointer;" class="nav-action-signout">SIGN OUT</button>
+    <button class="nav-menu-btn" id="navMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <ul class="nav-mobile-links">
+    <li><a href="index.html">/HOME</a></li>
+    <li><a href="radio.html">/0PR RADIO</a></li>
+    <li><a href="control-room.html">/CTRL ROOM</a></li>
+    <li><a href="editorial.html" class="active">/EDITORIAL</a></li>
+    <li><a href="about.html">/ABOUT</a></li>
+  </ul>
+  <div class="nav-mobile-footer">
+    <div class="nav-mobile-signal"><div class="nav-signal-dot"></div>SIGNAL LIVE</div>
+    <button class="btn-nav-mobile" onclick="openSignIn()">SIGN IN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="editorial-hero">
+  <div class="editorial-hero-bg"></div>
+  <div class="editorial-hero-stamp">BTT</div>
+  <div class="editorial-hero-content reveal">
+    <p class="editorial-hero-eyebrow">0 DISTRICT · EDITORIAL ARM</p>
+    <h1 class="editorial-hero-title">BEHIND<br>THE TRACK</h1>
+    <p class="editorial-hero-sub">Curator essays, producer deep-dives, and critical writing on the African music making its mark on the world.</p>
+    <div class="editorial-hero-meta">
+      <div class="editorial-hero-meta-item"><strong>18</strong>Essays Published</div>
+      <div class="editorial-hero-meta-item"><strong>7</strong>Curators</div>
+      <div class="editorial-hero-meta-item"><strong>12</strong>Cities Covered</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED ESSAY -->
+<div class="feature-wrap reveal">
+  <div class="feature-essay">
+    <div class="feature-essay-art">
+      <div class="feature-essay-art-inner art-red"></div>
+      <div class="feature-essay-art-label">KM</div>
+      <span class="feature-badge">FEATURED ESSAY</span>
+    </div>
+    <div class="feature-essay-body">
+      <div>
+        <p class="feature-issue">ISSUE 001 · AFROBEATS · ACCRA, GH</p>
+        <h2 class="feature-title">The Architecture of Accra Nights</h2>
+        <p class="feature-excerpt">How Kofi Manu layers percussive silence and high-life guitar to build tension across four minutes of pure intention. This essay examines the structural grammar of a track that sounds effortless but is, in fact, meticulously engineered — each silence as deliberate as each note. Manu has always understood that restraint is power, and Accra Nights is the clearest expression of that philosophy yet. The percussion drops out at exactly the moment you expect it to peak, and the absence hits harder than any fill could. It is a masterclass in negative space, in the music that isn't there.</p>
+      </div>
+      <div class="feature-footer">
+        <span class="feature-curator">by <strong>Kwame A. Mensah</strong> · 8 min read</span>
+        <button class="feature-read-btn" onclick="openEssayReader('featured')">READ FULL ESSAY &#8594;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="editorial-filter-bar reveal">
+  <div class="editorial-pills">
+    <button class="ep active" onclick="filterEssay(this,'all')">ALL</button>
+    <button class="ep" onclick="filterEssay(this,'afrobeats')">AFROBEATS</button>
+    <button class="ep" onclick="filterEssay(this,'amapiano')">AMAPIANO</button>
+    <button class="ep" onclick="filterEssay(this,'afro soul')">AFRO SOUL</button>
+    <button class="ep" onclick="filterEssay(this,'afro house')">AFRO HOUSE</button>
+    <button class="ep" onclick="filterEssay(this,'highlife')">HIGHLIFE</button>
+    <button class="ep" onclick="filterEssay(this,'afro r&b')">AFRO R&amp;B</button>
+  </div>
+  <span class="editorial-count" id="essayCount">6 ESSAYS</span>
+</div>
+
+<!-- ESSAY GRID -->
+<div class="essay-grid" id="essayGrid">
+
+  <!-- Essay 1 -->
+  <article class="essay-card reveal" data-genre="afro house">
+    <div class="essay-card-art">
+      <div class="essay-card-art-inner art-blue"></div>
+      <div class="essay-art-initials">DS</div>
+      <span class="essay-genre-tag">AFRO HOUSE</span>
+    </div>
+    <div class="essay-card-body">
+      <p class="essay-card-eyebrow" data-essay-id="essay1">DAKAR, SN · AFRO HOUSE</p>
+      <h3 class="essay-card-title">Frequency Maps: Dakar's Electronic Underground</h3>
+      <p class="essay-card-excerpt">DJ Senegal's Dakar Frequency isn't a track — it's a field recording of a city mid-transformation. A deep dive into the signal and what it means when electronic music inherits a griot tradition.</p>
+      <div class="essay-card-footer">
+        <span class="essay-card-curator">by <strong>Aminata Diallo</strong></span>
+        <div class="essay-card-meta">
+          <span class="essay-read-time">6 MIN</span>
+          <button class="essay-read-link" onclick="openEssayReader('essay1')">READ <svg width="12" height="6" viewBox="0 0 12 6"><line x1="0" y1="3" x2="10" y2="3" stroke="currentColor" stroke-width="1.5"/><polyline points="7,1 10,3 7,5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Essay 2 -->
+  <article class="essay-card reveal reveal-delay-1" data-genre="afro soul">
+    <div class="essay-card-art">
+      <div class="essay-card-art-inner art-purple"></div>
+      <div class="essay-art-initials">ZB</div>
+      <span class="essay-genre-tag">AFRO SOUL</span>
+    </div>
+    <div class="essay-card-body">
+      <p class="essay-card-eyebrow">LAGOS, NG · AFRO SOUL</p>
+      <h3 class="essay-card-title">Lagos Ritual and the Grammar of Grief</h3>
+      <p class="essay-card-excerpt">Zara.B writes music like correspondence — each note addressed to someone specific. Lagos Ritual is her most intimate letter yet, and this essay reads it line by line.</p>
+      <div class="essay-card-footer">
+        <span class="essay-card-curator">by <strong>Thabo Nkosi</strong></span>
+        <div class="essay-card-meta">
+          <span class="essay-read-time">7 MIN</span>
+          <button class="essay-read-link" onclick="openEssayReader('essay2')">READ <svg width="12" height="6" viewBox="0 0 12 6"><line x1="0" y1="3" x2="10" y2="3" stroke="currentColor" stroke-width="1.5"/><polyline points="7,1 10,3 7,5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Essay 3 -->
+  <article class="essay-card reveal reveal-delay-2" data-genre="amapiano">
+    <div class="essay-card-art">
+      <div class="essay-card-art-inner art-amber"></div>
+      <div class="essay-art-initials">ED</div>
+      <span class="essay-genre-tag">AMAPIANO</span>
+    </div>
+    <div class="essay-card-body">
+      <p class="essay-card-eyebrow">JOHANNESBURG, ZA · AMAPIANO</p>
+      <h3 class="essay-card-title">The Joburg Grid: How Amapiano Rewrote the City's Soundtrack</h3>
+      <p class="essay-card-excerpt">Echo Delta breaks down the structural logic of Joburg Grid — a track that captures an entire city's mood in a log drum loop and a minor seventh chord. What happens when a genre becomes a city's mirror.</p>
+      <div class="essay-card-footer">
+        <span class="essay-card-curator">by <strong>Kwame A. Mensah</strong></span>
+        <div class="essay-card-meta">
+          <span class="essay-read-time">9 MIN</span>
+          <button class="essay-read-link" onclick="openEssayReader('essay3')">READ <svg width="12" height="6" viewBox="0 0 12 6"><line x1="0" y1="3" x2="10" y2="3" stroke="currentColor" stroke-width="1.5"/><polyline points="7,1 10,3 7,5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Essay 4 -->
+  <article class="essay-card reveal" data-genre="highlife">
+    <div class="essay-card-art">
+      <div class="essay-card-art-inner art-green"></div>
+      <div class="essay-art-initials">AK</div>
+      <span class="essay-genre-tag">HIGHLIFE</span>
+    </div>
+    <div class="essay-card-body">
+      <p class="essay-card-eyebrow">ACCRA, GH · HIGHLIFE</p>
+      <h3 class="essay-card-title">Gold Shore and the Return of Ghanaian Guitar</h3>
+      <p class="essay-card-excerpt">Amara.K's debut single is a love letter to Golden Age highlife — but filtered through a producer sensibility that is entirely of this decade. How the past becomes permission for the future.</p>
+      <div class="essay-card-footer">
+        <span class="essay-card-curator">by <strong>Adaeze Okonkwo</strong></span>
+        <div class="essay-card-meta">
+          <span class="essay-read-time">5 MIN</span>
+          <button class="essay-read-link" onclick="openEssayReader('essay4')">READ <svg width="12" height="6" viewBox="0 0 12 6"><line x1="0" y1="3" x2="10" y2="3" stroke="currentColor" stroke-width="1.5"/><polyline points="7,1 10,3 7,5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Essay 5 -->
+  <article class="essay-card reveal reveal-delay-1" data-genre="afrobeats">
+    <div class="essay-card-art">
+      <div class="essay-card-art-inner art-teal"></div>
+      <div class="essay-art-initials">CS</div>
+      <span class="essay-genre-tag">AFROBEATS</span>
+    </div>
+    <div class="essay-card-body">
+      <p class="essay-card-eyebrow">CAIRO, EG · AFROBEATS</p>
+      <h3 class="essay-card-title">Cairo in the Mix: North Africa Enters the Beat</h3>
+      <p class="essay-card-excerpt">Cairo Sound's crossover production brings the oud and the 808 into the same room and refuses to let either apologise. An essay on synthesis, identity, and the pan-African frequency finding its north.</p>
+      <div class="essay-card-footer">
+        <span class="essay-card-curator">by <strong>Seun Faleti</strong></span>
+        <div class="essay-card-meta">
+          <span class="essay-read-time">7 MIN</span>
+          <button class="essay-read-link" onclick="openEssayReader('essay5')">READ <svg width="12" height="6" viewBox="0 0 12 6"><line x1="0" y1="3" x2="10" y2="3" stroke="currentColor" stroke-width="1.5"/><polyline points="7,1 10,3 7,5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Essay 6 -->
+  <article class="essay-card reveal reveal-delay-2" data-genre="afro r&b">
+    <div class="essay-card-art">
+      <div class="essay-card-art-inner" style="background:linear-gradient(135deg,#1a0a2e,#4a1060);"></div>
+      <div class="essay-art-initials">YK</div>
+      <span class="essay-genre-tag">AFRO R&amp;B</span>
+    </div>
+    <div class="essay-card-body">
+      <p class="essay-card-eyebrow">NAIROBI, KE · AFRO R&amp;B</p>
+      <h3 class="essay-card-title">Yemi.K and the Nairobi Soul Continuum</h3>
+      <p class="essay-card-excerpt">East African R&B has its own emotional register — cooler than Lagos, harder than Johannesburg, and completely its own thing. Yemi.K is its clearest voice and this is an attempt to explain why.</p>
+      <div class="essay-card-footer">
+        <span class="essay-card-curator">by <strong>Naledi Dlamini</strong></span>
+        <div class="essay-card-meta">
+          <span class="essay-read-time">8 MIN</span>
+          <button class="essay-read-link" onclick="openEssayReader('essay6')">READ <svg width="12" height="6" viewBox="0 0 12 6"><line x1="0" y1="3" x2="10" y2="3" stroke="currentColor" stroke-width="1.5"/><polyline points="7,1 10,3 7,5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</div>
+
+<!-- SUBMIT CTA -->
+<div class="editorial-cta reveal">
+  <div class="editorial-cta-text">
+    <h3>Pitch an Essay</h3>
+    <p>Are you a music writer, producer, or curator with something to say about African music? We're building the district's editorial voice. Pitch us your essay.</p>
+  </div>
+  <a href="about.html#contact" class="editorial-cta-btn">SUBMIT A PITCH &#8594;</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" class="footer-logo-img" alt="0 Promo Recs">
+      </picture>
+      <p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p>
+    </div>
+    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="radio.html">0 Promo Radio</a></li><li><a href="control-room.html">Control Room</a></li><li><a href="community.html">Network</a></li></ul></div>
+    <div><p class="footer-col-title">Editorial</p><ul class="footer-links"><li><a href="editorial.html">All Essays</a></li><li><a href="editorial.html">Curators</a></li><li><a href="about.html#contact">Pitch an Essay</a></li><li><a href="about.html#contact">Submit Demo</a></li></ul></div>
+    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="about.html">About 0Promo</a></li><li><a href="about.html#contact">Contact</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&#169; 2026 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
+    <div class="footer-social"><a href="https://www.instagram.com/0promorecords/" target="_blank" rel="noopener noreferrer">IG</a><a href="https://twitter.com/0promorecords" target="_blank" rel="noopener noreferrer">TW</a><a href="https://www.tiktok.com/@0promorecords" target="_blank" rel="noopener noreferrer">TK</a><a href="https://www.youtube.com/@0promorecords" target="_blank" rel="noopener noreferrer">YT</a></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/broadcast-float.js"></script>
+<script src="js/convex-layer.js"></script>
+<script src="js/product.js"></script>
+<script>
+function filterEssay(btn, genre) {
+  document.querySelectorAll('.ep').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('.essay-card');
+  let visible = 0;
+  cards.forEach(card => {
+    if (genre === 'all') {
+      card.style.display = '';
+      visible++;
+    } else {
+      const g = (card.dataset.genre || '').toLowerCase();
+      const show = g.includes(genre);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    }
+  });
+  const count = document.getElementById('essayCount');
+  if (count) count.textContent = visible + (visible === 1 ? ' ESSAY' : ' ESSAYS');
+}
+</script>
+<!-- SIGN IN MODAL -->
+<div class="modal-overlay" id="signInModal" onclick="if(event.target===this)closeSignIn()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSignIn()">&#215;</button>
+    <p class="modal-eyebrow">0 DISTRICT</p>
+    <h2 class="modal-title">ACCESS THE<br>DISTRICT</h2>
+    <div class="modal-tabs">
+      <button class="modal-tab active" data-tab="signin" onclick="switchTab(this)">SIGN IN</button>
+      <button class="modal-tab" data-tab="register" onclick="switchTab(this)">CREATE ACCOUNT</button>
+    </div>
+    <div id="panel-signin" class="modal-panel">
+      <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="••••••••"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">SIGN IN &#8594;</button>
+    </div>
+        <div id="panel-register" class="modal-panel" style="display:none">
+      <p style="font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);margin-bottom:10px;">I&#8217;M JOINING THE DISTRICT AS AN</p>
+      <div class="role-select-row" id="roleSelectRow">
+        <button type="button" class="role-select-btn active" data-role="artist" onclick="selectRole(this)">ARTIST</button>
+        <button type="button" class="role-select-btn" data-role="label" onclick="selectRole(this)">LABEL</button>
+        <button type="button" class="role-select-btn" data-role="curator" onclick="selectRole(this)">CURATOR</button>
+      </div>
+      <div class="modal-form-group"><label class="modal-label">Your Name / Label Name</label><input class="modal-input" type="text" placeholder="Your name or label"></div>
+      <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="Min. 8 characters"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">BECOME AN OPERATOR &#8594;</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ESSAY READER OVERLAY -->
+<div class="essay-reader-overlay" id="essayReaderOverlay">
+  <div class="essay-reader-header">
+    <span class="essay-reader-logo">0 DISTRICT · BEHIND THE TRACK</span>
+    <button class="essay-reader-close" onclick="closeEssayReader()">CLOSE &#215;</button>
+  </div>
+  <div class="essay-reader-body" id="essayReaderBody">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<script>
+var ESSAYS = {
+  featured: {
+    eyebrow: 'ISSUE 001 · AFROBEATS · ACCRA, GH',
+    title: 'The Architecture of Accra Nights',
+    byline: 'by Kwame A. Mensah &nbsp;·&nbsp; 8 MIN READ &nbsp;·&nbsp; AFROBEATS',
+    content: [
+      'There is a silence at 2:17 of Accra Nights that most listeners miss. The percussion drops entirely — no hi-hat, no kick, nothing — for exactly four beats. Then it returns. That silence is the track.',
+      'Kofi Manu has always understood what most producers his age have not: that restraint is power. Where his contemporaries are filling every bar with motion, Manu is creating space. And it is in the space that the emotion lives.',
+      'Accra Nights was recorded over eleven days at Studio One in Accra, with Manu producing entirely alone. The vocal you hear was the first take. He kept it because the second take was technically cleaner but emotionally hollow — a choice that tells you everything about what kind of artist he is.',
+      '<strong>The Structural Grammar</strong>',
+      'The track opens with a single guitar phrase — a three-note highlife figure borrowed from the 1970s but processed through a modern reverb chain that makes it sound like it is arriving from across a harbour. This is not accidental. Manu grew up listening to his grandmother's cassette collection. The past is never nostalgia for him; it is source material.',
+      'The percussion enters at 0:18, and here is where the engineering becomes remarkable. The kick drum sits low in the frequency spectrum — lower than you would expect for a contemporary Afrobeats record — which means it is felt before it is heard. Your chest registers the beat before your ears do. This is a physiological trick, and Manu executes it with precision.',
+      'By the chorus, he has layered four distinct percussion tracks, each playing a slightly different pattern. The result should be chaos. Instead it feels like a crowd of people walking in loose formation — each at their own pace, somehow arriving together.',
+      '<strong>The Silence at 2:17</strong>',
+      'When the percussion drops at 2:17, the vocal is left alone for four beats. Manu's voice — which has been doubled and tripled throughout — is suddenly bare, a single track, unprocessed. It sounds like a confession.',
+      'Then the drums return. And because of the four-beat absence, they hit harder than they have anywhere else in the track. The silence has made them louder.',
+      'This is not a production trick. It is a compositional argument. Manu is saying: the music is always there, even when you cannot hear it. The beat was always going to come back. You just had to trust the silence.',
+      '<em>Accra Nights</em> is proof that Afrobeats, in the right hands, is not a genre — it is a philosophy. Manu knows this. The architecture is the argument.'
+    ]
+  },
+  essay1: {
+    eyebrow: 'DAKAR, SN · AFRO HOUSE',
+    title: 'Frequency Maps: Dakar's Electronic Underground',
+    byline: 'by Aminata Diallo &nbsp;·&nbsp; 6 MIN READ &nbsp;·&nbsp; AFRO HOUSE',
+    content: [
+      'Dakar Frequency is not a club record. This is the first thing you need to understand. DJ Senegal did not make it for a dancefloor — he made it for a city. Specifically, for the 14-hour stretch of highway between Dakar's medina and the Corniche, driven in the dark with the Atlantic on one side and the city's electrical hum on the other.',
+      'The track opens with a field recording — traffic, a call to prayer looped and pitched down, the sound of rain on a corrugated roof. Over six minutes, these elements transform into the architecture of an Afro House track. But they never fully disappear. The rain is still there at the end, underneath the kick drum, if you listen for it.',
+      '<strong>The Griot in the Machine</strong>',
+      'What Senegal is doing, formally, is a very old thing dressed in very new clothes. The griot tradition — oral history, social memory, community held in song — is usually understood as acoustic, ancient, face-to-face. Senegal is asking what it looks like when the griot has a 909 drum machine and a laptop.',
+      'The answer, on Dakar Frequency, is that it looks exactly like this: a record that contains a city's memory inside its structure. The field recordings are not decoration. They are testimony.',
+      'The harmonic language of the track borrows from mbalax — the national popular music of Senegal, built on sabar drum patterns — but translates those rhythms into a four-to-the-floor framework that can travel. Senegal is making music for Dakar's diaspora. For the Senegalese in Paris and London and New York who need to remember what the Atlantic sounds like in August.',
+      '<strong>Signal and Noise</strong>',
+      'By the final breakdown, Senegal has stripped the track back to a single, sustained synthesiser note — a frequency that sits just at the edge of human hearing, felt more than processed — and the field recording of rain. It is desolate and beautiful. It is also, precisely, a transmission. A frequency map. A record of a city that is changing faster than anyone expected, preserved in audio amber.',
+      'Dakar Frequency will outlast the city it was made in. That may be the point.'
+    ]
+  },
+  essay2: {
+    eyebrow: 'LAGOS, NG · AFRO SOUL',
+    title: 'Lagos Ritual and the Grammar of Grief',
+    byline: 'by Thabo Nkosi &nbsp;·&nbsp; 7 MIN READ &nbsp;·&nbsp; AFRO SOUL',
+    content: [
+      'Every Zara.B song is a letter. She has said this in interviews, and you can hear it — the specificity of address, the sense that the music is directed somewhere particular, to someone who will understand references that other listeners will miss. Lagos Ritual is her most intimate letter yet. And this is an attempt to read it.',
+      'The track takes its name from a neighbourhood ritual that Zara.B has described as "the thing Lagos people do when they are grieving but do not have permission to grieve" — the public performance of normalcy during private devastation. The whole record is built around this contradiction.',
+      '<strong>The Structure of Concealment</strong>',
+      'Formally, Lagos Ritual is not a sad song. The production is warm, almost celebratory — Afropop guitar runs, a buoyant rhythm section, backing vocals that sound like a street party. Zara.B's delivery sits on top of this brightness and contradicts it completely. She is singing about loss in a voice trained to sound like she is not.',
+      'This is the grammar of grief that the title announces. In Lagos — in many African cities where emotional restraint is understood as strength — the ritual of public joy during private pain is not suppression. It is a sophisticated cultural technology, a way of protecting grief while still carrying it forward.',
+      '<strong>Line by Line</strong>',
+      'The first verse establishes a setting without explaining it: "Kitchen at seven, radio on, your mug still there." Zara.B refuses to tell us whose mug. She refuses to tell us what happened. She gives us the object — the mug — and trusts us to understand what it means when an ordinary object becomes unbearable.',
+      'The chorus pivots completely. Sonically, it lifts. The production opens up, the vocals harmonise, the rhythm section swings. "We still dance when the music plays." It should feel like a relief. It does not. Because we know, now, what the dancing is covering.',
+      'By the bridge, the production strips almost entirely. Piano only. Zara.B's voice alone. And in the gap between the instruments, you can hear Lagos — traffic, distant generators, the city that does not stop.',
+      'The letter ends without resolution. The mug is still there. The ritual continues. This is not a failure of the song — it is the song's most honest argument. Some grief does not resolve. You just learn to sing around it.'
+    ]
+  },
+  essay3: {
+    eyebrow: 'JOHANNESBURG, ZA · AMAPIANO',
+    title: 'The Joburg Grid: How Amapiano Rewrote the City's Soundtrack',
+    byline: 'by Kwame A. Mensah &nbsp;·&nbsp; 9 MIN READ &nbsp;·&nbsp; AMAPIANO',
+    content: [
+      'Amapiano is a genre that sounds like where it comes from. This is rarer than it sounds — most music is placeless, or aspires to be, reaching for universality by sanding off the local. Amapiano, specifically the strain that Echo Delta represents on Joburg Grid, is irreducibly, specifically, unmistakably South African. More specifically: Gauteng. More specifically: the road between Soweto and Sandton, which is also the road between the city's past and its complicated present.',
+      'Joburg Grid opened Echo Delta's second EP and was not expected to be the track that defined him. He has said he wrote it in a single afternoon, working on a log drum pattern that was initially intended for something else. The pattern stuck. The chord progression — a minor seventh, unresolved, never arriving at the tonic — stuck. The title came last, looking at the city through a studio window at 3am.',
+      '<strong>The Log Drum and What It Means</strong>',
+      'In amapiano, the log drum is not just a percussion instrument. It is the genre's signature, its identity, the sound that says: this is here, this is now, this is us. The log drum pattern that drives Joburg Grid is eight bars long and never repeats exactly — Delta shifts the emphasis slightly on each rotation, so the pattern breathes rather than locks.',
+      'This is technically complex. It sounds effortless. That gap between technical difficulty and emotional transparency is where Amapiano lives.',
+      'The chord progression is more unusual. Most amapiano records resolve harmonically — they give you the tonic, the home chord, the sense of arrival. Joburg Grid never does. That minor seventh hangs in the air through the entire six-minute runtime. You keep waiting for the resolution. It does not come.',
+      '<strong>The City as Subject</strong>',
+      'Joburg is a city built on grids — the literal street grid of Johannesburg's CBD, imposed on the landscape during the colonial period, still visible from above, still felt in the awkward distances between neighbourhoods that were designed to separate. Delta is not making a political record, exactly. But the unresolved chord, the grid that never reaches its destination, the minor key that should lift and doesn't — these are not accidents.',
+      'Joburg Grid is a portrait of a city that is still becoming itself. The music is the sound of that process — the loop that keeps going, the arrival that keeps being deferred, the rhythm that holds everything together while the resolution remains just ahead.',
+      'Amapiano rewrote Joburg's soundtrack not by ignoring the city's history but by finding a musical form that could hold both the history and the hope simultaneously — unresolved, breathing, irreducibly alive.'
+    ]
+  },
+  essay4: {
+    eyebrow: 'ACCRA, GH · HIGHLIFE',
+    title: 'Gold Shore and the Return of Ghanaian Guitar',
+    byline: 'by Adaeze Okonkwo &nbsp;·&nbsp; 5 MIN READ &nbsp;·&nbsp; HIGHLIFE',
+    content: [
+      'The Ghanaian guitar — the specific electric guitar sound of 1960s and 70s highlife, warm and slightly overdriven, fingerpicked rather than strummed, harmonically dense — disappeared from Ghanaian popular music for approximately two decades. Gold Shore brings it back. But Amara.K is not making a heritage record. She is making a new one.',
+      'The distinction matters. Heritage records use old sounds as proof of identity, as a way of asserting connection to a tradition. They look backward. Gold Shore uses the highlife guitar as a building material, as one element in a production that also contains 808 bass, contemporary Afropop vocal techniques, and a drum programming sensibility that is entirely of this decade. It looks at the past as permission.',
+      '<strong>The Guitar as Time Machine</strong>',
+      'Amara.K learned highlife guitar from her grandfather, who played in a dance band in Accra in the 1970s. You can hear this inheritance — not as imitation, but as fluency. The way she moves between chord positions has the ease of someone for whom the vocabulary is native, not acquired.',
+      'But the production around the guitar is contemporary in a way that her grandfather's band never was. The bass sits in the sub-frequency range, felt rather than heard. The vocals are doubled and spatially separated — left ear, right ear, then collapsing into mono at the chorus in a way that pulls the listener forward.',
+      '<strong>The Permission of History</strong>',
+      'What Amara.K has understood is that highlife, in its original form, was itself a synthesis — it brought Western harmonic language into contact with Ghanaian rhythmic and melodic traditions and created something new. To use highlife as source material for another synthesis is not betrayal. It is continuation.',
+      'Gold Shore is three minutes and nineteen seconds. It contains two guitar solos, a bass breakdown, and a chorus that will not leave your head. It is, in the best possible sense, uncomplicated. The complexity is in how it was made, not in how it sounds. It sounds like home — a home that is also, always, somewhere you have not quite been.'
+    ]
+  },
+  essay5: {
+    eyebrow: 'CAIRO, EG · AFROBEATS',
+    title: 'Cairo in the Mix: North Africa Enters the Beat',
+    byline: 'by Seun Faleti &nbsp;·&nbsp; 7 MIN READ &nbsp;·&nbsp; AFROBEATS',
+    content: [
+      'There has always been a frontier in African music conversations, and it has always run, roughly, along the Sahara. Sub-Saharan music — Afrobeats, amapiano, highlife, afro house — gets the global attention, the streaming numbers, the international tours. North African music exists in a different commercial and cultural conversation. Cairo Sound's production is a deliberate act of crossing.',
+      'Nile Blue, the track that brought the producer to 0 District's attention, puts an oud — the Arabic lute that sits at the centre of North African musical tradition — into direct conversation with an 808 drum machine that could have come from any contemporary Lagos session. The oud does not apologise. The 808 does not dominate. They find a frequency that is neither fully Arabic nor fully Afrobeats, and they inhabit it together.',
+      '<strong>The Synthesis Problem</strong>',
+      'Cross-cultural music production has a long history of failing in a specific way: one tradition becomes background, decoration, spice, while the other provides the structure. The exotic is sampled; the familiar does the work.',
+      'Cairo Sound avoids this. Technically, he avoids it by giving the oud melodic authority — it carries the hook, not just the texture. Harmonically, he avoids it by working in maqam scales rather than Western major/minor, which means the chord progressions follow Arabic modal logic rather than European harmonic logic. The 808 adapts to the oud, not the other way around.',
+      '<strong>The Pan-African Frequency</strong>',
+      'What Cairo Sound is doing is not new — North African producers have been experimenting with sub-Saharan rhythmic influences for decades, and vice versa. What is new is the moment. The global infrastructure for African music — streaming platforms, diaspora audiences, international labels — has grown large enough that a track like Nile Blue can find an audience without being mediated by Western cultural gatekeepers.',
+      'The pan-African frequency has always existed. The infrastructure to broadcast it is, finally, being built. Cairo is in the mix now, and the beat is better for it.'
+    ]
+  },
+  essay6: {
+    eyebrow: 'NAIROBI, KE · AFRO R&B',
+    title: 'Yemi.K and the Nairobi Soul Continuum',
+    byline: 'by Naledi Dlamini &nbsp;·&nbsp; 8 MIN READ &nbsp;·&nbsp; AFRO R&B',
+    content: [
+      'East African R&B has its own emotional register. It is not the exuberance of Lagos, the cosmopolitanism of Johannesburg, the melancholy of Dakar. It is something cooler, more interior, more concerned with the specific textures of urban Nairobi — the coffee shop at 7am, the traffic on Ngong Road, the satellite dish on the apartment block, the particular quality of the light at dusk. Yemi.K is its clearest voice.',
+      'Nairobi Rise, her debut on 0 District, announces this register in its first sixteen bars. The production is sparse — kick drum, a single synth pad, her voice, almost nothing else. The sparseness is not constraint; it is aesthetic choice. Yemi.K has said she is afraid of music that is afraid of silence. The track's economy is its argument.',
+      '<strong>The Nairobi Continuum</strong>',
+      'Nairobi has a pop music history that is underacknowledged in continental conversations — benga guitar music from the 1960s, the Congolese rhumba that moved through the city in the 70s and 80s, the hip-hop hybridisation of the 90s and 2000s, the Afropop moment of the 2010s. Yemi.K is the latest node in a continuum that has been absorbing and transforming influences for sixty years.',
+      'What she inherits, specifically, is the emotional restraint. East African popular music has rarely been interested in performance for its own sake — in the Lagos tradition of vocal acrobatics or the South African tradition of choral power. It tends toward understatement, toward the single phrase that carries more weight than it should, toward the melody that arrives late and stays.',
+      '<strong>Interior Geography</strong>',
+      'Nairobi Rise is a song about a specific relationship at a specific moment — early morning, aftermath of an argument, neither person ready to apologise. The setting is interior: an apartment, low light, the sound of the city beginning outside. Yemi.K never tells us how the argument resolves, or whether it does. She gives us the atmosphere of the moment — the suspension, the held breath — and trusts it to be enough.',
+      'It is enough. More than enough. The emotional intelligence of the songwriting is matched by the production, which supports the vocals without crowding them, leaves room for the listener to inhabit the spaces between the notes.',
+      'East African R&B has been doing this — making interior space in music — for decades. Yemi.K is simply doing it at a level and with a clarity that the rest of the continent is starting to notice. The Nairobi soul continuum has found its next voice.'
+    ]
+  }
+};
+
+function openEssayReader(essayId) {
+  var essay = ESSAYS[essayId];
+  if (!essay) return;
+  var body = document.getElementById('essayReaderBody');
+  var content = essay.content.map(function(p){ return '<p>' + p + '</p>'; }).join('');
+  body.innerHTML = '<p class="essay-reader-eyebrow">' + essay.eyebrow + '</p>' +
+    '<h1 class="essay-reader-title">' + essay.title + '</h1>' +
+    '<p class="essay-reader-byline">' + essay.byline + '</p>' +
+    '<div class="essay-reader-content">' + content + '</div>' +
+    '<div class="essay-reader-footer">' +
+    '<span class="essay-reader-footer-tag">0 DISTRICT · BEHIND THE TRACK</span>' +
+    '<a href="about.html#contact" class="essay-reader-pitch">PITCH AN ESSAY &#8594;</a>' +
+    '</div>';
+  body.scrollTop = 0;
+  var overlay = document.getElementById('essayReaderOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEssayReader() {
+  var overlay = document.getElementById('essayReaderOverlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') closeEssayReader();
+});
+</script>
+
+</body>
+</html>

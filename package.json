@@ -10,6 +10,7 @@
     "live-server": "^1.2.2"
   },
   "dependencies": {
+    "@convex-dev/auth": "^0.0.91",
     "convex": "^1.33.1"
   }
 }

@@ -49,12 +49,12 @@ var DISTRICT_DATA = {
   ],
 
   collabs: [
-    { _id:'c1', title:'Afropop Remix Challenge',    creator:'Echo Delta',  genre:'Afrobeats',  open:true,  applicants:34, deadline:'Mar 28', reward:'Credit + 40% royalty split' },
+    { _id:'c1', title:'Afropop Remix Challenge',    creator:'Echo Delta',  genre:'Afrobeats',  open:true,  applicants:34, deadline:'Apr 28', reward:'Credit + 40% royalty split' },
     { _id:'c2', title:'Nairobi Session Vol.4',      creator:'Yemi.K',      genre:'Electronic', open:true,  applicants:12, deadline:'Apr 3',  reward:'Studio time + co-release'    },
-    { _id:'c3', title:'Lagos Drill Collab',         creator:'Ofo Beats',   genre:'Drill',      open:true,  applicants:28, deadline:'Mar 25', reward:'Feature credit + royalties'  },
+    { _id:'c3', title:'Lagos Drill Collab',         creator:'Ofo Beats',   genre:'Drill',      open:true,  applicants:28, deadline:'Apr 18', reward:'Feature credit + royalties'  },
     { _id:'c4', title:'Amapiano Beat Pack Feature', creator:'Pulse Network',genre:'Amapiano',  open:true,  applicants:19, deadline:'Apr 10', reward:'Paid feature + promo'        },
     { _id:'c5', title:'Continental Fusion Project', creator:'Cairo Sound', genre:'Fusion',     open:true,  applicants:41, deadline:'Apr 15', reward:'Label partnership + release'  },
-    { _id:'c6', title:'Afro House DJ Set',          creator:'DJ Senegal',  genre:'Afro House', open:false, applicants:22, deadline:'Mar 20', reward:'Closing credits + revenue'    },
+    { _id:'c6', title:'Afro House DJ Set',          creator:'DJ Senegal',  genre:'Afro House', open:false, applicants:22, deadline:'Apr 5', reward:'Closing credits + revenue'    },
   ],
 
   posts: [
@@ -108,23 +108,4 @@ var DistrictAPI = {
   }
 };
 
-/* ── STATS COUNTER (replaces hardcoded zeros) ── */
-document.addEventListener('DOMContentLoaded', function() {
-  DistrictAPI.getStats(function(err, stats) {
-    if (err) return;
-    function countUp(el, target) {
-      if (!el) return;
-      var start = 0;
-      var step = Math.ceil(target / 40);
-      var timer = setInterval(function() {
-        start = Math.min(start + step, target);
-        el.textContent = start.toLocaleString();
-        if (start >= target) clearInterval(timer);
-      }, 35);
-    }
-    countUp(document.getElementById('statArtists'),  stats.artists);
-    countUp(document.getElementById('statTracks'),   stats.tracks);
-    countUp(document.getElementById('statDistricts'),stats.districts);
-    countUp(document.getElementById('statLive'),     stats.live);
-  });
-});
+/* ── STATS COUNTER handled by main.js (IntersectionObserver-based, fires once on scroll-into-view) ── */

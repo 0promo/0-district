@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ABOUT — 0PromoRecords · 0 District</title>
+<meta name="theme-color" content="#0b0b0b">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-loading">
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo">
+      <picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" class="nav-logo-img" alt="0 Promo Recs">
+      </picture>
+    </a>
+    <ul class="nav-routes">
+      <li><a href="index.html">/HOME</a></li>
+      <li><a href="radio.html">/0PR RADIO</a></li>
+      <li><a href="control-room.html">/CTRL ROOM</a></li>
+      <li><a href="editorial.html">/EDITORIAL</a></li>
+      <li><a href="about.html" class="active">/ABOUT</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <button class="search-btn" onclick="openSearch()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
+      SEARCH
+    </button>
+    <div class="nav-signal"><div class="nav-signal-dot"></div>SIGNAL LIVE</div>
+    <button class="btn-nav" onclick="openSignIn()">SIGN IN</button>
+    <button data-signout style="display:none;background:none;border:1px solid var(--border);color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;cursor:pointer;" class="nav-action-signout">SIGN OUT</button>
+    <button class="nav-menu-btn" id="navMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <ul class="nav-mobile-links">
+    <li><a href="index.html">/HOME</a></li>
+    <li><a href="radio.html">/0PR RADIO</a></li>
+    <li><a href="control-room.html">/CTRL ROOM</a></li>
+    <li><a href="editorial.html">/EDITORIAL</a></li>
+    <li><a href="about.html" class="active">/ABOUT</a></li>
+  </ul>
+  <div class="nav-mobile-footer">
+    <div class="nav-mobile-signal"><div class="nav-signal-dot"></div>SIGNAL LIVE</div>
+    <button class="btn-nav-mobile" onclick="openSignIn()">SIGN IN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section style="padding:100px 40px 140px;text-align:left;min-height:auto;position:relative;overflow:hidden;" class="reveal">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a0202 0%,#0b0b0b 60%);"></div>
+  <div style="position:absolute;right:-60px;bottom:-80px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(200px,30vw,420px);color:rgba(214,40,40,0.04);text-transform:uppercase;line-height:1;user-select:none;pointer-events:none;">0</div>
+  <div style="max-width:900px;position:relative;z-index:1;">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:20px;">0PromoRecords · 0 District · Est. 2024</p>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,9vw,110px);text-transform:uppercase;line-height:0.9;letter-spacing:-0.03em;margin-bottom:28px;">THE LABEL.<br>THE PLATFORM.<br>THE DISTRICT.</h1>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:clamp(12px,1.6vw,16px);line-height:1.9;color:var(--steel);max-width:620px;">A streaming-first African music label and infrastructure platform. Built for artists who refuse to compromise, labels that think in decades, and curators who set the signal.</p>
+  </div>
+</section>
+
+<!-- BACKSTORY -->
+<section style="padding:80px 40px;background:var(--bg2);border-bottom:1px solid var(--border);" class="reveal">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:180px 1fr;gap:60px;align-items:start;">
+    <div>
+      <div style="width:1px;height:100px;background:var(--red);margin-bottom:20px;"></div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);">THE STORY</p>
+    </div>
+    <div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(28px,4vw,46px);text-transform:uppercase;line-height:1;letter-spacing:-0.02em;margin-bottom:28px;">We Built What We Needed.</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:2;color:var(--steel);margin-bottom:20px;">0PromoRecords started from one frustrating truth: African music is transforming the world — but the infrastructure behind it still hasn't caught up. Artists were signing bad deals because there was nothing else. Labels were operating on spreadsheets and group chats. Curators with world-class taste had no platform built for them.</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:2;color:var(--steel);margin-bottom:20px;">We didn't build another playlist or another distribution pipeline. We built a <strong style="color:var(--white);">District</strong> — a full-stack infrastructure for the African music ecosystem. The tools, the network, the editorial arm, and the platform, all in one signal.</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:2;color:var(--white);">No hype. No middlemen. Just music, moving on its own terms.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ORIGIN BACKSTORY -->
+<section style="padding:80px 40px;background:var(--bg2);border-bottom:1px solid var(--border);" class="reveal">
+  <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;" class="about-backstory-grid">
+    <div>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:16px;">/ THE BACKSTORY</p>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(36px,5vw,60px);text-transform:uppercase;line-height:0.92;letter-spacing:-0.03em;margin-bottom:24px;">Born in<br>the Gap.</h2>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);margin-bottom:18px;">0PromoRecords started with a simple observation: the best music in the world was coming out of Africa, and the worst infrastructure in the music industry was available to the people making it.</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);margin-bottom:18px;">Artists were signing rights away to move twenty copies. Labels were operating on WhatsApp groups and good faith. Curators with ears built for the next era had nowhere to put them. The signal was real. The system wasn't ready for it.</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--white);">So we built the system. Starting from Accra, reaching every city the sound has touched — Lagos, Johannesburg, London, New York, Paris, Nairobi. 0 District is the infrastructure African music deserved from the beginning.</p>
+    </div>
+    <div class="about-backstory-img" style="border:1px solid var(--border);aspect-ratio:3/4;background:linear-gradient(160deg,#1a0505 0%,#0b0b0b 100%);display:flex;align-items:flex-end;padding:32px;overflow:hidden;position:relative;">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(80px,18vw,160px);color:rgba(214,40,40,0.08);text-transform:uppercase;letter-spacing:-0.04em;line-height:0.9;user-select:none;text-align:center;">0<br>DIS<br>TRICT</div>
+      </div>
+      <div style="position:relative;z-index:1;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:7px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:8px;">ACCRA, GH · EST. 2024</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:22px;text-transform:uppercase;line-height:1;color:var(--white);">THE DIGITAL CITY<br>AFRICAN MUSIC BUILT.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION / VISION / DRIVE / BELIEVE -->
+<section style="padding:0;background:var(--bg);border-bottom:1px solid var(--border);" class="reveal">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="about-mission-grid" style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);">
+      <div style="padding:64px 40px;border-right:1px solid var(--border);">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:20px;">/ 01 · MISSION</p>
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(30px,4vw,50px);text-transform:uppercase;line-height:0.95;letter-spacing:-0.02em;margin-bottom:24px;">Close<br>The Gap.</h2>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);margin-bottom:14px;">African music has always been world-class. The infrastructure around it hasn't been.</p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);">Our mission is to arm every artist, label, and curator on the continent — and in the diaspora — with the tools that were built for everyone else first. Upload, distribute, collaborate, curate, and earn. On your terms. Under your name. At scale.</p>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);">THE GAP IS WHERE WE OPERATE.</div>
+        </div>
+      </div>
+      <div style="padding:64px 40px;background:var(--bg2);">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:20px;">/ 02 · VISION</p>
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(30px,4vw,50px);text-transform:uppercase;line-height:0.95;letter-spacing:-0.02em;margin-bottom:24px;">African Music.<br>Global Standard.<br>No Exception.</h2>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);margin-bottom:14px;">We are building toward a world where the names that define the next era of global music are African — and they got there without giving anything away.</p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);">Afrobeats. Amapiano. Highlife. Afro Soul. Afro House. Drill. Electronic. The sounds are already everywhere. The infrastructure catches up through 0 District.</p>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);">THE CREATOR HOLDS THE KEY.</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-mission-grid" style="display:grid;grid-template-columns:1fr 1fr;">
+      <div style="padding:64px 40px;border-right:1px solid var(--border);">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:20px;">/ 03 · DRIVE</p>
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(30px,4vw,50px);text-transform:uppercase;line-height:0.95;letter-spacing:-0.02em;margin-bottom:24px;">The Problem<br>Is The Fuel.</h2>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);margin-bottom:14px;">Artists who signed their masters away for a feature that never came. Curators with world-class ears and no platform to prove it. Labels running rosters off spreadsheets and hope. We have seen it, close up, for years.</p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);margin-bottom:14px;">Anger is not the word. The word is clarity. You see the gap clearly enough, you stop waiting for someone else to fill it. You build.</p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:2.1;color:var(--steel);">Every feature in 0 District exists because someone needed it and it didn't exist. We build as the signal demands. The work is never done — and that's the point.</p>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);">WE BUILD AS THE SIGNAL DEMANDS.</div>
+        </div>
+      </div>
+      <div style="padding:64px 40px;background:var(--bg2);">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:20px;">/ 04 · BELIEVE</p>
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(30px,4vw,50px);text-transform:uppercase;line-height:0.95;letter-spacing:-0.02em;margin-bottom:28px;">First Principles.<br>No Compromise.</h2>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:2px;min-height:18px;background:var(--red);flex-shrink:0;margin-top:3px;"></div>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:2;color:var(--steel);"><strong style="color:var(--white);display:block;margin-bottom:2px;">African music has arrived.</strong>It is not emerging, upcoming, or next. It is here. The industry needs to catch up — and we are not slowing down to let it.</p>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:2px;min-height:18px;background:var(--red);flex-shrink:0;margin-top:3px;"></div>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:2;color:var(--steel);"><strong style="color:var(--white);display:block;margin-bottom:2px;">Independence is a strategy.</strong>Not a limitation, not a consolation prize. The creator who owns their masters owns their future. Full stop.</p>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:2px;min-height:18px;background:var(--red);flex-shrink:0;margin-top:3px;"></div>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:2;color:var(--steel);"><strong style="color:var(--white);display:block;margin-bottom:2px;">The network is the release.</strong>Who hears your music matters as much as the music itself. 0 District is how you build both at once.</p>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:2px;min-height:18px;background:var(--red);flex-shrink:0;margin-top:3px;"></div>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:2;color:var(--steel);"><strong style="color:var(--white);display:block;margin-bottom:2px;">Curation is a discipline.</strong>Great music needs great editors to move at scale. The ear is as important as the catalog.</p>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:2px;min-height:18px;background:var(--red);flex-shrink:0;margin-top:3px;"></div>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:2;color:var(--steel);"><strong style="color:var(--white);display:block;margin-bottom:2px;">The District is for Operators.</strong>Artists. Labels. Curators. Every person on this platform is here to do the work — and the platform is built to back them up.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM PILLARS -->
+<section style="padding:80px 40px;background:var(--bg2);border-bottom:1px solid var(--border);" class="reveal">
+  <div style="max-width:900px;margin:0 auto;">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:16px;">THE PLATFORM</p>
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,5vw,60px);text-transform:uppercase;line-height:0.95;letter-spacing:-0.02em;margin-bottom:48px;">Built for All<br>Three Operators.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);">
+      <div style="background:var(--bg);padding:36px 28px;">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:0.2em;color:var(--red);margin-bottom:14px;">ARTIST</p>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;line-height:1;margin-bottom:14px;">Upload. Track.<br>Get Heard.</p>
+        <p style="font-size:11px;line-height:1.9;color:var(--steel);">Upload music, connect Spotify and DSP links, track plays and revenue in real time, find collaborators across the continent, and submit to editorial — all from your Control Room.</p>
+      </div>
+      <div style="background:var(--bg);padding:36px 28px;">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:0.2em;color:var(--red);margin-bottom:14px;">LABEL</p>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;line-height:1;margin-bottom:14px;">Manage. Release.<br>Build Empires.</p>
+        <p style="font-size:11px;line-height:1.9;color:var(--steel);">Manage your full roster, schedule releases, track the deal pipeline, and get aggregated analytics across every signed artist — the same infrastructure the major labels pay millions for.</p>
+      </div>
+      <div style="background:var(--bg);padding:36px 28px;">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:0.2em;color:var(--red);margin-bottom:14px;">CURATOR</p>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;line-height:1;margin-bottom:14px;">Discover. Feature.<br>Define Culture.</p>
+        <p style="font-size:11px;line-height:1.9;color:var(--steel);">Build playlists, manage an editorial queue, publish essays and features, and run the featured picks pipeline. Your taste is the signal — this is where it broadcasts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN CTA -->
+<section style="padding:100px 40px;background:var(--bg);border-bottom:1px solid var(--border);text-align:center;" class="reveal">
+  <div style="max-width:640px;margin:0 auto;">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);margin-bottom:20px;">JOIN THE GRID</p>
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(40px,7vw,80px);text-transform:uppercase;line-height:0.95;letter-spacing:-0.02em;margin-bottom:24px;">Become an<br>Operator.</h2>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:2;color:var(--steel);margin-bottom:40px;">Artists, labels, and curators across Africa and the diaspora. One platform. One grid. Zero compromise. Sign up and claim your place in the District.</p>
+    <button onclick="openRegister()" style="background:var(--red);color:var(--white);border:none;padding:16px 36px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.25s ease;" onmouseover="this.style.background='var(--white)';this.style.color='var(--bg)'" onmouseout="this.style.background='var(--red)';this.style.color='var(--white)'">JOIN THE DISTRICT &#8594;</button>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" style="padding:80px 40px;background:var(--bg2);border-bottom:1px solid var(--border);">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="margin-bottom:40px;">
+      <p style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:16px;">GET IN TOUCH</p>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:48px;text-transform:uppercase;line-height:0.95;letter-spacing:-0.03em;">CONTACT US</h2>
+    </div>
+
+    <p style="font-size:13px;color:var(--steel);margin-bottom:40px;line-height:1.6;">For demos, partnerships, and press inquiries, reach out below.</p>
+
+    <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px;">
+      <div>
+        <label style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:8px;font-weight:600;">Email Address</label>
+        <input type="email" id="contactEmail" placeholder="your@email.com" style="width:100%;background:var(--bg);border:1px solid var(--border);padding:12px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--white);outline:none;transition:border-color 0.2s ease;" onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+
+      <div>
+        <label style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel);display:block;margin-bottom:8px;font-weight:600;">Message</label>
+        <textarea id="contactMessage" placeholder="Tell us about your project, release, or partnership opportunity..." style="width:100%;background:var(--bg);border:1px solid var(--border);padding:12px 16px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--white);outline:none;transition:border-color 0.2s ease;min-height:120px;resize:vertical;" onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+      </div>
+
+      <button onclick="submitContact()" style="background:var(--red);color:var(--white);border:none;padding:14px 28px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.25s ease;font-weight:600;" onmouseover="this.style.background='var(--white)';this.style.color='var(--bg)'" onmouseout="this.style.background='var(--red)';this.style.color='var(--white)'">SEND MESSAGE</button>
+    </div>
+
+    <p style="font-size:11px;color:var(--steel);line-height:1.6;">You can also email us directly at <strong>hello@0promorecords.com</strong> for inquiries.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" class="footer-logo-img" alt="0 Promo Recs">
+      </picture>
+      <p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p>
+    </div>
+    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="radio.html">Radio</a></li><li><a href="control-room.html">Control Room</a></li><li><a href="editorial.html">Editorial</a></li><li><a href="about.html">About</a></li></ul></div>
+    <div><p class="footer-col-title">Platform</p><ul class="footer-links"><li><a href="control-room.html">For Artists</a></li><li><a href="control-room.html">For Labels</a></li><li><a href="control-room.html">For Curators</a></li><li><a href="about.html#contact">Submit Demo</a></li></ul></div>
+    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="about.html">About 0Promo</a></li><li><a href="about.html#contact">Contact</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
+    <div class="footer-social"><a href="https://www.instagram.com/0promorecords/" target="_blank" rel="noopener noreferrer">IG</a><a href="https://twitter.com/0promorecords" target="_blank" rel="noopener noreferrer">TW</a><a href="https://www.tiktok.com/@0promorecords" target="_blank" rel="noopener noreferrer">TK</a><a href="https://www.youtube.com/@0promorecords" target="_blank" rel="noopener noreferrer">YT</a></div>
+  </div>
+</footer>
+
+<!-- PLAYER BAR -->
+<div class="player-bar" id="playerBar">
+  <div class="player-progress-strip" id="playerProgressStrip">
+    <div class="player-progress-inner" id="progressStrip" style="width:22%"></div>
+  </div>
+  <div class="player-layout">
+
+    <!-- LEFT: artwork + track info + like -->
+    <div class="player-track-info">
+      <div class="player-art" id="playerArt">
+        <div class="art-red" id="playerArtBg" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:14px;color:rgba(245,245,245,0.4);" id="playerArtLabel">KM</span>
+        </div>
+      </div>
+      <div class="player-details">
+        <div class="player-title" id="playerTitle">Accra Nights</div>
+        <div class="player-meta-row">
+          <span class="player-artist" id="playerArtist">Kofi Manu</span>
+          <span class="player-sep">·</span>
+          <span class="player-genre-tag" id="playerGenre">Afrobeats</span>
+          <span class="player-sep player-hide-xs">·</span>
+          <span class="player-city-tag player-hide-xs" id="playerCity">ACCRA · GH</span>
+        </div>
+      </div>
+      <button class="player-like-btn" id="playerLikeBtn" onclick="playerLike()" title="Like track">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+
+    <!-- CENTER: transport controls + progress -->
+    <div class="player-center">
+      <div class="player-btns">
+        <button class="player-btn player-btn-desktop" id="btnShuf" onclick="playerShuf(this)" title="Shuffle">SHUF</button>
+        <button class="player-btn player-btn-desktop" onclick="playerPrev()" title="Previous">PREV</button>
+        <button class="player-btn player-btn-mobile" onclick="playerPrev()" title="Previous">
+          <svg width="11" height="11" viewBox="0 0 12 12"><polygon points="12,0 2,6 12,12" fill="currentColor"/><rect x="0" y="0" width="2.5" height="12" fill="currentColor"/></svg>
+        </button>
+        <button class="player-btn-play" id="playerPlayBtn" onclick="playerToggle()" title="Play / Pause">
+          <svg width="11" height="13" viewBox="0 0 11 13" id="playIconSvg"><polygon id="playIcon" points="0,0 11,6.5 0,13" fill="currentColor"/></svg>
+        </button>
+        <button class="player-btn player-btn-mobile" onclick="playerNext()" title="Next">
+          <svg width="11" height="11" viewBox="0 0 12 12"><polygon points="0,0 10,6 0,12" fill="currentColor"/><rect x="9.5" y="0" width="2.5" height="12" fill="currentColor"/></svg>
+        </button>
+        <button class="player-btn player-btn-desktop" onclick="playerNext()" title="Next">NEXT</button>
+        <button class="player-btn player-btn-desktop" id="btnLoop" onclick="playerLoop(this)" title="Loop">LOOP</button>
+      </div>
+      <div class="player-time-row">
+        <span class="player-time-label" id="playerTimeCur">0:35</span>
+        <div class="player-progress-wrap" id="playerProgressWrap">
+          <div class="player-progress-bg"></div>
+          <div class="player-progress-fill" id="playerProgressBar" style="width:22%"></div>
+          <div class="player-progress-handle" id="playerProgressHandle" style="left:22%"></div>
+        </div>
+        <span class="player-time-label" id="playerTimeTotal">3:47</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: queue info + waveform + mute + vol -->
+    <div class="player-right">
+      <div class="player-queue player-btn-desktop">
+        <span class="player-queue-label">QUEUE</span>
+        <span class="player-queue-num" id="playerQueueNum">01 / 12</span>
+      </div>
+      <div class="player-waveform player-btn-desktop">
+        <div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div>
+        <div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div>
+      </div>
+      <button class="player-lyrics-btn" id="lyricsToggleBtn" onclick="toggleLyricsPanel()" title="Lyrics">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
+      </button>
+      <div id="playerDSPLinks" class="player-dsp-links player-btn-desktop"></div>
+      <button class="player-mute-btn" id="playerMuteBtn" onclick="playerMute()" title="Mute">
+        <svg id="muteIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      </button>
+      <div class="player-vol player-btn-desktop">
+        <div class="player-vol-bar" id="playerVolBar">
+          <div class="player-vol-fill" id="playerVolFill" style="width:70%"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LYRICS PANEL -->
+<div class="lyrics-panel-overlay" id="lyricsPanelOverlay" onclick="toggleLyricsPanel()"></div>
+<div class="lyrics-panel" id="lyricsPanel">
+  <div class="lyrics-panel-head">
+    <div>
+      <p class="lyrics-panel-eyebrow">NOW PLAYING</p>
+      <p class="lyrics-panel-title" id="lyricsPanelTitle">LYRICS</p>
+      <p class="lyrics-header-title" id="lyricsHeaderTitle"></p>
+    </div>
+    <button class="lyrics-panel-close" onclick="toggleLyricsPanel()">&#215; CLOSE</button>
+  </div>
+  <div class="lyrics-lines" id="lyricsLines"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/broadcast-float.js"></script>
+<script src="js/convex-layer.js"></script>
+<script src="js/lyrics.js"></script>
+<script src="js/product.js"></script>
+<script>
+function submitContact() {
+  var emailEl   = document.getElementById('contactEmail');
+  var messageEl = document.getElementById('contactMessage');
+  var btn       = document.querySelector('[onclick="submitContact()"]');
+  var email     = (emailEl?.value || '').trim();
+  var message   = (messageEl?.value || '').trim();
+
+  if (!email || !message) {
+    if (btn) { btn.textContent = 'FILL ALL FIELDS'; setTimeout(() => btn.textContent = 'SEND MESSAGE', 1800); }
+    return;
+  }
+
+  if (btn) { btn.textContent = 'SENDING...'; btn.disabled = true; }
+
+  fetch('https://formspree.io/f/xwpbzdov', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ email: email, message: message })
+  })
+  .then(function(res) {
+    if (res.ok) {
+      if (btn) { btn.textContent = 'SENT ✓'; btn.style.background = '#1a1a1a'; }
+      emailEl.value = '';
+      messageEl.value = '';
+      setTimeout(() => { if (btn) { btn.textContent = 'SEND MESSAGE'; btn.style.background = ''; btn.disabled = false; } }, 3000);
+    } else {
+      throw new Error('Server error');
+    }
+  })
+  .catch(function() {
+    // Fallback: open mail client
+    var mailto = 'mailto:hello@0promorecords.com?subject=Contact%20from%200District&body=' + encodeURIComponent(message) + '%0A%0AFrom%3A%20' + encodeURIComponent(email);
+    window.location.href = mailto;
+    if (btn) { btn.textContent = 'SEND MESSAGE'; btn.disabled = false; }
+  });
+}
+</script>
+<!-- SIGN IN MODAL -->
+<div class="modal-overlay" id="signInModal" onclick="if(event.target===this)closeSignIn()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSignIn()">&#215;</button>
+    <p class="modal-eyebrow">0 DISTRICT</p>
+    <h2 class="modal-title">ACCESS THE<br>DISTRICT</h2>
+    <div class="modal-tabs">
+      <button class="modal-tab active" data-tab="signin" onclick="switchTab(this)">SIGN IN</button>
+      <button class="modal-tab" data-tab="register" onclick="switchTab(this)">CREATE ACCOUNT</button>
+    </div>
+    <div id="panel-signin" class="modal-panel">
+      <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="••••••••"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">SIGN IN →</button>
+      
+      <p style="text-align:center;margin-top:10px;"><button type="button" onclick="forgotPassword()" style="background:none;border:none;color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;">FORGOT PASSWORD?</button></p>
+      <div class="modal-or">OR</div>
+      <button class="btn-modal-google" onclick="showToast('Use email & password above — Google sign-in launching soon','info')" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.47 7.47 0 0 1 12 4.5c1.88 0 3.56.69 4.87 1.81l3.63-3.63A12 12 0 0 0 0 12c0 2 .49 3.88 1.36 5.55l3.9-3.78z"/><path fill="#34A853" d="M12 24a11.96 11.96 0 0 0 8.29-3.34l-3.84-3.24A7.5 7.5 0 0 1 4.68 13.5l-3.9 3.78A12 12 0 0 0 12 24z"/><path fill="#4A90D9" d="M23.49 12.27c0-.85-.07-1.45-.2-2.27H12v4.51h6.47a5.56 5.56 0 0 1-2.39 3.64l3.84 3.24C22.2 19.37 23.49 16 23.49 12.27z"/><path fill="#FBBC05" d="M4.68 13.5A7.47 7.47 0 0 1 4.5 12c0-.52.07-1.02.18-1.5l-3.9-3.78A12 12 0 0 0 0 12c0 1.65.33 3.22.9 4.66l3.78-3.16z"/></svg>
+        CONTINUE WITH GOOGLE
+      </button>
+    </div>
+        <div id="panel-register" class="modal-panel" style="display:none">
+      <p style="font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);margin-bottom:10px;">I&#8217;M JOINING THE DISTRICT AS AN</p>
+      <div class="role-select-row" id="roleSelectRow">
+        <button type="button" class="role-select-btn active" data-role="artist" onclick="selectRole(this)">ARTIST</button>
+        <button type="button" class="role-select-btn" data-role="label" onclick="selectRole(this)">LABEL</button>
+        <button type="button" class="role-select-btn" data-role="curator" onclick="selectRole(this)">CURATOR</button>
+      </div>
+      <div class="modal-form-group"><label class="modal-label">Your Name / Label Name</label><input class="modal-input" type="text" placeholder="Your name or label"></div>
+      <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="Min. 8 characters"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">BECOME AN OPERATOR &#8594;</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

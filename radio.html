@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RADIO DISTRICT — 0 District</title>
+<title>0 PROMO RADIO — 0 District</title>
 <link rel="stylesheet" href="css/style.css">
 <style>
 /* ── RADIO PAGE SPECIFIC ── */
@@ -428,14 +428,17 @@
 <nav class="nav" id="nav">
   <div class="nav-left">
     <a href="index.html" class="nav-logo">
-      <img src="assets/0logo.png" height="56" alt="0 Promo Recs" style="display:block;width:auto;">
+      <picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" class="nav-logo-img" alt="0 Promo Recs">
+      </picture>
     </a>
     <ul class="nav-routes">
       <li><a href="index.html">/HOME</a></li>
-      <li><a href="radio.html" class="active">/RADIO</a></li>
-      <li><a href="studio.html">/STUDIO</a></li>
-      <li><a href="collab.html">/COLLAB</a></li>
-      <li><a href="community.html">/NETWORK</a></li>
+      <li><a href="radio.html" class="active">/0PR RADIO</a></li>
+      <li><a href="control-room.html">/CTRL ROOM</a></li>
+      <li><a href="editorial.html">/EDITORIAL</a></li>
+      <li><a href="about.html">/ABOUT</a></li>
     </ul>
   </div>
   <div class="nav-right">
@@ -444,7 +447,8 @@
       SEARCH
     </button>
     <div class="nav-signal"><div class="nav-signal-dot"></div>ON AIR</div>
-    <button class="btn-nav">SIGN IN</button>
+    <button class="btn-nav" onclick="openSignIn()">SIGN IN</button>
+    <button data-signout style="display:none;background:none;border:1px solid var(--border);color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;cursor:pointer;">SIGN OUT</button>
     <button class="nav-menu-btn" id="navMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -454,14 +458,14 @@
 <div class="nav-mobile-menu" id="navMobileMenu">
   <ul class="nav-mobile-links">
     <li><a href="index.html">/HOME</a></li>
-    <li><a href="radio.html" class="active">/RADIO</a></li>
-    <li><a href="studio.html">/STUDIO</a></li>
-    <li><a href="collab.html">/COLLAB</a></li>
-    <li><a href="community.html">/NETWORK</a></li>
+    <li><a href="radio.html" class="active">/0PR RADIO</a></li>
+    <li><a href="control-room.html">/CTRL ROOM</a></li>
+    <li><a href="editorial.html">/EDITORIAL</a></li>
+    <li><a href="about.html">/ABOUT</a></li>
   </ul>
   <div class="nav-mobile-footer">
     <div class="nav-mobile-signal"><div class="nav-signal-dot"></div>ON AIR</div>
-    <button class="btn-nav-mobile">SIGN IN</button>
+    <button class="btn-nav-mobile" onclick="openSignIn()">SIGN IN</button>
   </div>
 </div>
 
@@ -481,12 +485,12 @@
   </div>
 
   <div class="radio-hero-content">
-    <div class="radio-badge"><div class="radio-badge-dot"></div>LIVE BROADCAST · D-01 RADIO</div>
+    <div class="radio-badge"><div class="radio-badge-dot"></div>LIVE BROADCAST · 0 PROMO RADIO</div>
     <h1 class="radio-track-title" id="track-title">Accra Nights</h1>
     <p class="radio-track-artist" id="track-artist">Kofi Manu &nbsp;·&nbsp; Afrobeats &nbsp;·&nbsp; Ghana</p>
     <div class="radio-track-meta">
       <div class="radio-meta-item">PLAYS <span>12,847</span></div>
-      <div class="radio-meta-item">RELEASED <span>2024</span></div>
+      <div class="radio-meta-item">RELEASED <span>2026</span></div>
       <div class="radio-meta-item">FORMAT <span>WAV 320kbps</span></div>
       <div class="radio-meta-item">LABEL <span>0PROMO</span></div>
     </div>
@@ -535,11 +539,11 @@
 <div class="ticker"><div class="ticker-inner">
   <span class="ticker-item">NOW PLAYING: KOFI MANU — ACCRA NIGHTS <span class="ticker-sep">·</span></span>
   <span class="ticker-item">UP NEXT: DJ SENEGAL — DAKAR FREQUENCY <span class="ticker-sep">·</span></span>
-  <span class="ticker-item">COMING: ZARA.B — LAGOS RITUAL <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">NOW PLAYING: ZARA.B — LAGOS RITUAL <span class="ticker-sep">·</span></span>
   <span class="ticker-item">LISTENER COUNT: 2,847 <span class="ticker-sep">·</span></span>
   <span class="ticker-item">NOW PLAYING: KOFI MANU — ACCRA NIGHTS <span class="ticker-sep">·</span></span>
   <span class="ticker-item">UP NEXT: DJ SENEGAL — DAKAR FREQUENCY <span class="ticker-sep">·</span></span>
-  <span class="ticker-item">COMING: ZARA.B — LAGOS RITUAL <span class="ticker-sep">·</span></span>
+  <span class="ticker-item">NOW PLAYING: ZARA.B — LAGOS RITUAL <span class="ticker-sep">·</span></span>
   <span class="ticker-item">LISTENER COUNT: 2,847 <span class="ticker-sep">·</span></span>
 </div></div>
 
@@ -723,7 +727,7 @@
       <h2 class="featured-title">DJ SENEGAL<br>TAKEOVER</h2>
       <div class="featured-line"></div>
       <p class="featured-meta">3HR LIVE SET · AFRO HOUSE · DAKAR FREQUENCY VOL.3</p>
-      <a href="#" style="display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);text-decoration:none;">SET REMINDER <svg width="20" height="10" viewBox="0 0 20 10"><line x1="0" y1="5" x2="18" y2="5" stroke="currentColor" stroke-width="1.5"/><polyline points="13,1 18,5 13,9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      <a href="about.html#contact" style="display:inline-flex;align-items:center;gap:12px;margin-top:24px;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);text-decoration:none;">SET REMINDER <svg width="20" height="10" viewBox="0 0 20 10"><line x1="0" y1="5" x2="18" y2="5" stroke="currentColor" stroke-width="1.5"/><polyline points="13,1 18,5 13,9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
     </div>
   </div>
 </section>
@@ -743,32 +747,23 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
-    <div><img src="assets/0logo.png" class="footer-logo-img" alt="0 District"><p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p></div>
-    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="studio.html">Studio District</a></li><li><a href="collab.html">Collaboration</a></li><li><a href="community.html">Network</a></li></ul></div>
-    <div><p class="footer-col-title">Radio</p><ul class="footer-links"><li><a href="#">Live Schedule</a></li><li><a href="#">Artist Takeovers</a></li><li><a href="#">Past Broadcasts</a></li><li><a href="#">Submit Track</a></li></ul></div>
-    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="#">About 0Promo</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></div>
+    <div><picture>
+        <source srcset="assets/0logo.webp" type="image/webp">
+        <img src="assets/0logo.png" class="footer-logo-img" alt="0 Promo Recs">
+      </picture><p class="footer-tagline">The digital African music city.<br>Built for creators, supporters,<br>and district members.</p></div>
+    <div><p class="footer-col-title">Explore</p><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="control-room.html">Studio District</a></li><li><a href="collab.html">Collaboration</a></li><li><a href="community.html">Network</a></li></ul></div>
+    <div><p class="footer-col-title">Radio</p><ul class="footer-links"><li><a href="radio.html">Live Schedule</a></li><li><a href="about.html#contact">Artist Takeovers</a></li><li><a href="radio.html">Past Broadcasts</a></li><li><a href="about.html#contact">Submit Track</a></li></ul></div>
+    <div><p class="footer-col-title">Company</p><ul class="footer-links"><li><a href="about.html">About 0Promo</a></li><li><a href="about.html#contact">Contact</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">&#169; 2024 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
-    <div class="footer-social"><a href="#">IG</a><a href="#">TW</a><a href="#">TK</a><a href="#">YT</a></div>
+    <span class="footer-copy">&#169; 2026 0PromoRecords · 0 DISTRICT · ALL RIGHTS RESERVED</span>
+    <div class="footer-social"><a href="https://www.instagram.com/0promorecords/" target="_blank" rel="noopener noreferrer">IG</a><a href="https://twitter.com/0promorecords" target="_blank" rel="noopener noreferrer">TW</a><a href="https://www.tiktok.com/@0promorecords" target="_blank" rel="noopener noreferrer">TK</a><a href="https://www.youtube.com/@0promorecords" target="_blank" rel="noopener noreferrer">YT</a></div>
   </div>
 </footer>
 
-<!-- LYRICS PANEL -->
-<div class="lyrics-panel-overlay" id="lyricsPanelOverlay" onclick="toggleLyricsPanel()"></div>
-<div class="lyrics-panel" id="lyricsPanel">
-  <div class="lyrics-panel-head">
-    <div>
-      <p class="lyrics-panel-eyebrow">NOW PLAYING</p>
-      <p class="lyrics-panel-title" id="lyricsPanelTitle">LYRICS</p>
-      <p class="lyrics-header-title" id="lyricsHeaderTitle"></p>
-    </div>
-    <button class="lyrics-panel-close" onclick="toggleLyricsPanel()">&#215; CLOSE</button>
-  </div>
-  <div class="lyrics-lines" id="lyricsLines"></div>
-</div>
-
 <script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/broadcast-float.js"></script>
 <script src="js/convex-layer.js"></script>
 <script src="js/lyrics.js"></script>
 <script src="js/product.js"></script>
@@ -976,17 +971,25 @@ setInterval(() => {
       <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
       <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="••••••••"></div>
       <button class="btn-modal-submit" onclick="handleModalSubmit()">SIGN IN →</button>
+      
+      <p style="text-align:center;margin-top:10px;"><button type="button" onclick="forgotPassword()" style="background:none;border:none;color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;">FORGOT PASSWORD?</button></p>
       <div class="modal-or">OR</div>
-      <button class="btn-modal-google" onclick="showToast('Google sign-in coming soon','')" type="button">
+      <button class="btn-modal-google" onclick="showToast('Use email & password above — Google sign-in launching soon','info')" type="button">
         <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.77A7.47 7.47 0 0 1 12 4.5c1.88 0 3.56.69 4.87 1.81l3.63-3.63A12 12 0 0 0 0 12c0 2 .49 3.88 1.36 5.55l3.9-3.78z"/><path fill="#34A853" d="M12 24a11.96 11.96 0 0 0 8.29-3.34l-3.84-3.24A7.5 7.5 0 0 1 4.68 13.5l-3.9 3.78A12 12 0 0 0 12 24z"/><path fill="#4A90D9" d="M23.49 12.27c0-.85-.07-1.45-.2-2.27H12v4.51h6.47a5.56 5.56 0 0 1-2.39 3.64l3.84 3.24C22.2 19.37 23.49 16 23.49 12.27z"/><path fill="#FBBC05" d="M4.68 13.5A7.47 7.47 0 0 1 4.5 12c0-.52.07-1.02.18-1.5l-3.9-3.78A12 12 0 0 0 0 12c0 1.65.33 3.22.9 4.66l3.78-3.16z"/></svg>
         CONTINUE WITH GOOGLE
       </button>
     </div>
-    <div id="panel-register" class="modal-panel" style="display:none">
-      <div class="modal-form-group"><label class="modal-label">Artist / Label Name</label><input class="modal-input" type="text" placeholder="Your name or label"></div>
+        <div id="panel-register" class="modal-panel" style="display:none">
+      <p style="font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);margin-bottom:10px;">I&#8217;M JOINING THE DISTRICT AS AN</p>
+      <div class="role-select-row" id="roleSelectRow">
+        <button type="button" class="role-select-btn active" data-role="artist" onclick="selectRole(this)">ARTIST</button>
+        <button type="button" class="role-select-btn" data-role="label" onclick="selectRole(this)">LABEL</button>
+        <button type="button" class="role-select-btn" data-role="curator" onclick="selectRole(this)">CURATOR</button>
+      </div>
+      <div class="modal-form-group"><label class="modal-label">Your Name / Label Name</label><input class="modal-input" type="text" placeholder="Your name or label"></div>
       <div class="modal-form-group"><label class="modal-label">Email Address</label><input class="modal-input" type="email" placeholder="your@email.com"></div>
-      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="Create a password"></div>
-      <button class="btn-modal-submit" onclick="handleModalSubmit()">CREATE ACCOUNT →</button>
+      <div class="modal-form-group"><label class="modal-label">Password</label><input class="modal-input" type="password" placeholder="Min. 8 characters"></div>
+      <button class="btn-modal-submit" onclick="handleModalSubmit()">BECOME AN OPERATOR &#8594;</button>
     </div>
   </div>
 </div>
