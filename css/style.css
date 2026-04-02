@@ -119,20 +119,20 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 }
 .hero-slide.active .hero-slide-bg { transform: scale(1); }
 .hero-overlay {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 2;
   background: linear-gradient(to top,
-    rgba(11,11,11,0.92) 0%,
-    rgba(11,11,11,0.70) 28%,
-    rgba(11,11,11,0.38) 55%,
-    rgba(11,11,11,0.08) 80%,
-    transparent 100%);
+    rgba(11,11,11,0.95) 0%,
+    rgba(11,11,11,0.78) 28%,
+    rgba(11,11,11,0.52) 55%,
+    rgba(11,11,11,0.22) 80%,
+    rgba(11,11,11,0.10) 100%);
 }
 .hero-vignette {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 3;
   background: radial-gradient(ellipse at center, transparent 35%, rgba(11,11,11,0.65) 100%);
 }
 .hero-content {
-  position: relative; z-index: 2;
+  position: relative; z-index: 4;
   padding: 0 60px 80px; width: 100%;
 }
 .hero-badge {
@@ -177,7 +177,7 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 }
 .hero-dots {
   position: absolute; bottom: 36px; right: 60px;
-  display: flex; gap: 8px; z-index: 2;
+  display: flex; gap: 8px; z-index: 5;
 }
 .hero-dot {
   height: 2px; width: 24px; background: rgba(245,245,245,0.2);
@@ -188,7 +188,7 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 /* === HERO ENTER CTA === */
 .hero-enter-cta {
   position: absolute; bottom: 44px; left: 60px;
-  z-index: 3;
+  z-index: 5;
 }
 .hero-enter-link {
   display: inline-flex; align-items: center; gap: 12px;
@@ -203,7 +203,7 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
 .hero-enter-link:hover svg { opacity: 1; }
 @media (max-width: 600px) { .hero-enter-cta { left: 20px; bottom: 28px; } }
 
-/* === HERO BRAND IMAGE — full scene, no bg removal needed === */
+/* === HERO BRAND IMAGE — decorative background layer, sits below overlay === */
 .hero-brand-picture {
   position: absolute;
   inset: 0;
@@ -215,13 +215,14 @@ a, button, [role="button"], input, select, textarea { touch-action: manipulation
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: 72% center;
   display: block;
+  opacity: 0.38;
   animation: heroBrandFadeIn 2.4s 0.3s var(--ease) both;
 }
 @keyframes heroBrandFadeIn {
   from { opacity: 0; transform: scale(1.04); }
-  to   { opacity: 1;  transform: scale(1); }
+  to   { opacity: 0.38; transform: scale(1); }
 }
 
 /* === TICKER TAPE === */
@@ -3118,6 +3119,43 @@ html, body { max-width: 100vw; overflow-x: hidden; }
   flex-shrink: 0;
 }
 
+/* ── SPOTIFY NAV BUTTON ──────────────────────────────────────────── */
+.btn-nav-spotify {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid rgba(29,185,84,0.4);
+  color: rgba(29,185,84,0.85);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 7px 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-nav-spotify:hover,
+.btn-nav-spotify[data-state="on"] {
+  background: rgba(29,185,84,0.12);
+  border-color: #1DB954;
+  color: #1DB954;
+}
+@media (max-width: 960px) { .btn-nav-spotify { display: none; } }
+
+/* ── SPOTIFY TRACK CARD STATES ───────────────────────────────────── */
+.track-card.sp-playing .track-card-art-inner {
+  outline: 2px solid #1DB954;
+  outline-offset: -2px;
+}
+.track-card.sp-playing .track-play-circle {
+  background: #1DB954;
+}
+.sp-badge {
+  pointer-events: none;
+}
+
 /* ── TOAST v2 ────────────────────────────────────────────────────── */
 .toast0d {
   position: fixed;
@@ -3434,6 +3472,93 @@ html, body { max-width: 100vw; overflow-x: hidden; }
 }
 .cr-row-btn:hover { border-color: var(--white); color: var(--white); }
 .cr-row-btn-del:hover { border-color: var(--red); color: var(--red); }
+.cr-row-btn-sp { border-color: #1DB954; color: #1DB954; }
+.cr-row-btn-sp:hover { background: #1DB954; color: #000; border-color: #1DB954; }
+
+/* Spotify audio indicator dot in queue rows */
+.queue-sp-dot {
+  font-size: 8px;
+  color: #1DB954;
+  flex-shrink: 0;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+/* ── LINKED SPOTIFY PLAYLISTS GRID ───────────────────────────────── */
+.sp-playlists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 0 var(--page-pad, 40px);
+}
+.sp-pl-card {
+  cursor: pointer;
+  transition: transform 0.18s;
+}
+.sp-pl-card:hover { transform: translateY(-3px); }
+.sp-pl-art {
+  width: 100%;
+  aspect-ratio: 1;
+  position: relative;
+  background: var(--bg2);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sp-pl-mono {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  color: rgba(245,245,245,0.15);
+  letter-spacing: -0.02em;
+}
+.sp-pl-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+.sp-pl-card:hover .sp-pl-overlay { opacity: 1; }
+.sp-pl-play-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #1DB954;
+  border: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding-left: 3px;
+}
+.sp-pl-info { padding: 10px 2px 0; }
+.sp-pl-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 0 4px;
+}
+.sp-pl-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--steel);
+  text-transform: uppercase;
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .sp-playlists-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+}
 
 /* Status badges */
 .cr-status {
