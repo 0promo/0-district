@@ -31,7 +31,7 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7"/><line x1="15" y1="15" x2="22" y2="22"/></svg>
       SEARCH
     </button>
-    <div class="nav-signal"><div class="nav-signal-dot"></div>SIGNAL LIVE</div>
+    
     <button class="btn-nav" onclick="openSignIn()">SIGN IN</button>
     <button data-signout style="display:none;background:none;border:1px solid var(--border);color:var(--steel);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 14px;cursor:pointer;" class="nav-action-signout">SIGN OUT</button>
     <button class="nav-menu-btn" id="navMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">
@@ -49,7 +49,7 @@
     <li><a href="about.html" class="active">/ABOUT</a></li>
   </ul>
   <div class="nav-mobile-footer">
-    <div class="nav-mobile-signal"><div class="nav-signal-dot"></div>SIGNAL LIVE</div>
+    
     <button class="btn-nav-mobile" onclick="openSignIn()">SIGN IN</button>
   </div>
 </div>
@@ -226,7 +226,7 @@
       <button onclick="submitContact()" style="background:var(--red);color:var(--white);border:none;padding:14px 28px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.25s ease;font-weight:600;" onmouseover="this.style.background='var(--white)';this.style.color='var(--bg)'" onmouseout="this.style.background='var(--red)';this.style.color='var(--white)'">SEND MESSAGE</button>
     </div>
 
-    <p style="font-size:11px;color:var(--steel);line-height:1.6;">You can also email us directly at <strong>hello@0promorecords.com</strong> for inquiries.</p>
+    <p style="font-size:11px;color:var(--steel);line-height:1.6;">You can also email us directly at <strong>contact@0promorecords.com</strong> for inquiries.</p>
   </div>
 </section>
 
@@ -388,7 +388,7 @@ function submitContact() {
   })
   .catch(function() {
     // Fallback: open mail client
-    var mailto = 'mailto:hello@0promorecords.com?subject=Contact%20from%200District&body=' + encodeURIComponent(message) + '%0A%0AFrom%3A%20' + encodeURIComponent(email);
+    var mailto = 'mailto:contact@0promorecords.com?subject=Contact%20from%200District&body=' + encodeURIComponent(message) + '%0A%0AFrom%3A%20' + encodeURIComponent(email);
     window.location.href = mailto;
     if (btn) { btn.textContent = 'SEND MESSAGE'; btn.disabled = false; }
   });
